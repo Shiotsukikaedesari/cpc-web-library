@@ -3,11 +3,10 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-let store = new Vuex.Store({
+export default new Vuex.Store({
   state: {},
   mutations: {},
   actions: {},
-  gatters: {}
+  gatters: {},
+  modules: {}
 })
-
-module.exports = store

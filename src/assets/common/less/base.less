@@ -1,0 +1,62 @@
+@import './variable.less';
+
+// 初始页面所有元素
+div, p, h1, h2, h3, h4, h5, h6, span, input, a, img {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+// 初始所有的div大小都为
+
+//flex布局
+// 横向布局
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+// 横向居中
+.flex-row-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+// 横向两边对齐
+.flex-row-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+// 纵向布局
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+// 纵向居中
+.flex-column-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+// 纵向两边对接
+.flex-column-center {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+// 公共动画
+.animation {
+    transition: all 700ms ease;
+}
