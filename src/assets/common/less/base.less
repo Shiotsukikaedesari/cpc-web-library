@@ -1,13 +1,31 @@
 @import './variable.less';
 
 // 初始页面所有元素
-div, p, h1, h2, h3, h4, h5, h6, span, input, a, img {
+html, body, div, p, h1, h2, h3, h4, h5, h6, span, input, a, img, button {
     padding: 0;
     margin: 0;
     border: 0;
+    outline: none;
+    background: none;
+    text-decoration: none;
 }
 
-// 初始所有的div大小都为
+// 初始字体
+html, body {
+    font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
+}
+
+// 初始所有的div大小都为父级宽高
+html, body, div {
+    width: 100%;
+    height: 100%;
+}
+
+// 提供未设置宽高
+.unset-size {
+    width: unset;
+    height: unset;
+}
 
 //flex布局
 // 横向布局
@@ -48,7 +66,7 @@ div, p, h1, h2, h3, h4, h5, h6, span, input, a, img {
 }
 
 // 纵向两边对接
-.flex-column-center {
+.flex-column-between {
     display: flex;
     justify-content: space-between;
     align-items: center;

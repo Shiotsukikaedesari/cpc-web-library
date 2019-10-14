@@ -1,9 +1,5 @@
 <template>
   <div id="app">
-    <div class="background"></div>
-    <div class="logo"></div>
-    <div class="button-box"></div>
-    <HelloWorld></HelloWorld>
     <router-view/>
   </div>
 </template>
@@ -17,4 +13,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
 </style>

@@ -1,12 +1,12 @@
 <template>
-    <div class="container">
-        <nav-top></nav-top>
+    <div>
+        这里是顶部导航
     </div>
 </template>
 
 <script>
 export default {
-
+  name: 'nav-top'
 }
 </script>
 
