@@ -3,7 +3,6 @@
     <div class="background"></div>
     <div class="logo"></div>
     <div class="button-box"></div>
-    <HelloWorld></HelloWorld>
     <router-view/>
   </div>
 </template>

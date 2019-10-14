@@ -60,3 +60,13 @@ div, p, h1, h2, h3, h4, h5, h6, span, input, a, img {
 .animation {
     transition: all 700ms ease;
 }
+
+// 盒子公共色
+.border-base {
+    .animation();
+    box-shadow: 0 0 4px white;
+    border: 1px solid #ccc;
+    &:hover {
+        box-shadow: 0 0 4px #ccc;
+    }
+}

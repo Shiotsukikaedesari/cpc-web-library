@@ -1,4 +1,6 @@
 import Vue from 'vue'
-import HelloWorld from '@/components/HelloWorld'
+import NavSide from '@/components/nav-side'
+import navSideElem from '@/components/nav-side-elem'
 
-Vue.use(HelloWorld)
+Vue.use(NavSide)
+Vue.use(navSideElem)
