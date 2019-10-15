@@ -12,15 +12,18 @@
         @mouseenter="showHover"
         @mouseleave="hideHover"
     >
-        <div class="left-box flex-row">
-            <div class="ui" v-if="showUI">UI</div>
-            <div class="title" v-text="title"></div>
+        <div :class="{'left-box': true, 'flex-row': true, 'father-box': father}">
+            <div class="ui  " v-if="showUI">UI</div>
+            <div class="title  " v-text="title"></div>
         </div>
-        <div class="right-box" v-if="showSignal"></div>
+        <div class="right-box flex-row">
+          <div class="arrow" v-if="father">箭头</div>
+          <div class="signal"  v-if="showSignal"></div>
+        </div>
     </div>
     <canvas
-        class="ani"
-        :style="{'height': height}"
+        :class="'ani' + elemKey"
+        :style="{'height': height, 'width': '100%'}"
     ></canvas>
 </div>
 </template>
@@ -29,6 +32,9 @@
 export default {
   name: 'cpc-nav-side-elem',
   props: {
+    elemKey: {
+      type: Number
+    },
     height: {
       type: String,
       default: '40px'
@@ -45,6 +51,10 @@ export default {
       type: Boolean,
       default: true
     },
+    father: { // 是否为父标签
+      type: Boolean,
+      default: false
+    },
     click: {
       type: Function,
       default: () => {}
@@ -57,7 +67,8 @@ export default {
       timer: '', // 定时器
       positionX: '', // x的坐标位置
       rectWidth: 0, // 图形宽
-      canvasWidth: '' // canvas的宽度
+      canvasWidth: '', // canvas的宽度
+      isAni: false // 是否在播放
     }
   },
   methods: {
@@ -65,21 +76,26 @@ export default {
       let component = this
       this.hover = false
       // this.positionX = event.offsetX
-      this.pen.fillStyle = '#E6E6E6'
-      this.pen.fillRect(this.positionX, 0, this.rectWidth, parseInt(this.height) * 10)
-      this.timer = setInterval(() => {
-        component.rectWidth += 5
-        if (component.rectWidth > component.canvasWidth) {
-          setTimeout(() => {
-            document.querySelector('.ani').width = component.canvasWidth
-            component.click()
-          }, 100)
-          component.rectWidth = 0
-          clearInterval(component.timer)
-        } else {
-          this.pen.fillRect(component.positionX - component.rectWidth / 2, 0, component.rectWidth, parseInt(component.height) * 10)
-        }
-      }, 60 / 24)
+      // 防止双击造成内存泄露
+      if (!this.isAni) {
+        this.isAni = true
+        this.pen.fillStyle = '#E6E6E6'
+        this.pen.fillRect(this.positionX, 0, this.rectWidth, parseInt(this.height) * 10)
+        this.timer = setInterval(() => {
+          component.rectWidth += 5
+          if (component.rectWidth > component.canvasWidth) {
+            setTimeout(() => {
+              document.querySelector('.ani' + this.elemKey.toString()).width = component.canvasWidth
+              component.click()
+              component.isAni = false
+            }, 100)
+            component.rectWidth = 0
+            clearInterval(component.timer)
+          } else {
+            this.pen.fillRect(component.positionX - component.rectWidth / 2, 0, component.rectWidth, parseInt(component.height) * 10)
+          }
+        }, 60 / 24)
+      }
     },
     showHover () {
       this.hover = true
@@ -89,8 +105,9 @@ export default {
     }
   },
   mounted () {
-    this.pen = document.querySelector('.ani').getContext('2d')
-    this.canvasWidth = document.querySelector('.ani').width
+    let canvas = document.querySelector('.ani' + this.elemKey.toString())
+    this.pen = canvas.getContext('2d')
+    this.canvasWidth = canvas.width
     this.positionX = this.canvasWidth / 2
   }
 }
@@ -117,17 +134,28 @@ export default {
 
                 }
             }
+            > .father-box {
+              > .ui {
+                    margin: 0 5px;
+                }
+                > .title {
+                  font-weight: 700;
+                }
+            }
             > .right-box {
-                width: 5px;
-                height: 100%;
-                background: blue;
+              height: 100%;
+                > .arrow {
+                  margin-right: 5px;
+                }
+                > .signal {
+                  width: 5px;
+                  height: 100%;
+                  background: blue;
+                }
             }
         }
         > .box-hover {
           background: rgb(245, 245, 245);
         }
-       > .ani {
-           width: 100%;
-       }
     }
 </style>

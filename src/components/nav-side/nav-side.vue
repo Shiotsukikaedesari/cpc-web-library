@@ -1,8 +1,10 @@
 <template>
     <div
-    class="container border-base"
-    :style="{'height': height, 'width': width, 'background': background}">
-        <cpc-nav-side-elem :click="toDetail" :showSignal="signal"></cpc-nav-side-elem>
+      class="container border-base"
+      :style="{'height': height, 'width': width, 'background': background}"
+    >
+    <div class="title  " v-if="title" v-text="title"></div>
+    <slot name="menu"></slot>
     </div>
 </template>
 
@@ -21,18 +23,18 @@ export default {
     background: { // 加载的背景图
       type: String,
       default: 'none'
+    },
+    title: { // 菜单标题
+      type: String
     }
   },
   data () {
     return {
-      signal: false
+
     }
   },
   methods: {
-    toDetail () {
-      console.log(111)
-      this.signal = true
-    }
+
   },
   mounted () {
     console.log(this.width)
@@ -45,5 +47,9 @@ export default {
     .container {
         padding: 5px 0;
         overflow: auto;
+        > .title {
+          font-size: 1.5em;
+          margin: 0 0 10px 5px;
+        }
     }
 </style>
