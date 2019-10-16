@@ -2,7 +2,7 @@
     <div class="container">
         <div class="background"></div>
         <div class="main flex-column-center">
-            <div class="logo  ">
+            <div class="logo">
                 <img src="/static/logo.png" alt="漫协logo">
             </div>
             <div class="introduce  ">
@@ -43,7 +43,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .background {
+.container {
+    width: 100%;
+    height: 100%;
+    .background {
+    width: 100%;
+    height: 100%;
     background: url('/static/background.jpg');
   }
   .main {
@@ -86,4 +91,5 @@ export default {
         }
     }
   }
+}
 </style>

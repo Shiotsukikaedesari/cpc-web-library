@@ -37,8 +37,7 @@ export default {
 
   },
   mounted () {
-    console.log(this.width)
-    console.log(this.height)
+
   }
 }
 </script>
@@ -47,6 +46,7 @@ export default {
     .container {
         padding: 5px 0;
         overflow: hidden;
+        background: white;
         &:hover {
           overflow: auto;
         }

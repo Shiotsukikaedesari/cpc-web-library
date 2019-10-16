@@ -93,11 +93,11 @@ export default {
                 elem.style.opacity = 0
               })
               let signal = document.querySelector('.signal' + component.elemKey)
-              console.log('.signal' + component.elemKey[0])
               let parentSignal = document.querySelector('.signal' + component.elemKey[0] + '-0')
-              console.log(signal)
               signal.style.opacity = 1
-              parentSignal.style.opacity = 1
+              if (parentSignal) {
+                parentSignal.style.opacity = 1
+              }
             }, 100)
             component.rectWidth = 0
             clearInterval(component.timer)

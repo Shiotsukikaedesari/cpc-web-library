@@ -25,9 +25,7 @@ export default {
   },
   methods: {
     roll () {
-      console.log('卷起')
       this.isRoll = !this.isRoll
-      console.log(this.isRoll)
     }
   },
   mounted () {
@@ -42,6 +40,7 @@ export default {
 <style lang="less" scoped>
   .container {
     width: 100%;
+    background: white;
     > .father-elem {
       width: 100%;
     }
