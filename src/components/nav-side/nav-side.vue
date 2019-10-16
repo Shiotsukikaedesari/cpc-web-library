@@ -46,7 +46,10 @@ export default {
 <style lang="less" scoped>
     .container {
         padding: 5px 0;
-        overflow: auto;
+        overflow: hidden;
+        &:hover {
+          overflow: auto;
+        }
         > .title {
           font-size: 1.5em;
           margin: 0 0 10px 5px;

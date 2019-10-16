@@ -13,12 +13,12 @@
         @mouseleave="hideHover"
     >
         <div :class="{'left-box': true, 'flex-row': true, 'father-box': father}">
-            <div class="ui  " v-if="showUI">UI</div>
-            <div class="title  " v-text="title"></div>
+            <div class="ui" v-if="showUI">UI</div>
+            <div class="title"><slot>this is menu title</slot></div>
         </div>
         <div class="right-box flex-row">
-          <div class="arrow" v-if="father">箭头</div>
-          <div class="signal"  v-if="showSignal"></div>
+          <div :class="['animation', 'arrow' + elemKey, {'arrowAni': arrowAni}]" v-if="father">V</div>
+          <div :class="['signal' + elemKey, 'animation']"></div>
         </div>
     </div>
     <canvas
@@ -33,7 +33,7 @@ export default {
   name: 'cpc-nav-side-elem',
   props: {
     elemKey: {
-      type: Number
+      type: String
     },
     height: {
       type: String,
@@ -44,10 +44,6 @@ export default {
       default: 'This is level one title'
     },
     showUI: {
-      type: Boolean,
-      default: true
-    },
-    showSignal: {
       type: Boolean,
       default: true
     },
@@ -68,13 +64,16 @@ export default {
       positionX: '', // x的坐标位置
       rectWidth: 0, // 图形宽
       canvasWidth: '', // canvas的宽度
-      isAni: false // 是否在播放
+      isAni: false, // 是否在播放
+      arrowAni: false // 箭头动画
     }
   },
   methods: {
     active () {
       let component = this
       this.hover = false
+      // 箭头动画
+      this.arrowAni = !this.arrowAni
       // this.positionX = event.offsetX
       // 防止双击造成内存泄露
       if (!this.isAni) {
@@ -85,9 +84,20 @@ export default {
           component.rectWidth += 5
           if (component.rectWidth > component.canvasWidth) {
             setTimeout(() => {
-              document.querySelector('.ani' + this.elemKey.toString()).width = component.canvasWidth
+              document.querySelector('.ani' + component.elemKey.toString()).width = component.canvasWidth
               component.click()
               component.isAni = false
+              // 去除其他标记，给自己和父级加上标记
+              let allSignal = document.querySelectorAll('.right-box > div[class*=signal]')
+              allSignal.forEach(elem => {
+                elem.style.opacity = 0
+              })
+              let signal = document.querySelector('.signal' + component.elemKey)
+              console.log('.signal' + component.elemKey[0])
+              let parentSignal = document.querySelector('.signal' + component.elemKey[0] + '-0')
+              console.log(signal)
+              signal.style.opacity = 1
+              parentSignal.style.opacity = 1
             }, 100)
             component.rectWidth = 0
             clearInterval(component.timer)
@@ -144,13 +154,17 @@ export default {
             }
             > .right-box {
               height: 100%;
-                > .arrow {
+                > div[class*='arrow'] {
                   margin-right: 5px;
                 }
-                > .signal {
+                > .arrowAni {
+                  transform: rotateX(180deg)
+                }
+                > div[class*='signal'] {
                   width: 5px;
                   height: 100%;
                   background: blue;
+                  opacity: 0;
                 }
             }
         }
