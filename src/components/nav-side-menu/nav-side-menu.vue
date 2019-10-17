@@ -15,6 +15,10 @@ export default {
   props: {
     menuKey: {
       type: String
+    },
+    open: { // 是否展开
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -32,7 +36,9 @@ export default {
     // 先量出原始菜单高度再收起来
     let menu = document.getElementById('menu' + this.menuKey)
     this.menuHeight = menu.offsetHeight
-    this.isRoll = true
+    if (!this.open) {
+      this.isRoll = true
+    }
   }
 }
 </script>

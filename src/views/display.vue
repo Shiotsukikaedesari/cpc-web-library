@@ -1,32 +1,16 @@
 <template>
     <div class="display">
       <header class="cpc-nav-top">
-        <cpc-nav-top height="80px" :fixed="true"></cpc-nav-top>
+        <cpc-nav-top height="80px" :fixed="true">
+          <div slot="nav-top-left">logo</div>
+          <cpc-nav-top-elem elemKey="1" slot="nav-top-left" :click="toIndex">首页</cpc-nav-top-elem>
+          <cpc-nav-top-elem elemKey="3" slot="nav-top-right" :click="toGuide" :isSignal="true">指南</cpc-nav-top-elem>
+          <cpc-nav-top-elem elemKey="4" slot="nav-top-right" :click="toComponents">组件</cpc-nav-top-elem>
+          <cpc-nav-top-elem elemKey="5" slot="nav-top-right" :click="toGithub">Github</cpc-nav-top-elem>
+        </cpc-nav-top>
       </header>
       <section class="display-container flex-row">
-        <div class="cpc-nav-side">
-          <cpc-nav-side width="300px" height="100%" background="">
-              <cpc-nav-side-menu menuKey="1" slot="menu">
-                  <cpc-nav-side-elem elemKey="1-0" slot="father" :father="true">一级主菜单</cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="1-1" slot="child">一级子菜单1</cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="1-2" slot="child">一级菜单2</cpc-nav-side-elem>
-              </cpc-nav-side-menu>
-              <cpc-nav-side-menu menuKey="2" slot="menu">
-                  <cpc-nav-side-elem elemKey="2-0" slot="father" :father="true">二级主菜单</cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="2-1" slot="child">二级子菜单1</cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="2-2" slot="child">二级子菜单2</cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="2-3" slot="child">二级子菜单2</cpc-nav-side-elem>
-              </cpc-nav-side-menu>
-              <template slot="menu">
-                  <cpc-nav-side-elem elemKey="4" slot="child">三级子菜单1</cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="5" slot="child">三级子菜单2</cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="6" slot="child">三级子菜单2</cpc-nav-side-elem>
-              </template>
-          </cpc-nav-side>
-        </div>
-        <div class="display-main">
-
-        </div>
+        <router-view></router-view>
       </section>
       <footer class="display-footer">
 
@@ -42,9 +26,21 @@ export default {
     }
   },
   methods: {
-    toDetail () {
-      console.log(111)
-      this.signal = true
+    // 跳转到首页
+    toIndex () {
+      this.$router.push({path: '/index'})
+    },
+    // 跳转到指南
+    toGuide () {
+      this.$router.push({path: '/guide'})
+    },
+    // 跳转到组件
+    toComponents () {
+      this.$router.push({path: '/components'})
+    },
+    // 跳转到项目github
+    toGithub () {
+      window.open('https://github.com/Shiotsukikaedesari/cpc-component-library', '_blank')
     }
   }
 }
@@ -60,19 +56,7 @@ export default {
     > .display-container {
       width: 100%;
       height: calc(100% - 180px);
-      > .cpc-nav-side {
-        height: 100%;
-        > .container {
-          border-top: 0;
-          border-left: 0;
-          border-bottom: 0;
-        }
-      }
-      > .display-main {
-        width: calc(100% - 300px);
-        height:100%;
-        background: white;
-      }
+
     }
     > .display-footer {
       position: fixed;
