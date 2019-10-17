@@ -13,7 +13,7 @@
         @mouseleave="hideHover"
     >
         <div :class="{'left-box': true, 'flex-row': true, 'father-box': father}">
-            <div class="ui" v-if="showUI">UI</div>
+            <div class="ui" v-if="showUI"><slot name="side-ui">UI</slot></div>
             <div class="title"><slot>this is menu title</slot></div>
         </div>
         <div class="right-box flex-row">
@@ -48,6 +48,10 @@ export default {
       default: true
     },
     father: { // 是否为父标签
+      type: Boolean,
+      default: false
+    },
+    isSignal: { // 是否显示标记
       type: Boolean,
       default: false
     },
@@ -119,6 +123,10 @@ export default {
     this.pen = canvas.getContext('2d')
     this.canvasWidth = canvas.width
     this.positionX = this.canvasWidth / 2
+    if (this.isSignal) {
+      let signal = document.querySelector('.signal' + this.elemKey)
+      signal.style.opacity = 1
+    }
   }
 }
 </script>

@@ -1,6 +1,15 @@
 <template>
     <div class="container">
-        <div :class="['nav-top', 'border-base', {'fixed': fixed}]" :style="{'width': width, 'height': height}">
+        <div :class="['nav-top', 'flex-row', 'border-base', {'fixed': fixed}]" :style="{'width': width, 'height': height}">
+          <div class="left-box flex-row">
+            <slot name="nav-top-left"></slot>
+          </div>
+          <div class="center-box flex-row-center">
+              <slot name="nav-top-center"></slot>
+          </div>
+          <div class="right-box flex-row-end">
+            <slot name="nav-top-right"></slot>
+          </div>
         </div>
         <div class="nav-top-mask" v-if="fixed" :style="{'width': width, 'height': height}"></div>
     </div>
@@ -34,7 +43,22 @@ export default {
 <style lang="less" scoped>
   .container {
     > .nav-top {
+
       background: white;
+      > .left-box {
+        width: 33%;
+        height: 100%;
+        padding-left: 10px;
+      }
+      > .center-box {
+        width: 34%;
+        height: 100%;
+      }
+      > .right-box {
+        width: 33%;
+        height: 100%;
+        padding-right: 10px;
+      }
     }
     > .fixed {
       position: fixed;
