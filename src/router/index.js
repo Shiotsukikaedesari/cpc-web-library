@@ -8,12 +8,17 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/index',
+      path: '/',
       name: 'index',
       component: Index
     },
+    // {
+    //   path: '/',
+    //   name: 'display',
+    //   component: Display
+    // },
     {
-      path: '/',
+      path: '/display',
       name: 'display',
       component: Display
     }
