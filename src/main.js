@@ -12,6 +12,8 @@ import './assets/common/js/source'
 import Tools from './assets/common/js/tools'
 // 引入全局less
 import './assets/common/less/base.less'
+// 引入UI文件
+import './assets/icon/iconfont'
 
 Vue.config.productionTip = false
 
