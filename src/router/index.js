@@ -30,7 +30,7 @@ export default new Router({
       path: '/display',
       name: 'display',
       component: Display,
-      redirect: '/guide',
+      redirect: '/guide/intro',
       children: [
         {
           path: '/components',

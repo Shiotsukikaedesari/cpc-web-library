@@ -1,21 +1,18 @@
 <template>
     <div class="marked">
-
     </div>
 </template>
 
 <script>
+import GuideIntroMd from './markdown/guide-intro.md'
 export default {
   name: 'guide-intro',
   data () {
     return {
-      input: `123|321
-      ---|---
-      123|!23`
     }
   },
   mounted () {
-    document.querySelector('.marked').innerHTML = this.$marked(this.input)
+    document.querySelector('.marked').innerHTML = this.$marked(GuideIntroMd)
   }
 }
 </script>
