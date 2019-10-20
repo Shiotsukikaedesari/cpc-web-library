@@ -43,7 +43,8 @@ export default {
 <style lang="less" scoped>
   .container {
     > .nav-top {
-
+      border: 0;
+      border-bottom: 1px solid rgb(220, 220, 220);
       background: white;
       > .left-box {
         width: 33%;

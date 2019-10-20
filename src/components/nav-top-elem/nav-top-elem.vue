@@ -64,6 +64,9 @@ export default {
         }
         > .top-box {
             height: calc(100% - 5px);
+            > .top-ui {
+              margin-right: 5px;
+            }
         }
         > [class*=top-signal] {
             height: 5px;

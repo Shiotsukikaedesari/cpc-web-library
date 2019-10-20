@@ -4,7 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-
+// 引入 marked
+import marked from 'marked'
 // 引入公共组件
 import './assets/common/js/source'
 
@@ -16,6 +17,19 @@ import './assets/common/less/base.less'
 import './assets/icon/iconfont'
 
 Vue.config.productionTip = false
+
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false
+})
+
+Vue.prototype.$marked = marked
 
 Vue.prototype.$tools = Tools
 

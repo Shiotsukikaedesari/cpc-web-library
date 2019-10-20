@@ -2,11 +2,19 @@
     <div class="display">
       <header class="cpc-nav-top">
         <cpc-nav-top height="80px" :fixed="true">
-          <div slot="nav-top-left">logo</div>
-          <cpc-nav-top-elem elemKey="1" slot="nav-top-left" :click="toIndex">首页</cpc-nav-top-elem>
-          <cpc-nav-top-elem elemKey="3" slot="nav-top-right" :click="toGuide" :isSignal="true">指南</cpc-nav-top-elem>
-          <cpc-nav-top-elem elemKey="4" slot="nav-top-right" :click="toComponents">组件</cpc-nav-top-elem>
-          <cpc-nav-top-elem elemKey="5" slot="nav-top-right" :click="toGithub">Github</cpc-nav-top-elem>
+          <div class="top-logo" slot="nav-top-left"><img src="/static/logo-fill.png" alt=""></div>
+          <cpc-nav-top-elem elemKey="1" slot="nav-top-left" :click="toIndex">
+            <cpc-icon slot="top-ui" code="#icon-home"></cpc-icon>首页
+            </cpc-nav-top-elem>
+          <cpc-nav-top-elem elemKey="3" slot="nav-top-right" :click="toGuide" :isSignal="true">
+            <cpc-icon slot="top-ui" code="#icon-compass"></cpc-icon>指南
+          </cpc-nav-top-elem>
+          <cpc-nav-top-elem elemKey="4" slot="nav-top-right" :click="toComponents">
+            <cpc-icon slot="top-ui" code="#icon-widgets"></cpc-icon>组件
+          </cpc-nav-top-elem>
+          <cpc-nav-top-elem elemKey="5" slot="nav-top-right" :click="toGithub">
+            <cpc-icon slot="top-ui" code="#icon-github-circle"></cpc-icon>Github
+          </cpc-nav-top-elem>
         </cpc-nav-top>
       </header>
       <section class="display-container flex-row">
@@ -56,7 +64,6 @@ export default {
     > .display-container {
       width: 100%;
       height: calc(100% - 180px);
-
     }
     > .display-footer {
       position: fixed;
@@ -64,7 +71,13 @@ export default {
       left: 0;
       height: 100px;
       width: 100%;
-      background: rgb(27, 22, 92);
+      background: rgb(65, 19, 86);
+    }
+  }
+
+  .top-logo {
+    > img {
+      width: 70px;
     }
   }
 </style>

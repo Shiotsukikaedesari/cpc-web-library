@@ -1,6 +1,8 @@
 <template>
     <div class="container">
-        <div class="background"></div>
+        <div class="background">
+          <img src="/static/background.jpg" alt="">
+        </div>
         <div class="main flex-column-center">
             <div class="logo">
                 <img src="/static/logo.png" alt="漫协logo">
@@ -49,7 +51,10 @@ export default {
     .background {
     width: 100%;
     height: 100%;
-    background: url('/static/background.jpg');
+    > img {
+      width: 100%;
+    height: 100%;
+    }
   }
   .main {
     width: 100%;

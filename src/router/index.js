@@ -4,6 +4,7 @@ import Index from '@/views/index'
 import Display from '@/views/display'
 import Components from '@/views/components'
 import Guide from '@/views/guide'
+import GuideIntro from '@/views/guide-intro'
 
 Vue.use(Router)
 
@@ -13,6 +14,12 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index
+    },
+    {
+      path: '/index',
+      name: 'index',
+      component: Index,
+      redirect: '/'
     },
     // {
     //   path: '/',
@@ -33,9 +40,21 @@ export default new Router({
         {
           path: '/guide',
           name: 'guide',
-          component: Guide
+          component: Guide,
+          children: [
+            {
+              path: '/guide/intro',
+              name: 'guide-intro',
+              component: GuideIntro
+            }
+          ]
         }
       ]
     }
   ]
 })
+
+const originalPush = Router.prototype.push
+Router.prototype.push = function push (location) {
+  return originalPush.call(this, location).catch(err => err)
+}

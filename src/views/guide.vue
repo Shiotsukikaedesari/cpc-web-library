@@ -3,21 +3,36 @@
         <div class="cpc-nav-side">
           <cpc-nav-side width="300px" height="100%" background="">
               <template slot="menu">
-                  <cpc-nav-side-elem elemKey="0" slot="child" :isSignal="true">介绍</cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="1" slot="child">设计原则</cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="2" slot="child">关于</cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="0" slot="child" :isSignal="true" :click="toIntro">
+                     <cpc-icon slot="side-ui" code="#icon-file-document-box"></cpc-icon>介绍
+                  </cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="1" slot="child">
+                     <cpc-icon slot="side-ui" code="#icon-pen"></cpc-icon>设计原则
+                  </cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="2" slot="child">
+                    <cpc-icon slot="side-ui" code="#icon-information-variant"></cpc-icon>关于
+                  </cpc-nav-side-elem>
               </template>
           </cpc-nav-side>
         </div>
         <div class="display-main">
-
+          <router-view></router-view>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-
+  name: 'guide',
+  data () {
+    return {
+    }
+  },
+  methods: {
+    toIntro () {
+      this.$router.push({path: '/guide/intro'})
+    }
+  }
 }
 </script>
 
@@ -37,6 +52,7 @@ export default {
         width: calc(100% - 300px);
         height:100%;
         background: white;
+        padding: 20px;
       }
     }
 </style>

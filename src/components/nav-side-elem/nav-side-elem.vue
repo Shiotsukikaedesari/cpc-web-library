@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="container" :style="{'height': height}">
     <div
         :class="{
           'elem-box': true,
@@ -7,23 +7,21 @@
           'animation': true,
           'box-hover': hover
           }"
-        :style="{'height': height}"
         @click="active($event)"
         @mouseenter="showHover"
         @mouseleave="hideHover"
     >
         <div :class="{'left-box': true, 'flex-row': true, 'father-box': father}">
-            <div class="ui" v-if="showUI"><slot name="side-ui">UI</slot></div>
+            <div class="ui" v-if="showUI"><slot name="side-ui"></slot></div>
             <div class="title"><slot>this is menu title</slot></div>
         </div>
         <div class="right-box flex-row">
-          <div :class="['animation', 'arrow' + elemKey, {'arrowAni': arrowAni}]" v-if="father">V</div>
+          <div :class="['animation', 'arrow' + elemKey, {'arrowAni': arrowAni}]" v-if="father"><cpc-icon code="#icon-down" size="14px"></cpc-icon></div>
           <div :class="['signal' + elemKey, 'animation']"></div>
         </div>
     </div>
     <canvas
         :class="'ani' + elemKey"
-        :style="{'height': height, 'width': '100%'}"
     ></canvas>
 </div>
 </template>
@@ -55,6 +53,10 @@ export default {
       type: Boolean,
       default: false
     },
+    arrowInit: { // 箭头是否预先反转
+      type: Boolean,
+      default: false
+    },
     click: {
       type: Function,
       default: () => {}
@@ -69,7 +71,7 @@ export default {
       rectWidth: 0, // 图形宽
       canvasWidth: '', // canvas的宽度
       isAni: false, // 是否在播放
-      arrowAni: false // 箭头动画
+      arrowAni: false // 箭头方向
     }
   },
   methods: {
@@ -127,12 +129,14 @@ export default {
       let signal = document.querySelector('.signal' + this.elemKey)
       signal.style.opacity = 1
     }
+    this.arrowAni = this.arrowInit
   }
 }
 </script>
 
 <style lang="less" scoped>
     .container {
+      display: flex;
         position: relative;
         padding: 0;
         > .elem-box {
@@ -175,6 +179,10 @@ export default {
                   opacity: 0;
                 }
             }
+        }
+        > canvas {
+          width: 100%;
+          height: 100%;
         }
         > .box-hover {
           background: rgb(245, 245, 245);
