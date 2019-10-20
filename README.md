@@ -1,6 +1,23 @@
-# cpc_component_library
+# cpc-component-library
 
-> A Vue.js project
+> 作为CPC官网的组件库支撑
+
+## Build Setup
+
+``` bash
+# 项目启动
+`npm install`
+`npm run dev`
+
+# 热部署地址： 
+`localhost:8080`
+
+# 项目打包
+`npm run build`
+
+# 查看打包的报告
+`npm run build --report`
+```
 
 ## Build Setup
 
@@ -17,5 +34,3 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
