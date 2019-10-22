@@ -1,20 +1,21 @@
 <template>
-    <div class="marked">
+    <div class="guide-intro markdown" v-html="markdown">
     </div>
 </template>
 
 <script>
-import GuideIntroMd from './markdown/guide-intro.md'
+import GuideIntroMd from './markdown/guide-intro/guide-intro.md'
 export default {
   name: 'guide-intro',
   data () {
     return {
+      markdown: GuideIntroMd
     }
   },
   mounted () {
-    document.querySelector('.marked').innerHTML = this.$marked(GuideIntroMd)
   }
 }
+
 </script>
 
 <style lang="less" scoped>
