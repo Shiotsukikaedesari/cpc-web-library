@@ -41,6 +41,7 @@ export default new Router({
           path: '/guide',
           name: 'guide',
           component: Guide,
+          redirect: '/guide/intro',
           children: [
             {
               path: '/guide/intro',
