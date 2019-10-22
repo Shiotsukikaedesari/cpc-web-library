@@ -1,1 +1,111 @@
- 
+ .markdown {
+     // 标题
+    > h1, h2, h3, h4, h5, h6 {
+         cursor: default;
+    }
+    // 横线
+    > hr {
+         height: 1px;
+         background: rgb(200, 200, 200);
+         border: none;
+    }
+    // 文字
+    p {
+         color: #666;
+         font-size: 16px;
+     }
+     // 缩进
+    blockquote {
+         margin: 10px 2em;
+    }
+    // 图片
+    > p {
+        > img {
+            border-radius: 5px;
+        }
+    }
+    // 链接
+    > p {
+        > a {
+            .animation();
+            color: rgb(77, 184, 255);
+            text-decoration: underline;
+            text-decoration-color: rgba(77, 184, 255, 0);
+            &:hover {
+                color: rgb(0, 81, 255);
+                text-decoration-color: rgba(0, 81, 255, 1);
+            }
+        }
+    }
+    // 列表
+    > ul {
+        padding-left: 1em;
+        > li {
+            .animation();
+            display: block;
+            padding: 5px 1em;
+            margin: 5px 0;
+            color: #666;
+            border-left: 3px solid rgb(167, 113, 255);
+            &:hover {
+                background: rgb(245, 245, 245);
+            }
+        }
+    }
+    // 表格
+    table{
+       width: 100%; 
+       margin: 20px 0;
+       padding: 5px 10px;
+       border-collapse:collapse;
+       > thead {
+        > tr {
+            > th {
+                font-weight: 100;
+                padding: 10px 15px;
+                text-align: left;
+                height: 40px;
+                border: 1px solid #fff;
+                background: rgb(38, 15, 73);
+                color: white;
+                box-sizing: border-box;
+            }
+        } 
+       }    
+       > tbody {
+        > tr {
+            > td {
+                font-weight: 100;
+                padding: 10px 15px;
+                text-align: left;
+                height: 40px;
+                border: 1px solid #2222;
+                box-sizing: border-box;
+            }
+        } 
+       }
+    }
+
+    // 代码
+     > P {
+         > code {
+            box-sizing: border-box;
+            display: inline-block;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            border-radius: 5px;
+         }
+     }
+     > pre {
+        padding: 5px 10px;
+        font-size: 14px;
+        border-radius: 5px;
+        background: rgba(27, 1, 39, 0.9);
+        > code {
+            color: white;
+            font-size: 14px;
+            line-height: 2em;
+        }
+     }
+}
