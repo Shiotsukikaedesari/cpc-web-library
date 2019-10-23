@@ -2,6 +2,8 @@
      // 标题
     > h1, h2, h3, h4, h5, h6 {
          cursor: default;
+         font-weight: 500;
+         margin: 20px 0;
     }
     // 横线
     > hr {
@@ -19,13 +21,15 @@
          margin: 10px 2em;
     }
     // 图片
-    > p {
+    p {
         > img {
             border-radius: 5px;
+            display: block;
+            margin: auto;
         }
     }
     // 链接
-    > p {
+    p {
         > a {
             .animation();
             color: rgb(77, 184, 255);
@@ -38,7 +42,7 @@
         }
     }
     // 列表
-    > ul {
+    ul {
         padding-left: 1em;
         > li {
             .animation();
@@ -87,7 +91,7 @@
     }
 
     // 代码
-     > P {
+    P {
          > code {
             box-sizing: border-box;
             display: inline-block;
@@ -97,7 +101,7 @@
             border-radius: 5px;
          }
      }
-     > pre {
+    pre {
         padding: 5px 10px;
         font-size: 14px;
         border-radius: 5px;
