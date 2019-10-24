@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import GuideIntroMd from './markdown/guide-intro/guide-intro.md'
+import GuideIntroMd from '../markdown/guide/guide-intro/guide-intro.md'
 export default {
   name: 'guide-intro',
   data () {

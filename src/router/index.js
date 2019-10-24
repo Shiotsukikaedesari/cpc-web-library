@@ -4,7 +4,7 @@ import Index from '@/views/index'
 import Display from '@/views/display'
 import Components from '@/views/components'
 import Guide from '@/views/guide'
-import GuideIntro from '@/views/guide-intro'
+import GuideIntro from '@/views/guide/guide-intro'
 
 Vue.use(Router)
 
