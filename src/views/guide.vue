@@ -52,7 +52,7 @@ export default {
         width: calc(100% - 300px);
         height:100%;
         background: white;
-        padding: 20px;
+        padding: 20px 10%;
         overflow: auto;
       }
     }

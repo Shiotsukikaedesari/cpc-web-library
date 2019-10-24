@@ -34,7 +34,17 @@
  `代码内容`
 
 ```
-  代码...
-  代码...
-  代码...
+<div class="some-class">
+  <p></p>
+</div>
+let test = 1
+$.ajax({
+  url: http://host:port/xxx,
+  data,
+  type: 'post',
+  success: res => {
+    data = res.data
+    doSomeThing()
+  }
+})
 ```
