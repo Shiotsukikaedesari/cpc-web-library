@@ -5,6 +5,7 @@ import Display from '@/views/display'
 import Components from '@/views/components'
 import Guide from '@/views/guide'
 import GuideIntro from '@/views/guide/guide-intro'
+import GuideShowMarkdown from '@/views/guide/guide-showMarkdown'
 
 Vue.use(Router)
 
@@ -47,6 +48,11 @@ export default new Router({
               path: '/guide/intro',
               name: 'guide-intro',
               component: GuideIntro
+            },
+            {
+              path: '/guide/showMarkdown',
+              name: 'guide-showMarkdown',
+              component: GuideShowMarkdown
             }
           ]
         }
