@@ -12,6 +12,9 @@
                   <cpc-nav-side-elem elemKey="2" slot="child">
                     <cpc-icon slot="side-ui" code="#icon-information-variant"></cpc-icon>关于
                   </cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="4" slot="child" :click="toShowMarkdown">
+                    <cpc-icon slot="side-ui" code="#icon-maxcdn"></cpc-icon>Markdown效果
+                  </cpc-nav-side-elem>
               </template>
           </cpc-nav-side>
         </div>
@@ -31,6 +34,9 @@ export default {
   methods: {
     toIntro () {
       this.$router.push({path: '/guide/intro'})
+    },
+    toShowMarkdown () {
+      this.$router.push({path: '/guide/showMarkdown'})
     }
   }
 }
