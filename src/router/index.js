@@ -3,6 +3,9 @@ import Router from 'vue-router'
 import Index from '@/views/index'
 import Display from '@/views/display'
 import Components from '@/views/components'
+
+import UseExplain from '@/views/components/use-explain'
+
 import Guide from '@/views/guide'
 import GuideIntro from '@/views/guide/guide-intro'
 
@@ -35,7 +38,14 @@ export default new Router({
         {
           path: '/components',
           name: 'components',
-          component: Components
+          component: Components,
+          children: [
+            {
+              path: '/components/use-explain',
+              name: 'use-explain',
+              component: UseExplain
+            }
+          ]
         },
         {
           path: '/guide',

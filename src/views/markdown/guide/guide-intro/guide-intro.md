@@ -35,3 +35,15 @@ Vue1.x
 demoBox组件搭建
 <br>
 <br>
+
+
+<box>
+<cn>123</cn>
+<intro>这是一段说明</intro>
+
+<template>
+    <cpc-icon></cpc-icon>
+</template>
+</box>
+
+

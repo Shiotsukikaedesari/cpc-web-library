@@ -9,7 +9,7 @@
                   <cpc-nav-side-elem elemKey="1-1" slot="child" :isSignal="true">
                     <cpc-icon slot="side-ui" code="#icon-file-document-box" size="20px"></cpc-icon>基本介绍
                   </cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="1-2" slot="child">
+                  <cpc-nav-side-elem elemKey="1-2" slot="child"  :click="toUseExplain">
                     <cpc-icon slot="side-ui" code="#icon-comment-text" size="20px"></cpc-icon>使用说明
                   </cpc-nav-side-elem>
               </cpc-nav-side-menu>
@@ -32,14 +32,24 @@
           </cpc-nav-side>
         </div>
         <div class="display-main">
-
+          <router-view></router-view>
         </div>
     </div>
 </template>
 
 <script>
 export default {
+  name: 'components',
+  data () {
+    return {
 
+    }
+  },
+  methods: {
+    toUseExplain () {
+      this.$router.push({path: '/components/use-explain'})
+    }
+  }
 }
 </script>
 
@@ -55,9 +65,11 @@ export default {
         }
       }
       > .display-main {
-        width: calc(100% - 300px);
-        height:100%;
-        background: white;
-      }
+      width: calc(100% - 300px);
+      height:100%;
+      background: white;
+      padding: 20px 10%;
+      overflow: auto;
+    }
     }
 </style>

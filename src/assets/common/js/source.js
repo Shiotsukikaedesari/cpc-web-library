@@ -1,4 +1,7 @@
 import Vue from 'vue'
+
+import DisplayBox from '@/components/display-box'
+
 import NavTop from '@/components/nav-top'
 import NavTopElem from '@/components/nav-top-elem'
 
@@ -7,6 +10,8 @@ import NavSideElem from '@/components/nav-side-elem'
 import NavSideMenu from '@/components/nav-side-menu'
 
 import Icon from '@/components/icon'
+
+Vue.use(DisplayBox)
 
 Vue.use(NavTop)
 Vue.use(NavTopElem)
