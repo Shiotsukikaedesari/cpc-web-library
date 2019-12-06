@@ -5,6 +5,7 @@ import Display from '@/views/display'
 import Components from '@/views/components'
 
 import UseExplain from '@/views/components/use-explain'
+import ComponentsDemo from '@/views/components/components-demo'
 
 import Guide from '@/views/guide'
 import GuideIntro from '@/views/guide/guide-intro'
@@ -45,6 +46,11 @@ export default new Router({
               path: '/components/use-explain',
               name: 'use-explain',
               component: UseExplain
+            },
+            {
+              path: '/components/demo',
+              name: 'components-demo',
+              component: ComponentsDemo
             }
           ]
         },

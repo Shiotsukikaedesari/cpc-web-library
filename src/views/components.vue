@@ -12,6 +12,9 @@
                   <cpc-nav-side-elem elemKey="1-2" slot="child"  :click="toUseExplain">
                     <cpc-icon slot="side-ui" code="#icon-comment-text" size="20px"></cpc-icon>使用说明
                   </cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="1-3" slot="child" :click="toDemo">
+                    <cpc-icon slot="side-ui" code="#icon-microscope" size="20px"></cpc-icon>DEMO测试
+                  </cpc-nav-side-elem>
               </cpc-nav-side-menu>
               <cpc-nav-side-menu menuKey="2" slot="menu">
                   <cpc-nav-side-elem elemKey="2-0" slot="father" :father="true">
@@ -48,6 +51,9 @@ export default {
   methods: {
     toUseExplain () {
       this.$router.push({path: '/components/use-explain'})
+    },
+    toDemo () {
+      this.$router.push({path: '/components/demo'})
     }
   }
 }
