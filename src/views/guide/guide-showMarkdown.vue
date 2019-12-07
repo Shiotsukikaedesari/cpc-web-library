@@ -9,10 +9,11 @@ export default {
   name: 'guide-showMarkdown',
   data () {
     return {
-      markdown: GuideShowMarkdown
+      markdown: this.$marked(GuideShowMarkdown)
     }
   },
   mounted () {
+    console.log(this.$marked(GuideShowMarkdown), { sanitize: true })
   }
 }
 

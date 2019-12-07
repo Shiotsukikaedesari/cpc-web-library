@@ -11,6 +11,8 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "highlight": "^0.2.4",
+    "highlight.js": "^9.16.2",
     "marked": "^0.7.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",

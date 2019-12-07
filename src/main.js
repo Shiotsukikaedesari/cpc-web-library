@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 // 引入 marked
 import marked from 'marked'
+import highlight from 'highlight.js'
 // 引入公共组件
 import './assets/common/js/source'
 
@@ -13,6 +14,7 @@ import './assets/common/js/source'
 import Tools from './assets/common/js/tools'
 // 引入全局less
 import './assets/common/less/base.less'
+import '../node_modules/highlight.js/styles/github.css'
 // 引入UI文件
 import './assets/icon/iconfont'
 
@@ -26,7 +28,15 @@ marked.setOptions({
   pedantic: false,
   sanitize: false,
   smartLists: true,
-  smartypants: false
+  smartypants: false,
+  highlight: function (code, lang) {
+    console.log(1)
+    if (lang && highlight.getLanguage(lang)) {
+      return highlight.highlight(lang, code, true).value
+    } else {
+      return highlight.highlightAuto(code).value
+    }
+  }
 })
 
 Vue.prototype.$marked = marked
