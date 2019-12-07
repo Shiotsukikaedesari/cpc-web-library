@@ -1,18 +1,22 @@
 <template>
-    <div class="guide-intro markdown" v-html="markdown">
+    <div class="guide-intro markdown">
+      <GuideIntroMd></GuideIntroMd>
     </div>
 </template>
 
 <script>
-import GuideIntroMd from '../markdown/guide/guide-intro/guide-intro.md'
+import GuideIntroMd from './markdown/intro.md'
 export default {
   name: 'guide-intro',
   data () {
     return {
-      markdown: GuideIntroMd
+
     }
   },
   mounted () {
+  },
+  components: {
+    GuideIntroMd
   }
 }
 

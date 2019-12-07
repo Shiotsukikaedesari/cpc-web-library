@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import useExplain from '../markdown/components/use-explain.md'
+import useExplain from './markdown/use-explain.md'
 export default {
   name: 'use-explain',
   data () {

@@ -4,6 +4,22 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
+// let hljs = require('highlight.js')
+
+// let markdown = require('markdown-it')({
+//   highlight: function (str, lang) {
+//     if (lang && hljs.getLanguage(lang)) {
+//       try {
+//         return '<pre class="hljs"><code>' +
+//                hljs.highlight(lang, str, true).value +
+//                '</code></pre>';
+//       } catch (__) {}
+//     }
+
+//     return '<pre class="hljs"><code>' + markdown.utils.escapeHtml(str) + '</code></pre>';
+//   }
+// })
+
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -81,15 +97,8 @@ module.exports = {
     // },
       {
         test: /\.md$/,
-        use: [
-          {
-            loader: 'html-loader'
-          },
-          { 
-            loader: 'markdown-loader',
-            options: {}
-          }
-        ]
+        loader: 'vue-markdown-loader',
+        // options: markdown
       }
     ]
   },

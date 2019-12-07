@@ -4,9 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-// 引入 marked
-import marked from 'marked'
-import highlight from 'highlight.js'
+
 // 引入公共组件
 import './assets/common/js/source'
 
@@ -19,27 +17,6 @@ import '../node_modules/highlight.js/styles/github.css'
 import './assets/icon/iconfont'
 
 Vue.config.productionTip = false
-
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  gfm: true,
-  tables: true,
-  breaks: false,
-  pedantic: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false,
-  highlight: function (code, lang) {
-    console.log(1)
-    if (lang && highlight.getLanguage(lang)) {
-      return highlight.highlight(lang, code, true).value
-    } else {
-      return highlight.highlightAuto(code).value
-    }
-  }
-})
-
-Vue.prototype.$marked = marked
 
 Vue.prototype.$tools = Tools
 

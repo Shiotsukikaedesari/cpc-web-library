@@ -4,12 +4,12 @@ import Index from '@/views/index'
 import Display from '@/views/display'
 import Components from '@/views/components'
 
-import UseExplain from '@/views/components/use-explain'
+import UseExplain from '@/views/components/use-explain/use-explain'
 import ComponentsDemo from '@/views/components/components-demo'
 
 import Guide from '@/views/guide'
-import GuideIntro from '@/views/guide/guide-intro'
-import GuideShowMarkdown from '@/views/guide/guide-showMarkdown'
+import GuideIntro from '@/views/guide/intro/intro'
+import GuideShowMarkdown from '@/views/guide/showMarkdown/showMarkdown'
 
 Vue.use(Router)
 

@@ -4,16 +4,15 @@
 </template>
 
 <script>
-import GuideShowMarkdown from '../markdown/guide/guide-showMarkdown/guide-showMarkdown.md'
+import GuideShowMarkdown from './markdown/showMarkdown.md'
 export default {
   name: 'guide-showMarkdown',
   data () {
     return {
-      markdown: this.$marked(GuideShowMarkdown)
+      markdown: GuideShowMarkdown
     }
   },
   mounted () {
-    console.log(this.$marked(GuideShowMarkdown), { sanitize: true })
   }
 }
 
