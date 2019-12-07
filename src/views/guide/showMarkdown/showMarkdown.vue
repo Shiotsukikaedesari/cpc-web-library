@@ -1,5 +1,6 @@
 <template>
-    <div class="guide-intro markdown" v-html="markdown">
+    <div class="guide-intro markdown">
+      <GuideShowMarkdown></GuideShowMarkdown>
     </div>
 </template>
 
@@ -9,10 +10,12 @@ export default {
   name: 'guide-showMarkdown',
   data () {
     return {
-      markdown: GuideShowMarkdown
     }
   },
   mounted () {
+  },
+  components: {
+    GuideShowMarkdown
   }
 }
 
