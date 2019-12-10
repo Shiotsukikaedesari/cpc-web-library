@@ -13,6 +13,8 @@
   "dependencies": {
     "highlight.js": "^9.16.2",
     "markdown-it": "^10.0.0",
+    "markdown-it-anchor": "^5.2.5",
+    "markdown-it-container": "^2.0.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.1.1"

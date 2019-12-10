@@ -1,3 +1,4 @@
+``` html
 <template>
     <div class="demo">
         demo测试
@@ -13,3 +14,4 @@ export default {
 <style lang="less" scoped>
 
 </style>
+```

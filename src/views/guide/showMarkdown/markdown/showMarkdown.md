@@ -154,30 +154,93 @@
 `console.log(windows)`
 ```
 ### 多行
-```
-$.ajax({
-    url,
-    data,
-    type,
-    success: function(() => {
-        some()
-    })
-})
+js 效果
+``` js
+export default {
+  name: 'guide',
+  data: function data () {
+    return {
+    }
+  },
+  methods: {
+    toIntro () {
+      this.$router.push({path: '/guide/intro'})
+    }
+  }
+}
 ```
 
+``` 
+(``` js
+export default {
+  name: 'guide',
+  data: function data () {
+    return {
+    }
+  },
+  methods: {
+    toIntro () {
+      this.$router.push({path: '/guide/intro'})
+    }
+  }
+}
 ```
-(```
-$.ajax({
-    url,
-    data,
-    type,
-    success: function(() => {
-        some()
-    })
-})
-```)
-注：头尾去掉括号
+html 效果
+``` html
+<div class="cpc-nav-side">
+    <cpc-nav-side width="300px" height="100%" background="">
+        <cpc-nav-side-menu menuKey="1" slot="menu" :open="true">
+            <cpc-nav-side-elem elemKey="1-0" slot="father" :father="true" :isSignal="true" :arrowInit="true">
+            <cpc-icon slot="side-ui" code="#icon-arrow-right-drop-circle"></cpc-icon>开始
+            </cpc-nav-side-elem>
+        </cpc-nav-side-menu>
+    </cpc-nav-side>
+</div>
 ```
+
+``` 
+(``` html
+<div class="cpc-nav-side">
+    <cpc-nav-side width="300px" height="100%" background="">
+        <cpc-nav-side-menu menuKey="1" slot="menu" :open="true">
+            <cpc-nav-side-elem elemKey="1-0" slot="father" :father="true" :isSignal="true" :arrowInit="true">
+            <cpc-icon slot="side-ui" code="#icon-arrow-right-drop-circle"></cpc-icon>开始
+            </cpc-nav-side-elem>
+        </cpc-nav-side-menu>
+    </cpc-nav-side>
+</div>
+```
+<br><br>
+css 效果
+``` css
+.components {
+        height: 100%;
+        width: 100%;
+      }
+> .display-main {
+      width: calc(100% - 300px);
+      height:100%;
+      background: white;
+      padding: 20px 10%;
+      overflow: auto;
+    }
+```
+
+``` 
+(``` css
+.components {
+        height: 100%;
+        width: 100%;
+      }
+> .display-main {
+      width: calc(100% - 300px);
+      height:100%;
+      background: white;
+      padding: 20px 10%;
+      overflow: auto;
+    }
+```
+
 <br><br><br><br>
 
 

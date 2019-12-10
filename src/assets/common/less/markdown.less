@@ -5,6 +5,17 @@
             cursor: default;
             font-weight: 500;
             margin: 20px 0;
+            color: black;
+            // 锚点样式
+            > .header-anchor {
+                // opacity: 0;
+                transition: all 500ms ease;
+                color: white;
+                
+            }
+            &:hover {
+                color: black;
+            }
     }
     // 横线
     > hr {
@@ -93,7 +104,7 @@
 
     // 代码
     P {
-            > code {
+        > code {
             box-sizing: border-box;
             display: inline-block;
             padding: 5px 10px;
@@ -102,10 +113,12 @@
             border-radius: 5px;
             }
         }
+
     pre {
         padding: 5px 10px;
         border-radius: 5px;
         background: rgb(38, 15, 73);
+        overflow: auto;
         > code {
             color: white;
             line-height: 2em;

@@ -5,7 +5,7 @@ import Display from '@/views/display'
 import Components from '@/views/components'
 
 import UseExplain from '@/views/components/use-explain/use-explain'
-import ComponentsDemo from '@/views/components/components-demo'
+import ComponentsDemo from '@/views/components/demo/demo'
 
 import Guide from '@/views/guide'
 import GuideIntro from '@/views/guide/intro/intro'

@@ -7,10 +7,10 @@
             <div class="logo">
                 <img src="/static/logo.png" alt="漫协logo">
             </div>
-            <div class="introduce  ">
+            <div class="introduce">
                 <span>一款基于Vue的组件库，为cpc官网提供支持（挖的坑是一定要填的！）</span>
             </div>
-            <div class="button-box  ">
+            <div class="button-box">
                 <button class="animation" @click="toGuide">指南</button>
                 <button class="animation" @click="toComponent">组件</button>
                 <button class="animation" @click="toGithub">Github</button>
