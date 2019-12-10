@@ -5,20 +5,11 @@ const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
 let hljs = require('highlight.js')
+// 转移一下锚点
+let slugify = (str) => {
+  return decodeURI(str)
+}
 
-// let markdown = require('markdown-it')({
-//   highlight: function (str, lang) {
-//     if (lang && hljs.getLanguage(lang)) {
-//       try {
-//         return '<pre class="hljs"><code>' +
-//                hljs.highlight(lang, str, true).value +
-//                '</code></pre>';
-//       } catch (__) {}
-//     }
-
-//     return '<pre class="hljs"><code>' + markdown.utils.escapeHtml(str) + '</code></pre>';
-//   }
-// })
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -100,7 +91,8 @@ module.exports = {
         options: {
           use: [
             [require('markdown-it-anchor'), {
-              level: 0, // 添加超链接锚点的最小标题级别, 如: #标题 不会添加锚点
+              level: [1, 2, 3], // 添加超链接锚点的标题级别
+              slugify,
               permalink: true, // 开启标题锚点功能
               permalinkBefore: true, // 在标题前创建锚点
               permalinkSymbol: '#'
