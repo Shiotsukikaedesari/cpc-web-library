@@ -3,12 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-
-let hljs = require('highlight.js')
-// 转移一下锚点
-let slugify = (str) => {
-  return decodeURI(str)
-}
+const markdownItConfig = require('./markdown-it.conf')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -88,26 +83,7 @@ module.exports = {
       {
         test: /\.md$/,
         loader: 'vue-markdown-loader',
-        options: {
-          use: [
-            [require('markdown-it-anchor'), {
-              level: [1, 2, 3], // 添加超链接锚点的标题级别
-              slugify,
-              permalink: true, // 开启标题锚点功能
-              permalinkBefore: true, // 在标题前创建锚点
-              permalinkSymbol: '#'
-            }],
-          ],
-          highlight: function (str, lang) {
-            if (lang && hljs.getLanguage(lang)) {
-              try {
-                return '<pre class="hljs"><code>' +
-                        hljs.highlight(lang, str, true).value +
-                        '</code></pre>';
-              } catch (__) {}
-            }
-          }
-        }
+        options: markdownItConfig 
       }
     ]
   },

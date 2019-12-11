@@ -2,32 +2,22 @@
      > section {
         // 标题
      > h1, h2, h3, h4, h5, h6 {
-            cursor: default;
+            cursor: pointer;
             font-weight: 500;
             margin: 20px 0;
             color: black;
             position: relative;
-            text-indent: 0.7em;
             // 锚点样式
             > .header-anchor {
                 opacity: 0;
-                position: absolute;
-                top: 0;
-                left: 0;
                 transition: all 500ms ease;
                 color: rgb(126, 126, 126);
-                display: block;
-                width: 100%;
-                height: 100%;
                 font-size: 16px;
-                z-index: 1;
-                text-indent: 0em;
-                cursor: pointer;
-                &:hover {
-                    opacity: 1;
-                }
+                cursor: pointer
             }
-            
+            &:hover .header-anchor{
+                opacity: 1;
+            }
     }
     // 横线
     > hr {
