@@ -1,6 +1,13 @@
 <template>
     <div class="display-box">
-
+      看看display盒子是否能被生成
+      <slot name="source"></slot>
+      <div class="description" v-if="$slots.default">
+        <slot></slot>
+      </div>
+      <div class="markdown">
+        <slot name="highlight"></slot>
+      </div>
     </div>
 </template>
 
@@ -16,18 +23,15 @@ export default {
   data () {
     return {
       // 组件提取位置
-      template: {
-        title: 'demoBox标题',
-        message: 'demoBox介绍信息',
-        component: ''
-      }
+      title: 'demoBox标题',
+      message: 'demoBox介绍信息',
+      component: ''
     }
   },
   methods: {
 
   },
   mounted () {
-    console.log(this.markdown)
   }
 }
 </script>
