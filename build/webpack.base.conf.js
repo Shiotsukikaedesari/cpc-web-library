@@ -3,7 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-const markdownItConfig = require('./markdown-it.conf')
+const hljs = require('highlight.js')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -82,9 +82,21 @@ module.exports = {
     // },
       {
         test: /\.md$/,
-        loader: 'vue-markdown-loader',
-        options: markdownItConfig 
-      }
+        use: [
+          {
+            loader: 'vue-loader',
+            options: {
+              compilerOptions: {
+                preserveWhitespace: false
+              }
+            }
+          },
+          {
+            loader: path.resolve(__dirname, './md-loader/index.js')
+          }
+        ]
+      },
+      
     ]
   },
   node: {

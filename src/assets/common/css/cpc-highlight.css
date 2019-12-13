@@ -8,7 +8,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   display: block;
   overflow-x: auto;
   /* padding: 0.5em; */
-  color: #4CDCDD;
+  /* color: #4CDCDD; */
+  color: white;
   background: rgb(38, 15, 73);
   padding: 5px 10px;
   border-radius: 5px;
