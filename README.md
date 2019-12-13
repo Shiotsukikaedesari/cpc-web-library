@@ -6,16 +6,21 @@
 
 ``` bash
 # 项目启动
+
 `npm install`
+
 `npm run dev`
 
 # 热部署地址： 
+
 `localhost:8080`
 
 # 项目打包
+
 `npm run build`
 
 # 查看打包的报告
+
 `npm run build --report`
 ```
 

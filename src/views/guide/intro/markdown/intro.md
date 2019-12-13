@@ -30,4 +30,4 @@ Vue2.x
 
 ### TODO
 * demoBox组件搭建-vue组件
-* demoBox组件搭建-markdown组件
+* demoBox组件搭建-markdown组件(√)
