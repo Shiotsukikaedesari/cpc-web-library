@@ -1,24 +1,17 @@
-::: demo 测试测试
 ``` html
 <template>
     <div class="demo">
-        demo测试{{data}}
+        demo测试
     </div>
 </template>
+
 <script>
 export default {
-  name: 'components-demo',
-  data () {
-    return {
-      data: 111
-    }
-  }
+  name: 'components-demo'
 }
 </script>
-<style>
-  div {
-    color: red;
-  }
+
+<style lang="less" scoped>
+
 </style>
 ```
-:::
