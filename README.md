@@ -4,7 +4,6 @@
 
 ## Build Setup
 
-``` bash
 # 项目启动
 
 `npm install`
@@ -22,7 +21,6 @@
 # 查看打包的报告
 
 `npm run build --report`
-```
 
 ## Build Setup
 
