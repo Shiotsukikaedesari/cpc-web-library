@@ -1,6 +1,6 @@
 <template>
-    <div class="icon-container">
-      <svg class="icon" aria-hidden="true" :style="{'font-size': size}">
+    <div class="icon-container animation" :style="{'font-size': size, 'color': color}">
+      <svg class="icon" aria-hidden="true">
         <use :xlink:href="code"></use>
       </svg>
     </div>
@@ -17,11 +17,15 @@ export default {
     size: {
       type: String,
       default: '25px'
+    },
+    color: {
+      type: String,
+      default: 'black'
     }
   }
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 
 </style>
