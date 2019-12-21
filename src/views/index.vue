@@ -14,6 +14,7 @@
                 <button class="animation" @click="toGuide">指南</button>
                 <button class="animation" @click="toComponent">组件</button>
                 <button class="animation" @click="toGithub">Github</button>
+                <button class="animation" @click="toNotes">前端笔记</button>
             </div>
         </div>
     </div>
@@ -37,6 +38,10 @@ export default {
     // 跳转到组件
     toComponent () {
       this.$router.push({path: '/display'})
+    },
+    // 跳转到前端笔记
+    toNotes () {
+      this.$router.push({path: '/notes'})
     }
   },
   mounted () {
