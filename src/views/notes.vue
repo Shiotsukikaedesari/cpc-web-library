@@ -12,10 +12,10 @@
               </cpc-nav-side-menu>
               <cpc-nav-side-menu menuKey="2" slot="menu">
                   <cpc-nav-side-elem elemKey="2-0" slot="father" :father="true">
-                    <cpc-icon slot="side-ui" code="#icon-cube"></cpc-icon>HTML
+                    <cpc-icon slot="side-ui" code="#icon-language-html"></cpc-icon>HTML
                   </cpc-nav-side-elem>
                   <cpc-nav-side-elem elemKey="2-1" slot="child" :click="toHtmlBase">HTML基础</cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="2-2" slot="child">组件二</cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="2-2" slot="child" :click="toHtmlTreasure">HTML宝典</cpc-nav-side-elem>
                   <cpc-nav-side-elem elemKey="2-3" slot="child">组件三</cpc-nav-side-elem>
               </cpc-nav-side-menu>
               <cpc-nav-side-menu menuKey="3" slot="menu">
@@ -50,6 +50,10 @@ export default {
     // 跳转到html基础
     toHtmlBase () {
       this.$router.push({path: '/notes/html-base'})
+    },
+    // 跳转到html宝典
+    toHtmlTreasure () {
+      this.$router.push({path: '/notes/html-treasure'})
     }
   }
 }
