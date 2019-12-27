@@ -2,14 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/views/index'
 import Display from '@/views/display'
-import Components from '@/views/components'
 
-import UseExplain from '@/views/components/use-explain/use-explain'
-import ComponentsDemo from '@/views/components/demo/demo'
-
-import Guide from '@/views/guide'
-import GuideIntro from '@/views/guide/intro/intro'
-import GuideShowMarkdown from '@/views/guide/showMarkdown/showMarkdown'
+import Components from './router-components'
+import Guide from './router-guide'
+import Notes from './router-notes'
 
 Vue.use(Router)
 
@@ -37,41 +33,9 @@ export default new Router({
       component: Display,
       redirect: '/guide/intro',
       children: [
-        {
-          path: '/components',
-          name: 'components',
-          component: Components,
-          children: [
-            {
-              path: '/components/use-explain',
-              name: 'use-explain',
-              component: UseExplain
-            },
-            {
-              path: '/components/demo',
-              name: 'components-demo',
-              component: ComponentsDemo
-            }
-          ]
-        },
-        {
-          path: '/guide',
-          name: 'guide',
-          component: Guide,
-          redirect: '/guide/intro',
-          children: [
-            {
-              path: '/guide/intro',
-              name: 'guide-intro',
-              component: GuideIntro
-            },
-            {
-              path: '/guide/showMarkdown',
-              name: 'guide-showMarkdown',
-              component: GuideShowMarkdown
-            }
-          ]
-        }
+        Components,
+        Guide,
+        Notes
       ]
     }
   ]

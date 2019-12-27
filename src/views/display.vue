@@ -15,6 +15,9 @@
           <cpc-nav-top-elem elemKey="5" slot="nav-top-right" :click="toGithub">
             <cpc-icon slot="top-ui" code="#icon-github-circle"></cpc-icon>Github
           </cpc-nav-top-elem>
+          <cpc-nav-top-elem elemKey="6" slot="nav-top-right" :click="toNotes">
+            <cpc-icon slot="top-ui" code="#icon-note-multiple"></cpc-icon>前端笔记
+          </cpc-nav-top-elem>
         </cpc-nav-top>
       </header>
       <section class="display-container flex-row">
@@ -49,6 +52,10 @@ export default {
     // 跳转到项目github
     toGithub () {
       window.open('https://github.com/Shiotsukikaedesari/cpc-component-library', '_blank')
+    },
+    // 跳转到前端笔记
+    toNotes () {
+      this.$router.push({path: '/notes'})
     }
   }
 }
