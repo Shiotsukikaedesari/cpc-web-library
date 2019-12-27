@@ -13,6 +13,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   background: rgb(38, 15, 73);
   padding: 5px 10px;
   border-radius: 5px;
+  cursor: text;
 }
 
 .hljs-comment,

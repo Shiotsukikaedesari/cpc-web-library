@@ -9,13 +9,13 @@
           <slot></slot>
         </div>
       </div>
-      <div class="box-lower flex-column">
-        <div class="component-code markdown flex-column">
+      <div :class="['box-lower', 'flex-column',]">
+        <div :class="['component-code', 'markdown', 'animation', 'flex-column', {'fold': foldStatus}]">
           <slot name="highlight"></slot>
         </div>
-        <div class="drawer flex-row-center animation" @click="foldCode">
+        <div :class="['drawer', 'flex-row-center',' animation']" @click="foldCode">
           <span class="animation">code</span>
-          <cpc-icon size="20px" code="#icon-code-tags" :color="iconColor"></cpc-icon>
+          <cpc-icon size="20px" code="#icon-code-tags"></cpc-icon>
         </div>
       </div>
     </div>
@@ -32,15 +32,21 @@ export default {
   },
   data () {
     return {
-      iconColor: 'rgb(130, 15, 238)'
+      // 折叠状态
+      foldStatus: false
     }
   },
   methods: {
     foldCode () {
-      console.log(2)
+      this.foldStatus = !this.foldStatus
     }
   },
   mounted () {
+    let componentCode = document.querySelector('.component-code')
+    componentCode.style.height = componentCode.offsetHeight + 'px'
+    setTimeout(() => {
+      this.foldStatus = true
+    }, 500)
   }
 }
 </script>
@@ -96,6 +102,14 @@ export default {
       align-items: unset;
       width: calc(~"100% - 20px");
       margin: 10px;
+      > pre {
+        overflow: hidden;
+      }
+    }
+     > .fold {
+      height: 0 !important;
+      margin: 0;
+      overflow: hidden;
     }
     > .drawer {
       width: 100%;
@@ -107,6 +121,9 @@ export default {
         color: rgb(130, 15, 238);
         width: 0;
         opacity: 0;
+      }
+      > .icon-container {
+        color: rgb(130, 15, 238) !important;
       }
       &:hover {
         background: rgba(198, 174, 255, 0.4);
@@ -129,5 +146,6 @@ export default {
       }
     }
   }
+
 }
 </style>

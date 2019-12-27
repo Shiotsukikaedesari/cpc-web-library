@@ -25,10 +25,17 @@ module.exports = md => {
         // 在node层直接进行高亮渲染
         // 需要区分css，js，html的高亮
         // 利用md-loader提供的工具函数
-        let html = highlight(stripTemplate(token.content), 'html')
-        let strip = highlight(stripScript(token.content), 'js')
-        let css = highlight(stripStyle(token.content), 'css')
-      return `<template slot="highlight">${html}${strip}${css}</template>`;
+        let html = highlight(stripTemplate(token.content), 'html').slice(0, -13)
+        let script = highlight(stripScript(token.content), 'js').slice(24, -13)
+        let css = highlight(stripStyle(token.content), 'css').slice(24, -13)
+        let container = `${html}<br><br>` +
+        '<br><span class="hljs-tag">&lt;script&gt;</span><br>' +
+        script +
+        '<br><span class="hljs-tag">&lt;/script&gt;</span><br><br>'+
+        '<br><span class="hljs-tag">&lt;style&gt;</span><br>' +
+        css +
+        '<br><span class="hljs-tag">&lt;/style&gt;</span><br></code></pre>'
+      return `<template slot="highlight">${container}</template>`;
     } else if (!!token.info && token.info !== " ") {
       // 不是展示代码的code也加上高亮
       return highlight(token.content, token.info.trim())

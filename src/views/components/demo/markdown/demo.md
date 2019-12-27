@@ -2,7 +2,8 @@
 ``` html
 <template>
     <div class="demo">
-        demo测试{{data}}
+        demo测试
+        <input type="text" v-model="data">
     </div>
 </template>
 <script>

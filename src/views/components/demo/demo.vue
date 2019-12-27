@@ -1,6 +1,5 @@
 <template>
     <div class="demo">
-        demo测试
         <demo></demo>
     </div>
 </template>
@@ -10,7 +9,7 @@ import demo from './markdown/demo.md'
 export default {
   name: 'components-demo',
   mounted () {
-    console.log(demo)
+
   },
   components: {
     demo

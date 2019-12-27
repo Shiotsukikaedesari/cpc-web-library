@@ -1,5 +1,5 @@
 <template>
-    <div class="icon-container animation" :style="{'font-size': size, 'color': color}">
+    <div class="icon-container animation flex-row" :style="{'font-size': size, 'color': color}">
       <svg class="icon" aria-hidden="true">
         <use :xlink:href="code"></use>
       </svg>
