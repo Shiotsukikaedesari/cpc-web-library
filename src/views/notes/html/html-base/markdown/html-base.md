@@ -135,4 +135,179 @@ a<sub>下标记</sub>
 <hr> <!-- 换行直线 -->
 ```
 
+<br>
 
+-----
+
+保留格式标记（html中所有的连续空格缩进都会看成一个空格）
+<br><br>
+一二三四五<br>
+上山打老虎，<br>
+ &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;老虎不在家
+ &nbsp; &nbsp;&nbsp; &nbsp;。。。
+	
+``` html
+<pre>
+    一二三四五
+    上山打老虎
+            老虎不在家   。。。
+</pre>	
+```
+
+<br>
+
+-----
+
+块级标记（会在网页中独占一行，也就是上下换行）
+<br><br>
+<div>div</div>
+<h1>h1</h1>
+<p>p</p>
+
+``` html
+<div>div</div>
+<h1>h1</h1>
+<p>p</p>
+```
+
+<br>
+
+-----
+
+行内标记（会在同一行显示，上下不换行，没有宽高，css具体讲）
+<br><br>
+<span>span</span>
+<a>a</a>
+
+``` html
+<span>span</span>
+<a>a</a>
+```
+
+<br>
+
+-----
+
+行内块标记（会在同一行显示，上下不换行，有宽高，css具体讲）
+<br><br>
+<b>b</b>
+a<sub>sub</sub>
+
+``` html
+<b>b</b>
+a<sub>sub</sub>
+```
+
+<br>
+
+-----
+
+图片标记
+<br><br>
+![blockchain](https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=702257389,1274025419&fm=27&gp=0.jpg "区块链")
+
+``` html
+<img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=702257389,1274025419&fm=27&gp=0.jpg" title="区块链">
+<!-- src：链接地址，可接受绝对地址与相对地址 -->
+```
+
+<br>
+
+-----
+
+超链接标记
+<br><br>
+[Vue](https://cn.vuejs.org/ "vue官网")
+
+``` html
+<a href="https://cn.vuejs.org/" title="vue官网"></a>
+<!-- href：链接地址，可接受绝对地址与相对地址 -->
+<!-- 注：本框架下的a标签样式做过优化 -->
+<div id="maoDian">锚点</div>
+<a herf="#maoDian">本页面</a> <!-- 本页面的点击锚点跳转，页面滚轮会滚动到当前锚点 -->
+<a herf="url地址#锚点名称">其他页面</a> <!-- 跨页面的点击锚点跳转，页面进行自动跳转，滚轮会滚动到当前锚点 -->
+```
+
+<br>
+
+-----
+
+表格相关标记
+<br><br>
+
+<table> 
+    <caption>表格标题</caption>
+    <thead>
+        <tr>
+            <th>表头</th> 
+            <th>表头</th>
+            <th>表头</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>内容</td>
+            <td>内容</td>
+            <td>内容</td>
+        </tr>
+        <tr>
+            <td>内容</td>
+            <td>内容</td>
+            <td>内容</td>
+        </tr>
+        <tr>
+            <td colspan="2">内容</td>
+            <td>内容</td>
+        </tr>
+        <tr>
+            <td rowspan="2">内容</td>
+            <td>内容</td>
+            <td>内容</td>
+        </tr>
+        <tr>
+            <td>内容</td>
+            <td>内容</td>
+        </tr>
+    </tbody>
+    <tfoot></tfoot>
+</table>
+
+``` html
+<table> <!-- 表格标记 -->
+    <caption>表格标题</caption>
+    <thead> <!-- 表头标记 -->
+        <tr> <!-- tr规定表格的行 -->
+            <th>表头</th> <!-- th 跟td一样规定那一行的一列，也就是一个单元格 -->
+            <th>表头</th>
+            <th>表头</th>
+        </tr>
+    </thead>
+    <tbody> <!-- 表格的主体内容标记 -->
+        <tr>
+            <td>内容</td>
+            <td>内容</td>
+            <td>内容</td>
+        </tr>
+        <tr>
+            <td>内容</td>
+            <td>内容</td>
+            <td>内容</td>
+        </tr>
+        <tr>
+            <td colspan="2">内容</td> <!-- colspan单元格跨列，需要加上自身的1 -->
+            <td>内容</td>
+        </tr>
+        <tr>
+            <td rowspan="2">内容</td> <!-- colspan单元格跨行，需要加上自身的1 -->
+            <td>内容</td>
+            <td>内容</td>
+        </tr>
+        <tr>
+            <td>内容</td>
+            <td>内容</td>
+        </tr>
+    </tbody>
+    <tfoot></tfoot> <!-- 表格的尾部内容标记 -->
+</table>
+<!-- 注：本框架表格样式做过处理 -->
+```
