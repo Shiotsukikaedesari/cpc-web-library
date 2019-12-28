@@ -6,7 +6,7 @@
                   <cpc-nav-side-elem elemKey="0" slot="child" :isSignal="true" :click="toIntro">
                      <cpc-icon slot="side-ui" code="#icon-file-document-box"></cpc-icon>介绍
                   </cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="1" slot="child">
+                  <cpc-nav-side-elem elemKey="1" slot="child" :click="toDesignPrinciple">
                      <cpc-icon slot="side-ui" code="#icon-pen"></cpc-icon>设计原则
                   </cpc-nav-side-elem>
                   <cpc-nav-side-elem elemKey="2" slot="child">
@@ -32,11 +32,17 @@ export default {
     }
   },
   methods: {
+    // 跳转到介绍
     toIntro () {
       this.$router.push({path: '/guide/intro'})
     },
+    // 跳转到markdown效果展示
     toShowMarkdown () {
       this.$router.push({path: '/guide/showMarkdown'})
+    },
+    // 跳转到设计原则
+    toDesignPrinciple () {
+      this.$router.push({path: '/guide/design-principle'})
     }
   }
 }
