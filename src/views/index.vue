@@ -33,15 +33,15 @@ export default {
     },
     // 跳转到指南
     toGuide () {
-      this.$router.push({path: '/display'})
+      this.$router.push({path: '/display', query: {sign: 'guide'}})
     },
     // 跳转到组件
     toComponent () {
-      this.$router.push({path: '/display'})
+      this.$router.push({path: '/components', query: {sign: 'components'}})
     },
     // 跳转到前端笔记
     toNotes () {
-      this.$router.push({path: '/notes'})
+      this.$router.push({path: '/notes', query: {sign: 'notes'}})
     }
   },
   mounted () {
