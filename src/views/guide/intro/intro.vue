@@ -1,11 +1,11 @@
 <template>
     <div class="guide-intro markdown">
-      <GuideIntroMd></GuideIntroMd>
+      <markdown></markdown>
     </div>
 </template>
 
 <script>
-import GuideIntroMd from './markdown/intro.md'
+import markdown from './markdown/intro.md'
 export default {
   name: 'guide-intro',
   data () {
@@ -16,7 +16,7 @@ export default {
   mounted () {
   },
   components: {
-    GuideIntroMd
+    markdown
   }
 }
 
