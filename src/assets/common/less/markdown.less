@@ -120,8 +120,11 @@
         padding: 5px 10px;
         border-radius: 5px;
         background: rgb(38, 15, 73);
-        overflow: auto;
         cursor:text;
+        overflow: hidden;
+        &:hover {
+            overflow: auto;
+        }
         > code {
             color: white;
             line-height: 2em;
