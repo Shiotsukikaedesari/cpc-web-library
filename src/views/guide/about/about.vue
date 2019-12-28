@@ -1,13 +1,13 @@
 <template>
-    <div class="guide-intro markdown">
+    <div class="guide-about markdown">
       <markdown></markdown>
     </div>
 </template>
 
 <script>
-import markdown from './markdown/intro.md'
+import markdown from './markdown/about.md'
 export default {
-  name: 'guide-intro',
+  name: 'guide-about',
   data () {
     return {
 

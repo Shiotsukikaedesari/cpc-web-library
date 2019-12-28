@@ -7,13 +7,14 @@
             margin: 20px 0;
             color: black;
             position: relative;
+            text-indent: -1em;
             // 锚点样式
             > .header-anchor {
                 opacity: 0;
                 transition: all 500ms ease;
                 color: rgb(126, 126, 126);
                 font-size: 16px;
-                cursor: pointer
+                cursor: pointer;
             }
             &:hover .header-anchor{
                 opacity: 1;
@@ -81,26 +82,38 @@
             > th {
                 font-weight: 100;
                 padding: 10px 15px;
-                text-align: left;
+                text-align: center;
                 height: 40px;
                 border: 1px solid #fff;
                 background: rgb(38, 15, 73);
                 color: white;
                 box-sizing: border-box;
             }
+            > th:first-child {
+                text-align: left;
+            }
+            > th:last-child {
+                text-align: right;
+            }
         } 
         }    
         > tbody {
-        > tr {
-            > td {
-                font-weight: 100;
-                padding: 10px 15px;
-                text-align: left;
-                height: 40px;
-                border: 1px solid #2222;
-                box-sizing: border-box;
-            }
-        } 
+            > tr {
+                > td {
+                    font-weight: 100;
+                    padding: 10px 15px;
+                    height: 40px;
+                    text-align: center;
+                    border: 1px solid #2222;
+                    box-sizing: border-box;
+                }
+                > td:first-child {
+                    text-align: left;
+                }
+                > td:last-child {
+                    text-align: right;
+                }
+            } 
         }
     }
 
@@ -120,8 +133,11 @@
         padding: 5px 10px;
         border-radius: 5px;
         background: rgb(38, 15, 73);
-        overflow: auto;
         cursor:text;
+        overflow: hidden;
+        &:hover {
+            overflow: auto;
+        }
         > code {
             color: white;
             line-height: 2em;
