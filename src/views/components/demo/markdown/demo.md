@@ -1,4 +1,7 @@
-::: demo 测试测试
+### demo盒子调试页
+css样式的加载有待调整
+
+::: demo demo测试1
 ``` html
 <template>
     <div class="demo">
@@ -21,5 +24,26 @@ export default {
     color: red;
   }
 </style>
+```
+:::
+
+::: demo demo测试2
+``` html
+<template>
+    <div class="demo">
+        demo测试
+        <input type="text" v-model="data">
+    </div>
+</template>
+<script>
+export default {
+  name: 'components-demo',
+  data () {
+    return {
+      data: 222
+    }
+  }
+}
+</script>
 ```
 :::
