@@ -22,11 +22,6 @@ export default new Router({
       component: Index,
       redirect: '/'
     },
-    // {
-    //   path: '/',
-    //   name: 'display',
-    //   component: Display
-    // },
     {
       path: '/display',
       name: 'display',
