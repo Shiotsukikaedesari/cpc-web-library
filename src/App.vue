@@ -8,6 +8,10 @@
 export default {
   name: 'App',
   mounted () {
+    // 监听页面刷新重置路由
+    window.onload = () => {
+      this.$router.replace({path: '/index'})
+    }
   }
 }
 </script>
