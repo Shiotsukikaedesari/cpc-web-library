@@ -6,11 +6,11 @@
                   <cpc-nav-side-elem elemKey="1-0" slot="father" :father="true" :isSignal="true" :arrowInit="true">
                     <cpc-icon slot="side-ui" code="#icon-arrow-right-drop-circle"></cpc-icon>开始
                   </cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="1-1" slot="child" :isSignal="true">
+                  <cpc-nav-side-elem elemKey="1-1" slot="child" :isSignal="true" :click="toIntro">
                     <cpc-icon slot="side-ui" code="#icon-file-document-box" size="20px"></cpc-icon>基本介绍
                   </cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="1-2" slot="child"  :click="toUseExplain">
-                    <cpc-icon slot="side-ui" code="#icon-comment-text" size="20px"></cpc-icon>使用说明
+                  <cpc-nav-side-elem elemKey="1-2" slot="child" :click="toUseExplain">
+                    <cpc-icon slot="side-ui" code="#icon-comment-text" size="20px"></cpc-icon>编写说明
                   </cpc-nav-side-elem>
                   <cpc-nav-side-elem elemKey="1-3" slot="child" :click="toDemo">
                     <cpc-icon slot="side-ui" code="#icon-microscope" size="20px"></cpc-icon>DEMO测试
@@ -49,9 +49,15 @@ export default {
     }
   },
   methods: {
+    // 跳转到基本介绍
+    toIntro () {
+      this.$router.push({path: '/components/intro'})
+    },
+    // 跳转到组件说明
     toUseExplain () {
       this.$router.push({path: '/components/use-explain'})
     },
+    // 跳转到组件盒子测试
     toDemo () {
       this.$router.push({path: '/components/demo'})
     }

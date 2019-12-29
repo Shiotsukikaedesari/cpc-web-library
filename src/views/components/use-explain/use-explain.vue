@@ -1,23 +1,24 @@
 <template>
-    <div>
-        组件渲染盒子示例
-        <cpc-display-box :markdown="markdown"></cpc-display-box>
+    <div class="components-use-explain markdown">
+      <Markdown></Markdown>
     </div>
 </template>
 
 <script>
-import useExplain from './markdown/use-explain.md'
+import Markdown from './markdown/use-explain.md'
 export default {
   name: 'use-explain',
   data () {
     return {
-      markdown: useExplain
     }
   },
   methods: {
   },
   mounted () {
 
+  },
+  components: {
+    Markdown
   }
 }
 </script>
