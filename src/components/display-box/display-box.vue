@@ -1,5 +1,5 @@
 <template>
-    <div class="display-box animation flex-column">
+    <div :class="['display-box', 'animation', 'flex-column', 'display-box-' + sign]">
       <div class="box-upper flex-column">
         <div class="show-component animation">
           <slot name="source"></slot>
@@ -9,11 +9,11 @@
           <slot></slot>
         </div>
       </div>
-      <div :class="['box-lower', 'flex-column',]">
+      <div class="box-lower flex-column">
         <div :class="['component-code', 'markdown', 'animation', 'flex-column', {'fold': foldStatus}]">
           <slot name="highlight"></slot>
         </div>
-        <div :class="['drawer', 'flex-row-center',' animation']" @click="foldCode">
+        <div class="drawer flex-row-center animation" @click="foldCode">
           <span class="animation">code</span>
           <cpc-icon size="20px" code="#icon-code-tags"></cpc-icon>
         </div>
@@ -28,6 +28,10 @@ export default {
   props: {
     markdown: {
       type: String
+    },
+    // 记录是第几个box
+    sign: {
+      type: Number
     }
   },
   data () {
@@ -42,7 +46,8 @@ export default {
     }
   },
   mounted () {
-    let componentCode = document.querySelector('.component-code')
+    console.log(this.sign)
+    let componentCode = document.querySelector(`.display-box-${this.sign} .component-code`)
     componentCode.style.height = componentCode.offsetHeight + 'px'
     setTimeout(() => {
       this.foldStatus = true
@@ -53,6 +58,7 @@ export default {
 
 <style lang="less" scoped>
 .display-box {
+  margin: 20px 0;
   width: 100%;
   border-radius: 8px;
   border: 1px solid rgb(125, 14, 216);
