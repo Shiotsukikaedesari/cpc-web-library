@@ -67,6 +67,14 @@ export default {
       'setSideNavWidth',
       'setContainerWidth'
     ])
+  },
+  watch: {
+    setSideNavWidth (newValue, oldValue) {
+      this.sideNavWidth = newValue
+    },
+    setContainerWidth (newValue, oldValue) {
+      this.mainWidth = newValue
+    }
   }
 }
 </script>

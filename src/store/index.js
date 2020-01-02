@@ -20,11 +20,11 @@ export default new Vuex.Store({
       }
     },
     // 设置内容宽度
-    setContainerheight: state => {
+    setContainerHeight: state => {
       if (state.innerWidth > 1366) {
         return 'calc(100% - 180px)'
       } else {
-        return 'calc(100% - 140px)'
+        return 'calc(100% - 120px)'
       }
     },
     // 设置内容高度
@@ -33,6 +33,14 @@ export default new Vuex.Store({
         return ' calc(100% - 140px)'
       } else {
         return ' calc(100% - 90px)'
+      }
+    },
+    // 设置头部高度
+    setHeaderHeight: state => {
+      if (state.innerWidth > 1366) {
+        return '80px'
+      } else {
+        return '60px'
       }
     },
     // 设置底边高度
@@ -45,10 +53,22 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-
+    // 重置页面宽度
+    resetInnerWidth (state, newInnerWidth) {
+      state.innerWidth = newInnerWidth
+    },
+    // 重置页面高度
+    resetInnerHeight (state, newInnerHeight) {
+      state.innerHeight = newInnerHeight
+    }
   },
   actions: {
-
+    resetInnerWidthFun (context, newInnerWidth) {
+      context.commit('resetInnerWidth', newInnerWidth)
+    },
+    resetInnerHeightFun (context, newInnerHeight) {
+      context.commit('resetInnerHeight', newInnerHeight)
+    }
   },
   modules: {}
 })

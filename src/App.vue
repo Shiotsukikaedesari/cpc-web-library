@@ -5,16 +5,28 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 export default {
   name: 'App',
-  created () {
-
+  methods: {
+    ...mapActions([
+      'resetInnerWidthFun',
+      'resetInnerHeightFun'
+    ])
   },
   mounted () {
     // 监听页面刷新重置路由
     window.onload = () => {
       this.$router.replace({path: '/index'})
     }
+    // 监听屏幕变化
+    window.onresize = () => {
+      this.resetInnerWidthFun(window.innerWidth)
+      this.resetInnerHeightFun(window.innerHeight)
+    }
+  },
+  computed: {
+
   }
 }
 </script>

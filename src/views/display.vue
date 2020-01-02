@@ -1,7 +1,7 @@
 <template>
     <div class="display">
       <header class="cpc-nav-top">
-        <cpc-nav-top height="80px" :fixed="true">
+        <cpc-nav-top :height="headerHeight" :fixed="true">
           <div class="top-logo" slot="nav-top-left"><img src="/static/logo-fill.png" alt=""></div>
           <cpc-nav-top-elem elemKey="1" slot="nav-top-left" :click="toIndex">
             <cpc-icon slot="top-ui" code="#icon-home"></cpc-icon>首页
@@ -21,6 +21,7 @@
         </cpc-nav-top>
       </header>
       <section class="display-container flex-row" :style="{height: containerHeight}">
+        <cpc-md-nav></cpc-md-nav>
         <router-view></router-view>
       </section>
       <footer class="display-footer" :style="{height: footerHeight}">
@@ -36,7 +37,11 @@ export default {
   data () {
     return {
       sign: this.$route.query.sign || '',
+      // 设置头部高度
+      headerHeight: '80px',
+      // 设置内容的高度
       containerHeight: 'calc(100% - 180px)',
+      // 设置底边footer的高度
       footerHeight: '100px'
     }
   },
@@ -63,14 +68,27 @@ export default {
     }
   },
   created () {
-    this.containerHeight = this.setContainerheight
+    this.containerHeight = this.setContainerHeight
     this.footerHeight = this.setFooterHeight
+    this.headerHeight = this.setHeaderHeight
   },
   computed: {
     ...mapGetters([
       'setFooterHeight',
-      'setContainerheight'
+      'setContainerHeight',
+      'setHeaderHeight'
     ])
+  },
+  watch: {
+    setFooterHeight (newValue, oldValue) {
+      this.footerHeight = newValue
+    },
+    setContainerHeight (newValue, oldValue) {
+      this.containerHeight = newValue
+    },
+    setHeaderHeight (newValue, oldValue) {
+      this.headerHeight = newValue
+    }
   }
 }
 </script>
