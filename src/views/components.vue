@@ -1,7 +1,7 @@
 <template>
     <div class="components flex-row">
         <div class="cpc-nav-side">
-          <cpc-nav-side width="300px" height="100%" background="">
+          <cpc-nav-side :width="sideNavWidth" height="100%" background="">
               <cpc-nav-side-menu menuKey="1" slot="menu" :open="true">
                   <cpc-nav-side-elem elemKey="1-0" slot="father" :father="true" :isSignal="true" :arrowInit="true">
                     <cpc-icon slot="side-ui" code="#icon-arrow-right-drop-circle"></cpc-icon>开始
@@ -34,18 +34,20 @@
               </cpc-nav-side-menu>
           </cpc-nav-side>
         </div>
-        <div class="display-main">
+        <div class="display-main" :style="{width: mainWidth}">
           <router-view></router-view>
         </div>
     </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   name: 'components',
   data () {
     return {
-
+      sideNavWidth: '300px',
+      mainWidth: ' calc(100% - 140px)'
     }
   },
   methods: {
@@ -61,6 +63,16 @@ export default {
     toDemo () {
       this.$router.push({path: '/components/demo'})
     }
+  },
+  created () {
+    this.sideNavWidth = this.setSideNavWidth
+    this.mainWidth = this.setContainerWidth
+  },
+  computed: {
+    ...mapGetters([
+      'setSideNavWidth',
+      'setContainerWidth'
+    ])
   }
 }
 </script>

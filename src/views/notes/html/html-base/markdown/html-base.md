@@ -311,3 +311,107 @@ a<sub>sub</sub>
 </table>
 <!-- 注：本框架表格样式做过处理 -->
 ```
+
+<br>
+
+-----
+
+列表
+<br><br>
+* 1、有序列表1
+* 2、有序列表2
+* 3、有序列表3
+
+* 无序列表1
+* 无序列表2
+* 无序列表3
+``` html
+<ol type="1">
+    <li>有序列表1</li>
+    <li>有序列表2</li>
+    <li>有序列表3</li>
+</ol>
+
+<ul type="none">
+    <li>无序列表1</li>
+    <li>无序列表2</li>
+    <li>无序列表3</li>
+</ul>
+<!-- type是标志的类型，具体可以在html宝典中查看 -->
+```
+
+<br>
+
+-----
+
+定义列表：常用于给出一类事物的定义或者对名词的介绍说明
+<br><br>
+
+<dl>
+	<dt>定义的名词</dt>
+	<dd>说明</dd>	
+</dl>
+
+``` html
+<dl>
+    <dt>定义的名词</dt>
+    <dd>说明</dd>	
+</dl>
+<!-- 常用于图文混排 -->
+```
+
+<br>
+
+-----
+
+结构标记：专门设计整个网页的布局结构
+<br><br>
+
+<div>定义网页或者某一部分的头部</div>
+<div>网页导航链接</div>
+<div>网页主体内容</div>
+<div>定义网页的侧边栏</div>
+<div>页尾</div>
+<div>定义文字描述相关的内容</div>
+
+``` html 
+<header>定义网页或者某一部分的头部</header>
+<nav>网页导航链接</nav>
+<section>网页主体内容</section>
+<aside>定义网页的侧边栏</aside>
+<footer>页尾</footer>
+<article>定义文字描述相关的内容</article>
+<!-- 只是为了更语义化的表现html结构，与div别无二致 -->
+```
+
+<br>
+
+-----
+
+表单元素：实现与客户端进行数据交互
+<br><br>
+
+<form>
+    文本输入框 <input type="text" style="border: 1px solid black">
+    <br>
+    多选框 <input type="checkbox"><input type="checkbox">
+    <br>
+    复合文本框 <textarea></textarea>
+    <br>
+    ...
+</form>
+
+``` html
+ <!-- form标记可以收集里面的表单信息统一进行操作，具体属性参考宝典 -->
+<form action="do.js" method="get">
+    文本输入框 <input type="text" style="border: 1px solid black">
+    <!-- input还有许多属性，具体参考宝典 -->
+    <br>
+    多选框 <input type="checkbox"><input type="checkbox"> 
+    <br>
+    复合文本框 <textarea></textarea>
+    <br>
+    ...
+    <!-- 还有许多的表单标记，具体参考宝典 -->
+</form>
+```
