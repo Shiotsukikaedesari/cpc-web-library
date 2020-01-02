@@ -1,7 +1,7 @@
 <template>
     <div class="guide flex-row">
         <div class="cpc-nav-side">
-          <cpc-nav-side width="300px" height="100%" background="">
+          <cpc-nav-side :width="sideNavWidth" height="100%" background="">
               <template slot="menu">
                   <cpc-nav-side-elem elemKey="0" slot="child" :isSignal="true" :click="toIntro">
                      <cpc-icon slot="side-ui" code="#icon-file-document-box"></cpc-icon>介绍
@@ -18,17 +18,20 @@
               </template>
           </cpc-nav-side>
         </div>
-        <div class="display-main">
+        <div class="display-main" :style="{width: mainWidth}">
           <router-view></router-view>
         </div>
     </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   name: 'guide',
   data () {
     return {
+      sideNavWidth: '300px',
+      mainWidth: ' calc(100% - 140px)'
     }
   },
   methods: {
@@ -47,6 +50,16 @@ export default {
     toAbout () {
       this.$router.push({path: '/guide/about'})
     }
+  },
+  created () {
+    this.sideNavWidth = this.setSideNavWidth
+    this.mainWidth = this.setContainerWidth
+  },
+  computed: {
+    ...mapGetters([
+      'setSideNavWidth',
+      'setContainerWidth'
+    ])
   }
 }
 </script>

@@ -7,6 +7,9 @@
 <script>
 export default {
   name: 'App',
+  created () {
+
+  },
   mounted () {
     // 监听页面刷新重置路由
     window.onload = () => {

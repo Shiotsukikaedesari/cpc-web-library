@@ -20,21 +20,24 @@
           </cpc-nav-top-elem>
         </cpc-nav-top>
       </header>
-      <section class="display-container flex-row">
+      <section class="display-container flex-row" :style="{height: containerHeight}">
         <router-view></router-view>
       </section>
-      <footer class="display-footer">
+      <footer class="display-footer" :style="{height: footerHeight}">
 
       </footer>
     </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   name: 'display',
   data () {
     return {
-      sign: this.$route.query.sign || ''
+      sign: this.$route.query.sign || '',
+      containerHeight: 'calc(100% - 180px)',
+      footerHeight: '100px'
     }
   },
   methods: {
@@ -58,6 +61,16 @@ export default {
     toNotes () {
       this.$router.push({path: '/notes'})
     }
+  },
+  created () {
+    this.containerHeight = this.setContainerheight
+    this.footerHeight = this.setFooterHeight
+  },
+  computed: {
+    ...mapGetters([
+      'setFooterHeight',
+      'setContainerheight'
+    ])
   }
 }
 </script>
@@ -71,13 +84,11 @@ export default {
     }
     > .display-container {
       width: 100%;
-      height: calc(100% - 180px);
     }
     > .display-footer {
       position: fixed;
       bottom: 0;
       left: 0;
-      height: 100px;
       width: 100%;
       background: rgb(65, 19, 86);
     }
