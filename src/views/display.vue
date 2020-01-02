@@ -21,6 +21,7 @@
         </cpc-nav-top>
       </header>
       <section class="display-container flex-row">
+        <cpc-md-nav></cpc-md-nav>
         <router-view></router-view>
       </section>
       <footer class="display-footer">

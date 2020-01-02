@@ -11,6 +11,8 @@ import NavSideMenu from '@/components/nav-side-menu'
 
 import Icon from '@/components/icon'
 
+import MdNav from '@/components/md-nav'
+
 Vue.use(DisplayBox)
 
 Vue.use(NavTop)
@@ -21,3 +23,5 @@ Vue.use(NavSideElem)
 Vue.use(NavSideMenu)
 
 Vue.use(Icon)
+
+Vue.use(MdNav)
