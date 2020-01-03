@@ -11,7 +11,7 @@ config
 
   .plugin('anchor').use(anchorPlugin, [
     {
-      level: 2,
+      level: 0,
       slugify: slugify,
       permalink: true,
       permalinkBefore: true,
