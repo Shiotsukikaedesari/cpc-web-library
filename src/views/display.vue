@@ -117,4 +117,12 @@ export default {
       width: 70px;
     }
   }
+
+@media screen and (max-width: 1366px) {
+    .top-logo {
+    > img {
+      width: 50px;
+    }
+  }
+}
 </style>

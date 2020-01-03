@@ -50,6 +50,10 @@ export default new Vuex.Store({
       } else {
         return '60px'
       }
+    },
+    // 设置md-nav最大高度
+    setMdNavMaxHeight: state => {
+      return state.innerHeight / 2.5 + 'px'
     }
   },
   mutations: {
