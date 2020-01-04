@@ -5,8 +5,7 @@
     :style="{'height': navHeight, 'max-height': navMaxHeight}"
     >
       <ul>
-        <li v-for="(item, index) in listData" :key="index"><a :href="item.href" v-text="item.title" :title="item.title"></a></li>
-
+        <li v-for="(item, index) in listData" :key="index"><a :href="item.href" :style="item.style" v-text="item.title" :title="item.title"></a></li>
       </ul>
     </div>
     <div class="nav-handle animation" @click="toggleBox"></div>
@@ -43,6 +42,20 @@ export default {
       title.forEach((elem, i, arr) => {
         // 剔除演示标签
         if (elem.firstChild.tagName === 'A') {
+          // 区分每个标题的样式
+          if (elem.tagName === 'H1') {
+            temp.style = 'font-size: 1.2em; font-weight: 600; text-indent: 0;'
+          } else if (elem.tagName === 'H2') {
+            temp.style = 'font-size: 1.0em; font-weight: 550; text-indent: 1em;'
+          } else if (elem.tagName === 'H3') {
+            temp.style = 'font-size: 1.0em; font-weight: 500; text-indent: 2em;'
+          } else if (elem.tagName === 'H4') {
+            temp.style = 'font-size: 0.8em; font-weight: 400; text-indent: 3em;'
+          } else if (elem.tagName === 'H5') {
+            temp.style = 'font-size: 0.6em; font-weight: 400; text-indent: 4em;'
+          } else if (elem.tagName === 'H6') {
+            temp.style = 'font-size: 0.4em; font-weight: 400; text-indent: 5em;'
+          }
           temp.title = elem.textContent.slice(1)
           temp.href = '#' + elem.id
           temp.tagName = elem.tagName
@@ -58,6 +71,7 @@ export default {
     },
     // 定时器展示盒子
     timerShowBox () {
+      // 盒子展开有css动画
       this.boxSwitch = false
       this.initData()
       this.navHeight = 'unset'
@@ -110,9 +124,11 @@ export default {
     box-shadow: @lightShadow;
     border-radius: 5px;
     padding: 10px;
-    overflow: auto;
+    overflow: hidden;
     &:hover {
+      border: 3px solid rgb(230, 124, 224);
        box-shadow: 4px 4px 8px rgb(98, 42, 161);
+       overflow: auto;
     }
     > ul {
       padding: 0;
