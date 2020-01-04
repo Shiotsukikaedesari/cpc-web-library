@@ -90,7 +90,7 @@
 > 引用一
 ```
 
-### 多层
+### 多层分块
 > 引用一
 
 > 引用一
@@ -148,13 +148,13 @@
 <br><br><br><br>
 ## 代码
 ---
-### 单行
+### 单行代码
 `console.log(windows)`
 ```
 `console.log(windows)`
 ```
-### 多行
-js 效果
+### 多行代码
+#### js 效果
 ``` js
 export default {
   name: 'guide',
@@ -186,7 +186,7 @@ export default {
 }
 ```)
 ```
-html 效果
+#### html 效果
 ``` html
 <div class="cpc-nav-side">
     <cpc-nav-side width="300px" height="100%" background="">
@@ -212,8 +212,7 @@ html 效果
 </div>
 ```)
 ```
-<br><br>
-css 效果
+#### css 效果
 ``` css
 .components {
         height: 100%;
