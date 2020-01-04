@@ -3,6 +3,7 @@
     <div
     :class="['md-nav-box', 'animation', {'close-box': boxSwitch}]"
     :style="{'height': navHeight, 'max-height': navMaxHeight}"
+    @mouseenter="stopNavClose"
     >
       <ul>
         <li v-for="(item, index) in listData" :key="index"><a :href="item.href" :style="item.style" v-text="item.title" :title="item.title"></a></li>
@@ -87,6 +88,10 @@ export default {
       this.timer = setTimeout(() => {
         this.toggleBox()
       }, 1500)
+    },
+    // 停止盒子合并
+    stopNavClose () {
+      clearTimeout(this.timer)
     }
   },
   mounted () {
