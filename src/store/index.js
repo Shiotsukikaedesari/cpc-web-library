@@ -54,6 +54,14 @@ export default new Vuex.Store({
     // 设置md-nav最大高度
     setMdNavMaxHeight: state => {
       return state.innerHeight / 2.5 + 'px'
+    },
+    // 设置toTop的buttom
+    setToTopBottom: state => {
+      if (state.innerWidth > 1366) {
+        return 'calc(3% + 100px)'
+      } else {
+        return 'calc(3% + 60px)'
+      }
     }
   },
   mutations: {
