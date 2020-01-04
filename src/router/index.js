@@ -17,12 +17,6 @@ export default new Router({
       component: Index
     },
     {
-      path: '/index',
-      name: 'index',
-      component: Index,
-      redirect: '/'
-    },
-    {
       path: '/display',
       name: 'display',
       component: Display,
@@ -32,6 +26,12 @@ export default new Router({
         Guide,
         Notes
       ]
+    },
+    {
+      path: '*',
+      name: '404',
+      redirect: '/'
+      // component: Index
     }
   ]
 })

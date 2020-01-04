@@ -17,7 +17,7 @@ export default {
   mounted () {
     // 监听页面刷新重置路由
     window.onload = () => {
-      this.$router.replace({path: '/index'})
+      this.$router.replace({path: '/'})
     }
     // 监听屏幕变化
     window.onresize = () => {
