@@ -20,7 +20,7 @@
                   <cpc-nav-side-elem elemKey="2-0" slot="father" :father="true">
                     <cpc-icon slot="side-ui" code="#icon-cube"></cpc-icon>通用组件
                   </cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="2-1" slot="child">组件一</cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="2-1" slot="child" :click="toIcon">图标</cpc-nav-side-elem>
                   <cpc-nav-side-elem elemKey="2-2" slot="child">组件二</cpc-nav-side-elem>
                   <cpc-nav-side-elem elemKey="2-3" slot="child">组件三</cpc-nav-side-elem>
               </cpc-nav-side-menu>
@@ -62,6 +62,10 @@ export default {
     // 跳转到组件盒子测试
     toDemo () {
       this.$router.push({path: '/components/demo'})
+    },
+    // 跳转到图标
+    toIcon () {
+      this.$router.push({path: '/components/icon'})
     }
   },
   created () {

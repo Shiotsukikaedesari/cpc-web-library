@@ -1,5 +1,12 @@
 <template>
-    <div class="icon-container animation flex-row" :style="{'font-size': size, 'color': color}">
+    <div
+    class="icon-container animation flex-row"
+    :style="{
+      'font-size': size,
+      'color': color
+      }"
+    @click="click"
+    >
       <svg class="icon" aria-hidden="true">
         <use :xlink:href="code"></use>
       </svg>
@@ -11,8 +18,7 @@ export default {
   name: 'cpc-icon',
   props: {
     code: {
-      type: String,
-      default: '#icon-alert-circle-outline'
+      type: String
     },
     size: {
       type: String,
@@ -21,11 +27,17 @@ export default {
     color: {
       type: String,
       default: 'black'
+    },
+    click: {
+      type: Function,
+      default: () => {}
     }
   }
 }
 </script>
 
 <style lang="less">
-
+.icon-container {
+  display: inline-block;
+}
 </style>

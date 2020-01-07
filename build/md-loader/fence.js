@@ -31,8 +31,7 @@ let demoHighlight = (content) => {
     css +
     '<br><span class="hljs-tag">&lt;/style&gt;</span></code></pre>'
   }
-  
-return `<template slot="highlight">${container}</template>`
+  return `<template slot="highlight">${container}</template>`
 }
 // 覆盖默认的 fence 渲染策略
 module.exports = md => {
