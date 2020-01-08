@@ -1,4 +1,39 @@
 ## 图标
+### 图标的开场动画
+::: demo 图标被页面首次渲染的动画效果，属性：`worldofwar`,通过切换菜单查看效果~
+``` html
+<template>
+    <cpc-icon
+    code="#icon-alert-circle-outline"
+    worldofwar="none"
+    ></cpc-icon>
+    <cpc-icon
+    code="#icon-alert-circle-outline"
+    worldofwar="fadeOut"
+    ></cpc-icon>
+    <cpc-icon
+    code="#icon-alert-circle-outline"
+    worldofwar="rotation2D"
+    ></cpc-icon>
+    <cpc-icon
+    code="#icon-alert-circle-outline"
+    worldofwar="rotation3D-Y"
+    ></cpc-icon>
+    <cpc-icon
+    code="#icon-alert-circle-outline"
+    worldofwar="rotation3D-X"
+    ></cpc-icon>
+    <cpc-icon
+    code="#icon-alert-circle-outline"
+    worldofwar="drawer-X"
+    ></cpc-icon>
+    <cpc-icon
+    code="#icon-alert-circle-outline"
+    worldofwar="drawer-Y"
+    ></cpc-icon>
+</template>
+```
+:::
 
 ### 选取图标
 ::: demo 图标的选择，属性：`code`，本框架提供描边类型与填充类型
@@ -30,19 +65,23 @@
 ```
 :::
 
-### 图标支持的事件
-::: demo 图标的大小与颜色，属性：`size`、`color`
+### 图标的在场动画
+::: demo 属性：`animation`、`aniFunction`、`aniDuration`
 ``` html
 <template>
     <cpc-icon
-    code="#icon-alert-circle-outline"
-    size="30px"
-    color="violet"
+    code="#icon-reload"
+    animation="rotation2D-Ani"
     ></cpc-icon>
     <cpc-icon
-    code="#icon-alert-circle-outline"
-    size="1em"
-    color="rgb(255, 0, 0)"
+    code="#icon-reload"
+    animation="rotation2D-Ani"
+    aniFunction="linear"
+    ></cpc-icon>
+    <cpc-icon
+    code="#icon-reload"
+    animation="rotation2D-Ani"
+    aniDuration="500ms"
     ></cpc-icon>
 </template>
 ```
@@ -56,12 +95,20 @@
 code|图标的code|String|-
 size|图标的尺寸，支持所有css值|String|'25px'
 color|图标的颜色，支持所有css值|String|'black'
+worldofwar|图标被页面首次渲染的动画效果,有效值：`none`、`fadeOut`、`rotation2D`、`rotation3D-Y`、`rotation3D-X`、`drawer-X`、`drawer-Y`|String|'none'
+animation|图标在场的动画效果，,有效值：`none`、`fadeOut-Ani`、`rotation2D-Ani`、`rotation3D-Y-Ani`、`rotation3D-X-Ani`、`drawer-X-Ani`、`drawer-Y-Ani`|String|'none'
+aniFunction|图标在场动画的运动曲线，有效值：`ease`、`linear`、`ease-in`、`ease-out`、`ease-in-out`、`cubic-bezier(n, n, n, n)`|String|'ease'
+aniDuration|图标在场动画的运动速度（ms, s）|String|'2s'
 
 ### 事件
 事件|说明|返回值
 :---|:---|:---
 -|-|-
 
-### TODO
-
-### 备注
+## TODO
+* 等tab切换组件做好了回来增加填充图标展示，线性图标与其他图标展示
+* 还需要做一个支持自定义ui的slot
+* 等全局提示组件做好了要更换复制成功的效果
+## 备注
+\-
+## 图标code

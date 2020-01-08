@@ -20,7 +20,9 @@
                   <cpc-nav-side-elem elemKey="2-0" slot="father" :father="true">
                     <cpc-icon slot="side-ui" code="#icon-cube"></cpc-icon>通用组件
                   </cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="2-1" slot="child" :click="toIcon">图标</cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="2-1" slot="child" :click="toIcon">
+                    <cpc-icon slot="side-ui" code="#icon-rhombus-outline"></cpc-icon>图标
+                  </cpc-nav-side-elem>
                   <cpc-nav-side-elem elemKey="2-2" slot="child">组件二</cpc-nav-side-elem>
                   <cpc-nav-side-elem elemKey="2-3" slot="child">组件三</cpc-nav-side-elem>
               </cpc-nav-side-menu>
