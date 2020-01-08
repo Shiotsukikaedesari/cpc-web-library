@@ -4,6 +4,7 @@ import UseExplain from '@/views/components/use-explain/use-explain'
 import ComponentsDemo from '@/views/components/demo/demo'
 import Intro from '@/views/components/intro/intro'
 import Icon from '@/views/components/icon/icon'
+import Button from '@/views/components/button/button'
 
 export default
 {
@@ -31,6 +32,11 @@ export default
       path: '/components/icon',
       name: 'components-icon',
       component: Icon
+    },
+    {
+      path: '/components/button',
+      name: 'components-button',
+      component: Button
     }
   ]
 }

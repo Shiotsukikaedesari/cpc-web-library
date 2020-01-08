@@ -21,10 +21,14 @@
                     <cpc-icon slot="side-ui" code="#icon-cube"></cpc-icon>通用组件
                   </cpc-nav-side-elem>
                   <cpc-nav-side-elem elemKey="2-1" slot="child" :click="toIcon">
-                    <cpc-icon slot="side-ui" code="#icon-rhombus-outline"></cpc-icon>图标
+                    <cpc-icon slot="side-ui" code="#icon-resize-bottom-right"></cpc-icon>图标
                   </cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="2-2" slot="child">组件二</cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="2-3" slot="child">组件三</cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="2-2" slot="child">
+                    <cpc-icon slot="side-ui" code="#icon-checkbox-multiple-blank"></cpc-icon>消息提示
+                  </cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="2-3" slot="child" :click="toButton">
+                    <cpc-icon slot="side-ui" code="#icon-nest-protect"></cpc-icon>按钮
+                  </cpc-nav-side-elem>
               </cpc-nav-side-menu>
               <cpc-nav-side-menu menuKey="3" slot="menu">
                 <cpc-nav-side-elem elemKey="3-0" slot="father" :father="true">
@@ -68,6 +72,10 @@ export default {
     // 跳转到图标
     toIcon () {
       this.$router.push({path: '/components/icon'})
+    },
+    // 跳转到按钮
+    toButton () {
+      this.$router.push({path: '/components/button'})
     }
   },
   created () {

@@ -13,6 +13,8 @@ import Icon from '@/components/icon'
 
 import MdNav from '@/components/md-nav'
 
+import Button from '@/components/button'
+
 Vue.use(DisplayBox)
 
 Vue.use(NavTop)
@@ -25,3 +27,5 @@ Vue.use(NavSideMenu)
 Vue.use(Icon)
 
 Vue.use(MdNav)
+
+Vue.use(Button)
