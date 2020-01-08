@@ -149,6 +149,7 @@ export default {
         border: 1px solid rgb(226, 63, 231);
         cursor: pointer;
         overflow: hidden;
+        background: #fff;
         &:hover {
           box-shadow: 0 0 12px rgb(217, 74, 236);
           border: 1px solid rgb(188, 16, 194);
