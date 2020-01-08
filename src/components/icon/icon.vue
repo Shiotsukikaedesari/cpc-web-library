@@ -4,12 +4,12 @@
     'icon-container',
     'animation',
     'flex-row',
-    {'fadeOut': worldofwar === 'fadeOut'},
-    {'rotation2D': worldofwar === 'rotation2D'},
-    {'rotation3D-Y': worldofwar === 'rotation3D-Y'},
-    {'rotation3D-X': worldofwar === 'rotation3D-X'},
-    {'drawer-X': worldofwar === 'drawer-X'},
-    {'drawer-Y': worldofwar === 'drawer-Y'},
+    {'fadeOut':  openAnimation === 'fadeOut'},
+    {'rotation2D':  openAnimation === 'rotation2D'},
+    {'rotation3D-Y':  openAnimation === 'rotation3D-Y'},
+    {'rotation3D-X':  openAnimation === 'rotation3D-X'},
+    {'drawer-X':  openAnimation === 'drawer-X'},
+    {'drawer-Y':  openAnimation === 'drawer-Y'},
     {'ani': animation !== 'none'}
     ]"
     :style="{
@@ -45,7 +45,7 @@ export default {
       default: 'black'
     },
     // 开场动画
-    worldofwar: {
+    openAnimation: {
       type: String,
       default: 'none'
     },

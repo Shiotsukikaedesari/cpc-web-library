@@ -1,35 +1,41 @@
 ## 图标
 ### 图标的开场动画
-::: demo 图标被页面首次渲染的动画效果，属性：`worldofwar`,通过切换菜单查看效果~
+::: demo 图标被页面首次渲染的动画效果，属性：` openAnimation`，demo中的`animation`为辅助展示用
 ``` html
 <template>
     <cpc-icon
     code="#icon-alert-circle-outline"
-    worldofwar="none"
+    openAnimation="none"
     ></cpc-icon>
     <cpc-icon
     code="#icon-alert-circle-outline"
-    worldofwar="fadeOut"
+    openAnimation="fadeOut"
+    animation="fadeOut-Ani"
     ></cpc-icon>
     <cpc-icon
     code="#icon-alert-circle-outline"
-    worldofwar="rotation2D"
+    openAnimation="rotation2D"
+    animation="rotation2D-Ani"
     ></cpc-icon>
     <cpc-icon
     code="#icon-alert-circle-outline"
-    worldofwar="rotation3D-Y"
+    openAnimation="rotation3D-Y"
+    animation="rotation3D-Y-Ani"
     ></cpc-icon>
     <cpc-icon
     code="#icon-alert-circle-outline"
-    worldofwar="rotation3D-X"
+    openAnimation="rotation3D-X"
+    animation="rotation3D-X-Ani"
     ></cpc-icon>
     <cpc-icon
     code="#icon-alert-circle-outline"
-    worldofwar="drawer-X"
+    openAnimation="drawer-X"
+    animation="drawer-X-Ani"
     ></cpc-icon>
     <cpc-icon
     code="#icon-alert-circle-outline"
-    worldofwar="drawer-Y"
+    openAnimation="drawer-Y"
+    animation="drawer-Y-Ani"
     ></cpc-icon>
 </template>
 ```
@@ -66,7 +72,7 @@
 :::
 
 ### 图标的在场动画
-::: demo 属性：`animation`、`aniFunction`、`aniDuration`
+::: demo 图标存在期间的动画属性相关配置，属性：`animation`、`aniFunction`、`aniDuration`
 ``` html
 <template>
     <cpc-icon
@@ -95,7 +101,7 @@
 code|图标的code|String|-
 size|图标的尺寸，支持所有css值|String|'25px'
 color|图标的颜色，支持所有css值|String|'black'
-worldofwar|图标被页面首次渲染的动画效果,有效值：`none`、`fadeOut`、`rotation2D`、`rotation3D-Y`、`rotation3D-X`、`drawer-X`、`drawer-Y`|String|'none'
+ openAnimation|图标被页面首次渲染的动画效果,有效值：`none`、`fadeOut`、`rotation2D`、`rotation3D-Y`、`rotation3D-X`、`drawer-X`、`drawer-Y`|String|'none'
 animation|图标在场的动画效果，,有效值：`none`、`fadeOut-Ani`、`rotation2D-Ani`、`rotation3D-Y-Ani`、`rotation3D-X-Ani`、`drawer-X-Ani`、`drawer-Y-Ani`|String|'none'
 aniFunction|图标在场动画的运动曲线，有效值：`ease`、`linear`、`ease-in`、`ease-out`、`ease-in-out`、`cubic-bezier(n, n, n, n)`|String|'ease'
 aniDuration|图标在场动画的运动速度（ms, s）|String|'2s'
