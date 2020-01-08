@@ -13,6 +13,7 @@ module.exports = md => {
         return `<cpc-display-box :sign="${idx}">
         ${description ? `<div>${md.render(description)}</div>` : ''}
         <!--element-demo: ${content}:element-demo-->
+        <!--cpc-display-box-id: ${idx}:cpc-display-box-id-->
         `;
       }
       return '</cpc-display-box>';

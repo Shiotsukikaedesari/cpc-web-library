@@ -1,17 +1,24 @@
 const {
   stripScript,
   stripTemplate,
+  stripStyle,
   genInlineComponentText
 } = require('./util');
 const md = require('./config');
 
 module.exports = function(source) {
   const content = md.render(source);
-
+  // 这个是获取内容的代码
   const startTag = '<!--element-demo:';
   const startTagLen = startTag.length;
   const endTag = ':element-demo-->';
   const endTagLen = endTag.length;
+  
+  // 增加一个获取demo盒子的位置代码用来区分style分区
+  const startStyleTag = '<!--cpc-display-box-id:';
+  const startStyleTagLen = startStyleTag.length;
+  const endStyleTag = ':cpc-display-box-id-->';
+  const endStyleTagLen = endStyleTag.length;
 
   let componenetsString = '';
   let id = 0; // demo 的 id
@@ -20,12 +27,23 @@ module.exports = function(source) {
 
   let commentStart = content.indexOf(startTag);
   let commentEnd = content.indexOf(endTag, commentStart + startTagLen);
+
+  let styleStart = content.indexOf(startStyleTag);
+  let styleEnd = content.indexOf(endStyleTag, styleStart + startStyleTagLen);
+
+  let style = ``
+  // 用来获取html模板
   while (commentStart !== -1 && commentEnd !== -1) {
     output.push(content.slice(start, commentStart));
 
     const commentContent = content.slice(commentStart + startTagLen, commentEnd);
+    
     const html = stripTemplate(commentContent);
     const script = stripScript(commentContent);
+    // TODO: css样式的优化，考虑用less转写
+    if (stripStyle(commentContent).length > 0) {
+      style += `.display-box-${(content.slice(styleStart + startStyleTagLen, styleEnd)).trim()} .show-component ${stripStyle(commentContent)}\n`
+    }
     let demoComponentContent = genInlineComponentText(html, script);
     const demoComponentName = `element-demo${id}`;
     output.push(`<template slot="source"><${demoComponentName} /></template>`);
@@ -36,7 +54,10 @@ module.exports = function(source) {
     start = commentEnd + endTagLen;
     commentStart = content.indexOf(startTag, start);
     commentEnd = content.indexOf(endTag, commentStart + startTagLen);
+    styleStart = content.indexOf(startStyleTag, start);
+    styleEnd = content.indexOf(endStyleTag, styleStart + startStyleTagLen);
   }
+
 
   // 仅允许在 demo 不存在时，才可以在 Markdown 中写 script 标签
   // todo: 优化这段逻辑
@@ -56,6 +77,7 @@ module.exports = function(source) {
   }
 
   output.push(content.slice(start));
+  // 这里给style增加scoped可以固定在当下的vue组件中
   return `
     <template>
       <section class="content markdown-doc">
@@ -63,5 +85,6 @@ module.exports = function(source) {
       </section>
     </template>
     ${pageScript}
+    <style scoped>${style}</style>
   `;
 };
