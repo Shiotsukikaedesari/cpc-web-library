@@ -2,12 +2,16 @@
 ### md组件文档结构
 * 标题
 * 总说明
+* demo1标题
 * demo1
+* demo2标题
 * demo2
-* demo *
+* demo*标题
+* demo*
 * API标题
 * 属性table
 * 函数table
+* 将要实现TODO
 * 备注与bug
 
 
@@ -29,7 +33,7 @@
 
 ## demo的使用
 
-详细可以取参照demo测试页的代码
+详细可以参照demo测试页的代码
 
 ```
 (::: demo demo的描述
