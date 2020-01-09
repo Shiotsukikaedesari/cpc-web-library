@@ -46,7 +46,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.sign)
     let componentCode = document.querySelector(`.display-box-${this.sign} .component-code`)
     componentCode.style.height = componentCode.offsetHeight + 'px'
     setTimeout(() => {
@@ -109,7 +108,12 @@ export default {
       width: calc(~"100% - 20px");
       margin: 10px;
       > pre {
-        overflow: hidden;
+        margin: 0;
+        padding: 10px;
+        > code {
+          padding: 0;
+          margin: 0;
+        }
       }
     }
      > .fold {
