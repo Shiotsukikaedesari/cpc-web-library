@@ -36,13 +36,11 @@ export default {
     },
     // 图标大小
     size: {
-      type: String,
-      default: '25px'
+      type: String
     },
     // 图标颜色
     color: {
-      type: String,
-      default: 'black'
+      type: String
     },
     // 开场动画
     openAnimation: {
@@ -91,6 +89,7 @@ export default {
 <style lang="less">
 .icon-container {
   display: inline-block;
+  font-size: 25px;
 }
 .fadeOut {
   animation: fadeOut-Ani 2s ease forwards;
