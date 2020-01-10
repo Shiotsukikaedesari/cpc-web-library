@@ -40,15 +40,18 @@ module.exports = function(source) {
     
     const html = stripTemplate(commentContent);
     const script = stripScript(commentContent);
-    // TODO: css样式的优化，考虑用less转写
-    if (stripStyle(commentContent).length > 0) {
-      style += `.display-box-${(content.slice(styleStart + startStyleTagLen, styleEnd)).trim()} .show-component ${stripStyle(commentContent)}\n`
-    }
+    
     let demoComponentContent = genInlineComponentText(html, script);
     const demoComponentName = `element-demo${id}`;
     output.push(`<template slot="source"><${demoComponentName} /></template>`);
     componenetsString += `${JSON.stringify(demoComponentName)}: ${demoComponentContent},`;
 
+    // TODO: css样式的优化，考虑用less转写
+    if (stripStyle(commentContent).length > 0) {
+      console.log(`\n==============\n`)
+      console.log(`${(content.slice(styleStart + startStyleTagLen, styleEnd)).trim()}`)
+      console.log(`\n==============\n`)
+    }
     // 重新计算下一次的位置
     id++;
     start = commentEnd + endTagLen;

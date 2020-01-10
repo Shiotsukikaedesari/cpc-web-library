@@ -45,5 +45,10 @@ export default {
   }
 }
 </script>
+<style>
+  div {
+    color: blue;
+  }
+</style>
 ```
 :::
