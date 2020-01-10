@@ -74,10 +74,41 @@
 ```
 :::
 
-### 按钮的禁用
-::: demo 属性：`disabled`
+### 按钮的等待与禁用
+::: demo 属性：`disabled`、`waiting`
 ``` html
 <template>
+    <cpc-button>按钮fill</cpc-button>
+    <cpc-button
+    styleType="outLine"
+    sceneType="success"
+    >outLine-success</cpc-button>
+    <cpc-button
+    styleType="dashed"
+    sceneType="error"
+    >dashed-error</cpc-button>
+    <cpc-button
+    styleType="text"
+    sceneType="warning"
+    >text-warning</cpc-button>
+    <br>
+    <cpc-button :waiting="true">按钮fill</cpc-button>
+    <cpc-button
+    styleType="outLine"
+    sceneType="success"
+    :waiting="true"
+    >outLine-success</cpc-button>
+    <cpc-button
+    styleType="dashed"
+    sceneType="error"
+    waiting
+    >dashed-error</cpc-button>
+    <cpc-button
+    styleType="text"
+    sceneType="warning"
+    waiting
+    >text-warning</cpc-button>
+    <br>
     <cpc-button disabled>按钮fill</cpc-button>
     <cpc-button
     styleType="outLine"
@@ -95,5 +126,77 @@
     disabled
     >text-warning</cpc-button>
 </template>
+```
+:::
+
+### 按钮的图标
+::: demo 在按钮文字前后增加icon，的调用`<cpc-icon></cpc-icon>`组件
+``` html
+<template>
+    <cpc-button>
+        <cpc-icon code="#icon-apple"></cpc-icon>按钮fill
+    </cpc-button>
+    <cpc-button sceneType="info" waiting>
+        <cpc-icon
+        code="#icon-rotate-right"
+        animation="rotation2D-Ani"
+        aniDuration="1s"
+        ></cpc-icon>正在加载...
+    </cpc-button>
+    <cpc-button styleType="outLine" sceneType="success">
+        outLine-success <cpc-icon code="#icon-check"></cpc-icon>
+    </cpc-button>
+    <cpc-button styleType="dashed" :circle="true">
+        <cpc-icon code="#icon-account-search" size="25px"></cpc-icon>
+    </cpc-button>
+</template>
+```
+:::
+
+### 按钮的示例
+::: demo 
+``` html
+<template>
+    <cpc-button
+    :sceneType="sceneType"
+    :waiting ="waiting"
+    @click="login"
+    >
+        <cpc-icon
+        v-show="showIcon"
+        :code="iconCode"
+        :animation="animation"
+        aniDuration="1s"
+        ></cpc-icon>{{text}}
+    </cpc-button>
+</template>
+
+<script>
+export default {
+    data () {
+        return {
+            showIcon: false,
+            iconCode: '#icon-rotate-right',
+            waiting: false,
+            text: '点击登录',
+            sceneType: '',
+            animation: 'rotation2D-Ani',
+        }
+    },
+    methods: {
+        login () {
+            this.showIcon = true
+            this.waiting = true
+            this.text = '正在登录请稍后...'
+            setTimeout(() => {
+                this.sceneType = 'success'
+                this.animation = 'none'
+                this.iconCode = '#icon-check'
+                this.text = '登录成功！'
+            }, 3000)
+        }
+    }
+}
+</script>
 ```
 :::
