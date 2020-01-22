@@ -1,5 +1,11 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+// 引入全局less
+import './assets/common/less/base.less'
+import './assets/common/css/cpc-highlight.css'
+// 引入UI文件
+import './assets/icon/iconfont'
+
 import Vue from 'vue'
 import App from './App'
 import router from './router'
@@ -10,11 +16,6 @@ import './assets/common/js/source'
 
 // 引入工具类
 import Tools from './assets/common/js/tools'
-// 引入全局less
-import './assets/common/less/base.less'
-import './assets/common/css/cpc-highlight.css'
-// 引入UI文件
-import './assets/icon/iconfont'
 
 Vue.config.productionTip = false
 
