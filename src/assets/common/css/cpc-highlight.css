@@ -17,7 +17,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   overflow: hidden
 }
 .hljs:hover {
-  overflow: auto;
+  overflow-x: auto;
 }
 
 .hljs-comment,
