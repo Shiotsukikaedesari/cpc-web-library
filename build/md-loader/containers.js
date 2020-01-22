@@ -12,8 +12,7 @@ module.exports = md => {
         const content = tokens[idx + 1].type === 'fence' ? tokens[idx + 1].content : '';
         return `<cpc-display-box :sign="${idx}">
         ${description ? `<div>${md.render(description)}</div>` : ''}
-        <!--element-demo: ${content}:element-demo-->
-        <!--cpc-display-box-id: ${idx}:cpc-display-box-id-->
+        <!--element-demo:<!--cpc-display-box-id: ${idx}:cpc-display-box-id--> ${content}:element-demo-->
         `;
       }
       return '</cpc-display-box>';
