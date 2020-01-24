@@ -14,6 +14,7 @@ import Icon from '@/components/icon'
 import MdNav from '@/components/md-nav'
 
 import Button from '@/components/button'
+import ButtonGroup from '@/components/button-group'
 
 Vue.use(DisplayBox)
 
@@ -29,3 +30,4 @@ Vue.use(Icon)
 Vue.use(MdNav)
 
 Vue.use(Button)
+Vue.use(ButtonGroup)
