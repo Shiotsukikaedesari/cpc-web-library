@@ -361,7 +361,7 @@ export default {
   box-shadow: 0 0 0 3px rgba(223, 111, 233, 0);
   &:hover {
     box-shadow: 0 0 10px @infoColor;
-    text-shadow: 0 0 2px @buttonTextHover;
+    text-shadow: 0 0 2px @infoTextHover;
     border: 1px solid transparent;
   }
   &:active {
