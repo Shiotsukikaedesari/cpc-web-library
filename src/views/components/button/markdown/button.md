@@ -56,7 +56,7 @@
     styleType="outLine"
     sceneType="info"
     radius="15px"
-    >outLine-success</cpc-button>
+    >outLine-info</cpc-button>
     <br>
     <cpc-button
     radius="50%"
@@ -69,7 +69,7 @@
     radius="15px"
     width="80px"
     :circle="true"
-    >outLine-success</cpc-button>
+    >outLine-info</cpc-button>
 </template>
 ```
 :::
@@ -153,7 +153,7 @@
 ```
 :::
 
-### 按钮的示例
+### 按钮应用示例
 ::: demo 
 ``` html
 <template>
@@ -167,7 +167,7 @@
         :code="iconCode"
         :animation="animation"
         aniDuration="1s"
-        ></cpc-icon>{{text}}
+        ></cpc-icon>{{text}}<!-- {\{text}\} -->
     </cpc-button>
 </template>
 
@@ -200,3 +200,84 @@ export default {
 </script>
 ```
 :::
+
+### 按钮组
+::: demo 按钮组组件，可以通过`direction`属性规定排列方向。
+``` html
+<template>
+    <cpc-button-group direction="horizontal">
+        <cpc-button>按钮fill</cpc-button>
+        <cpc-button>按钮fill</cpc-button>
+        <cpc-button>按钮fill</cpc-button>
+    </cpc-button-group>
+    <cpc-button-group direction="vertical">
+        <cpc-button styleType="outLine">按钮outLine</cpc-button>
+        <cpc-button styleType="outLine">按钮outLine</cpc-button>
+        <cpc-button styleType="outLine">按钮outLine</cpc-button>
+    </cpc-button-group>
+</template>
+```
+:::
+
+### 按钮组相关场景
+::: demo
+``` html
+<template>
+    <cpc-button-group direction="horizontal">
+        <cpc-button><cpc-icon code="#icon-chevron-double-left"></cpc-icon></cpc-button>
+        <cpc-button><cpc-icon code="#icon-play"></cpc-icon></cpc-button>
+        <cpc-button><cpc-icon code="#icon-chevron-double-right"></cpc-icon></cpc-button>
+    </cpc-button-group>
+    <cpc-button-group direction="horizontal">
+        <cpc-button styleType="outLine" radius="15px">按钮outLine</cpc-button>
+        <cpc-button styleType="outLine">按钮outLine</cpc-button>
+        <cpc-button styleType="outLine" radius="15px">按钮outLine</cpc-button>
+    </cpc-button-group>
+    <cpc-button-group direction="horizontal">
+        <cpc-button styleType="outLine" disabled>星期一</cpc-button>
+        <cpc-button styleType="outLine" disabled>星期二</cpc-button>
+        <cpc-button styleType="outLine" disabled>星期三</cpc-button>
+        <cpc-button styleType="outLine" waiting>星期四</cpc-button>
+        <cpc-button styleType="outLine">星期五</cpc-button>
+    </cpc-button-group>
+    <br><br>
+    <cpc-button-group direction="vertical">
+        <cpc-button sceneType="info" width="400px" radius="8px">注册</cpc-button>
+        <cpc-button sceneType="success"  width="400px" radius="8px">登录</cpc-button>
+    </cpc-button-group>
+    <cpc-button-group direction="vertical">
+        <cpc-button styleType="outLine" ><cpc-icon code="#icon-brightness-"></cpc-icon></cpc-button>
+        <cpc-button styleType="outLine" ><cpc-icon code="#icon-brightness-1"></cpc-icon></cpc-button>
+        <cpc-button styleType="outLine" ><cpc-icon code="#icon-brightness-2"></cpc-icon></cpc-button>
+        <cpc-button styleType="outLine" ><cpc-icon code="#icon-brightness-3"></cpc-icon></cpc-button>
+        <cpc-button styleType="outLine"><cpc-icon code="#icon-brightness-4"></cpc-icon></cpc-button>
+        <cpc-button styleType="outLine"><cpc-icon code="#icon-brightness-5"></cpc-icon></cpc-button>
+        <cpc-button styleType="outLine"><cpc-icon code="#icon-brightness-6"></cpc-icon></cpc-button>
+    </cpc-button-group>
+</template>
+```
+:::
+
+## API
+
+### 属性
+属性|说明|类型|默认值
+:---|:---|:---|:---
+styleType|按钮的样式类型，有效值：`fill`、`outLine`、`dashed`、`text`|String|'fill'
+sceneType|按钮的场景样式类型，有效值：`success`、`error`、`info`、`warning`|String|-
+width|按钮的宽度，支持所有的css值|String|-
+height|按钮的高度，支持所有的css值|String|-
+radius|按钮的圆角设置，支持所有的css值|String|'5%'
+circle|设置为圆形按钮|Boolean|false
+disabled|按钮的禁用状态|Boolean|false
+waiting|按钮的等待状态|Boolean|false
+direction|按钮组件的方向设置，有效值：`horizontal`、`vertical`|String|horizontal
+
+### 事件
+事件|说明|返回值
+:---|:---|:---
+-|-|-
+
+## TODO
+
+## 备注
