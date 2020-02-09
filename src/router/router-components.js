@@ -5,6 +5,7 @@ import ComponentsDemo from '@/views/components/demo/demo'
 import Intro from '@/views/components/intro/intro'
 import Icon from '@/views/components/icon/icon'
 import Button from '@/views/components/button/button'
+import messagePopup from '@/views/components/message-popup/message-popup'
 
 export default
 {
@@ -37,6 +38,11 @@ export default
       path: '/components/button',
       name: 'components-button',
       component: Button
+    },
+    {
+      path: '/components/message-popup',
+      name: 'components-message-popup',
+      component: messagePopup
     }
   ]
 }

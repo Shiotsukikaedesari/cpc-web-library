@@ -16,6 +16,8 @@ import MdNav from '@/components/md-nav'
 import Button from '@/components/button'
 import ButtonGroup from '@/components/button-group'
 
+import messagePopup from '@/components/message-popup'
+
 Vue.use(DisplayBox)
 
 Vue.use(NavTop)
@@ -31,3 +33,5 @@ Vue.use(MdNav)
 
 Vue.use(Button)
 Vue.use(ButtonGroup)
+
+Vue.use(messagePopup)
