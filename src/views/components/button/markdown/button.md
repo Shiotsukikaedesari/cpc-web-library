@@ -279,5 +279,5 @@ direction|按钮组件的方向设置，有效值：`horizontal`、`vertical`|St
 -|-|-
 
 ## TODO
-
+* dashed的效果在按钮组子组件中会产生移动，看是不是要换
 ## 备注
