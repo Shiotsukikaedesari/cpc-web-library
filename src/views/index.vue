@@ -1,9 +1,10 @@
 <template>
     <div class="container">
         <div class="background">
-          <img src="/static/background.jpg" alt="">
+          <!-- <img src="/static/background.jpg" alt=""> -->
+          <cpc-index></cpc-index>
         </div>
-        <div class="main flex-column-center">
+        <div class="main flex-column-center" v-show="showMessage">
             <div class="logo">
                 <img src="/static/logo.png" alt="漫协logo">
             </div>
@@ -21,10 +22,13 @@
 </template>
 
 <script>
+import cpcIndex from '@/components/cpc-index.vue'
 export default {
   name: 'index',
   data () {
-    return {}
+    return {
+      showMessage: true
+    }
   },
   methods: {
     // 跳转到项目github
@@ -45,6 +49,9 @@ export default {
     }
   },
   mounted () {
+  },
+  components: {
+    cpcIndex
   }
 }
 </script>
