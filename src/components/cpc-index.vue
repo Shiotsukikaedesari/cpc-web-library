@@ -2,8 +2,8 @@
 <div class="cpc-index">
     <div id="three-canvas" class="three-canvas" ref="three-canvas">
     </div>
-    <div class="cpc-index-control flex-column-center" v-show="showControl">
-      <div class="control-title">控制台</div>
+    <div class="cpc-index-control flex-column-center animation" :class="{'cpc-index-control-hide': showControl}">
+      <div class="control-title animation" @click="rollControl" v-text="mmdBox.loading"></div>
       <div class="control-container flex-column">
         <div class="control-element control-helper flex-column">
           <div class="control-box-title">辅助线</div>
@@ -411,7 +411,19 @@
         </div>
         <div class="control-element control-animation flex-column">
           <div class="control-box-title">动画</div>
-          <div class="control-box control-animation-box">
+          <div class="control-box control-animation-box flex-row">
+            <div class="box-container flex-column">
+              <div class="box-element flex-row">
+                <label for="animation">相机：</label>
+                <input id="animation" class="switch-type" type="range" min="0" max="1" step="1" v-model="animationBox.camera.value">
+              </div>
+            </div>
+            <div class="box-container flex-column">
+              <div class="box-element flex-row">
+                <label for="MMDanimation">模型：</label>
+                <input id="MMDanimation" class="switch-type" type="range" min="0" max="1" step="1" v-model="mmdBox.value">
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -422,17 +434,19 @@
 
 <script>
 import * as THREE from 'three'
+import {MMDLoader} from '../../node_modules/three/examples/jsm/loaders/MMDLoader'
+import {MMDAnimationHelper} from '../../node_modules/three/examples/jsm/animation/MMDAnimationHelper'
 export default {
   name: 'cpc-index',
   data () {
     let directionalLight = new THREE.DirectionalLight('white', 0.6)
-    let spotLight = new THREE.SpotLight(0xffffff)
-    let pointLight1 = new THREE.PointLight('rgb(206, 255, 215)', 1.5, 500)
-    let pointLight2 = new THREE.PointLight('rgb(255, 206, 206)', 1.5, 500)
-    let pointLight3 = new THREE.PointLight('rgb(206, 211, 255)', 1.5, 500)
+    let spotLight = new THREE.SpotLight(0xffffff, 0.6)
+    let pointLight1 = new THREE.PointLight('rgb(206, 255, 215)', 1.5, 300)
+    let pointLight2 = new THREE.PointLight('rgb(255, 206, 206)', 1.5, 300)
+    let pointLight3 = new THREE.PointLight('rgb(206, 211, 255)', 1.5, 300)
     let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000)
     return {
-      showControl: false, // 控制台开关
+      showControl: true, // 控制台开关
       scene: new THREE.Scene(), // 场景
       camera, // 相机
       cameraParam: { // 相机参数
@@ -441,6 +455,7 @@ export default {
         positionZ: 0
       },
       renderer: new THREE.WebGLRenderer({antialias: true}), // 渲染器
+      clock: new THREE.Clock(), // 场景时钟
       lightBox: {
         ambientLight: {light: new THREE.AmbientLight('rgb(30, 5, 35)'), value: '1'}, // 环境光
         directionalLight: {// 平行光
@@ -448,7 +463,7 @@ export default {
           value: '1',
           param: {
             positionX: 0,
-            positionY: 300,
+            positionY: 320,
             positionZ: 0
           }
         },
@@ -457,7 +472,7 @@ export default {
           value: '1',
           param: {
             positionX: 0,
-            positionY: 220,
+            positionY: 300,
             positionZ: 0,
             rotationX: 0,
             rotationY: 0,
@@ -469,7 +484,7 @@ export default {
           value: '1',
           param: {
             positionX: 220,
-            positionY: 300,
+            positionY: 270,
             positionZ: 230
           }
         },
@@ -478,7 +493,7 @@ export default {
           value: '1',
           param: {
             positionX: -220,
-            positionY: 300,
+            positionY: 270,
             positionZ: 230
           }
         },
@@ -487,7 +502,7 @@ export default {
           value: '1',
           param: {
             positionX: 0,
-            positionY: 300,
+            positionY: 270,
             positionZ: -230
           }
         }
@@ -498,9 +513,10 @@ export default {
         cameraHelper: {helper: new THREE.CameraHelper(camera), value: '0'}, // 相机
         directionalLightHelper: {helper: new THREE.DirectionalLightHelper(directionalLight, 100), value: '1'}, // 平行光辅助
         spotLightHelper: {helper: new THREE.SpotLightHelper(spotLight), value: '1'}, // 聚光灯
-        pointLight1Helper: {helper: new THREE.PointLightHelper(pointLight1, 50), value: '1'},
-        pointLight2Helper: {helper: new THREE.PointLightHelper(pointLight2, 50), value: '1'},
-        pointLight3Helper: {helper: new THREE.PointLightHelper(pointLight3, 50), value: '1'}
+        pointLight1Helper: {helper: new THREE.PointLightHelper(pointLight1, 50), value: '1'}, // 点光灯1
+        pointLight2Helper: {helper: new THREE.PointLightHelper(pointLight2, 50), value: '1'}, // 点光灯2
+        pointLight3Helper: {helper: new THREE.PointLightHelper(pointLight3, 50), value: '1'}, // 点光灯3
+        MMDAnimationHelper: {helper: new MMDAnimationHelper(), value: '0'}
       },
       objBox: {
         stage: {
@@ -518,7 +534,7 @@ export default {
           obj: '',
           param: {
             positionX: 0,
-            positionY: 180,
+            positionY: 165,
             positionZ: 0,
             rotationX: 0,
             rotationY: 0,
@@ -560,13 +576,20 @@ export default {
         }
       },
       animationBox: { // 动画box
-        cameraSpeed: 1,
         camera: {
           animation: '',
-          x: 1,
-          z: 1,
+          animationList: [],
+          r: 500,
+          step: 0,
+          speed: 1,
           value: '1'
         }
+      },
+      mmdBox: {
+        miku: '',
+        loading: '控制台',
+        animation: '',
+        value: '1'
       }
     }
   },
@@ -577,9 +600,11 @@ export default {
       this.initCamera()
       this.initObj()
       this.initLight()
+      this.initMMD()
       this.initHelper()
       this.renderer.render(this.scene, this.camera)
       this.initAnimation()
+      this.clock.start()
     },
     // 初始渲染器
     initRender () {
@@ -637,7 +662,7 @@ export default {
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
-      this.camera.lookAt(new THREE.Vector3(0, 0, 0))
+      this.camera.lookAt(new THREE.Vector3(0, 200, 0))
     },
     // 初始物体
     initObj () {
@@ -655,7 +680,7 @@ export default {
       this.objBox.stage.obj.rotation.z = this.objBox.stage.param.rotationZ * Math.PI / 180
       this.scene.add(this.objBox.stage.obj)
       // 初始圆柱台
-      let cylinderGeometry = new THREE.CylinderGeometry(50, 50, 20, 32)
+      let cylinderGeometry = new THREE.CylinderGeometry(120, 50, 20, 32)
       let cylinderMaterial = new THREE.MeshPhongMaterial({color: 'rgb(153, 153, 153)'})
       this.objBox.cylinder.obj = new THREE.Mesh(cylinderGeometry, cylinderMaterial)
       this.objBox.cylinder.obj.position.set(
@@ -738,6 +763,40 @@ export default {
       this.animationBox.camera.animation = setInterval(() => {
         component.cameraAnimation()
       }, 1000 / 30)
+      this.mmdBox.animation = setInterval(() => {
+        component.MMDanimation()
+      }, 1000 / 60)
+    },
+    // 加载mmd
+    initMMD () {
+      let component = this
+      let loader = new MMDLoader()
+      loader.loadWithAnimation(
+        'static/mmd/model/TDA Vintage Dress Miku chibi/TDA Vintage chibi ver.pmx',
+        'static/mmd/dance/RomeoAndCinderella.vmd',
+        (mmd) => {
+          component.mmdBox.miku = mmd.mesh
+          component.mmdBox.miku.scale = new THREE.Vector3(7, 7, 7)
+          component.mmdBox.miku.position.y = 180
+
+          component.helperBox.MMDAnimationHelper.helper.add(component.mmdBox.miku, {
+            animation: mmd.animation,
+            physics: true
+          })
+
+          component.scene.add(component.mmdBox.miku)
+        },
+        (xhr) => {
+          console.log((xhr.loaded / xhr.total * 100) + '% loaded')
+          component.mmdBox.loading = parseInt(xhr.loaded / xhr.total * 100) + '%'
+          if (component.mmdBox.loading === '100%') {
+            component.mmdBox.loading = '下载完成！请等待贴图载入...'
+            setTimeout(() => {
+              component.mmdBox.loading = '控制台'
+            }, 3000)
+          }
+        }
+      )
     },
     // 加载场景
     updateRenderer () {
@@ -745,18 +804,47 @@ export default {
     },
     // 相机动画
     cameraAnimation () {
-      let r = 500 // 半径
-      let judge = this.cameraParam.positionX + this.animationBox.camera.x * this.animationBox.cameraSpeed
-      if (judge > r || judge < r * -1) {
-        this.animationBox.camera.x *= -1
-        this.animationBox.camera.z *= -1
+      this.animationBox.camera.step += this.animationBox.camera.speed
+      if (this.animationBox.camera.step > this.animationBox.camera.animationList.length - 1) {
+        this.animationBox.camera.step = 0 + this.animationBox.camera.step - (this.animationBox.camera.animationList.length - 1)
       }
-      this.cameraParam.positionX = this.cameraParam.positionX + this.animationBox.camera.x * this.animationBox.cameraSpeed
-      this.cameraParam.positionZ = parseInt(this.animationBox.camera.z * Math.sqrt(r ** 2 - this.cameraParam.positionX ** 2))
+      this.cameraParam.positionX = this.animationBox.camera.animationList[this.animationBox.camera.step].x
+      this.cameraParam.positionZ = this.animationBox.camera.animationList[this.animationBox.camera.step].z
+    },
+    // mmd动画
+    MMDanimation () {
+      this.helperBox.MMDAnimationHelper.helper.update(this.clock.getDelta())
+      this.updateRenderer()
+    },
+    // 滚动控制台
+    rollControl () {
+      this.showControl = !this.showControl
     }
   },
   created () {
-
+    // 率先计算相机轨迹
+    let r = this.animationBox.camera.r
+    let x = -r
+    let z = 0
+    let tempList = []
+    let temp = {}
+    for (; x <= r; x += 1) {
+      z = Math.round(Math.sqrt(r ** 2 - x ** 2))
+      temp.x = x
+      temp.z = z
+      tempList.push(temp)
+      temp = {}
+    }
+    x = r
+    for (; x >= -r; x -= 1) {
+      z = Math.round(Math.sqrt(r ** 2 - x ** 2)) * -1
+      temp.x = x
+      temp.z = z
+      tempList.push(temp)
+      temp = {}
+    }
+    console.log(tempList)
+    this.animationBox.camera.animationList = tempList
   },
   mounted () {
     this.init()
@@ -893,7 +981,7 @@ export default {
         this.camera.position.x = newValue.positionX
         this.camera.position.y = newValue.positionY
         this.camera.position.z = newValue.positionZ
-        this.camera.lookAt(new THREE.Vector3(0, 100, 0))
+        this.camera.lookAt(new THREE.Vector3(0, 200, 0))
         this.updateRenderer()
       },
       deep: true
@@ -1025,7 +1113,31 @@ export default {
         this.updateRenderer()
       },
       deep: true
+    },
+    'animationBox.camera.value' (newValue, oldValue) {
+      let component = this
+      if (newValue === '1') {
+        this.animationBox.camera.animation = setInterval(() => {
+          component.cameraAnimation()
+        }, 1000 / 30)
+      } else {
+        clearInterval(this.animationBox.camera.animation)
+      }
+    },
+    'mmdBox.value' (newValue, oldValue) {
+      let component = this
+      if (newValue === '1') {
+        this.mmdBox.animation = setInterval(() => {
+          component.MMDanimation()
+        }, 1000 / 30)
+      } else {
+        clearInterval(this.mmdBox.animation)
+      }
     }
+  },
+  beforeDestroy () {
+    clearInterval(this.animationBox.camera.animation)
+    clearInterval(this.mmdBox.animation)
   }
 }
 </script>
@@ -1042,8 +1154,11 @@ export default {
   }
   > .cpc-index-control {
     position: fixed;
-    top: 10px;
-    right: 10px;
+    top: 1%;
+    left: 2%;
+    width: 98%;
+    height: 98%;
+    margin-left: -1%;
     background: rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     border: 1px solid rgba(255, 255, 255, 0.5);
@@ -1052,8 +1167,17 @@ export default {
     > .control-title {
       font-size: 22px;
       margin: 10px;
+      cursor: pointer;
+      &:hover {
+        color:rgb(205, 66, 255);
+        text-shadow: 0 0 4px rgb(255, 255, 255);
+      }
     }
     > .control-container {
+      overflow: hidden;
+      // &:hover {
+      //   overflow: auto;
+      // }
       > .control-element {
         > .control-box-title {
           margin: 5px;
@@ -1084,6 +1208,9 @@ export default {
         }
       }
     }
+  }
+  > .cpc-index-control-hide {
+    height: 50px;
   }
 }
 
