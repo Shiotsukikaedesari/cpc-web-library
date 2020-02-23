@@ -14,8 +14,10 @@
             <div class="button-box">
                 <button class="animation" @click="toGuide">指南</button>
                 <button class="animation" @click="toComponent">组件</button>
+                <button class="animation" @click="toEffect">动效</button>
                 <button class="animation" @click="toGithub">Github</button>
                 <button class="animation" @click="toNotes">前端笔记</button>
+                <button class="animation" @click="toControl">隐藏前部</button>
             </div>
         </div>
     </div>
@@ -46,6 +48,14 @@ export default {
     // 跳转到前端笔记
     toNotes () {
       this.$router.push({path: '/notes', query: {sign: 'notes'}})
+    },
+    // 跳转到动效
+    toEffect () {
+      this.$router.push({path: '/effect', query: {sign: 'effect'}})
+    },
+    // 呼出背景控制台
+    toControl () {
+      this.showMessage = !this.showMessage
     }
   },
   mounted () {

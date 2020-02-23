@@ -6,6 +6,7 @@ import Display from '@/views/display'
 import Components from './router-components'
 import Guide from './router-guide'
 import Notes from './router-notes'
+import Effect from './router-effect'
 
 Vue.use(Router)
 
@@ -24,7 +25,8 @@ export default new Router({
       children: [
         Components,
         Guide,
-        Notes
+        Notes,
+        Effect
       ]
     },
     {

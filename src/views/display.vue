@@ -6,11 +6,14 @@
           <cpc-nav-top-elem elemKey="1" slot="nav-top-left" :click="toIndex">
             <cpc-icon slot="top-ui" code="#icon-home"></cpc-icon>首页
             </cpc-nav-top-elem>
-          <cpc-nav-top-elem elemKey="3" slot="nav-top-right" :click="toGuide" :isSignal="sign === 'guide'">
+          <cpc-nav-top-elem elemKey="2" slot="nav-top-right" :click="toGuide" :isSignal="sign === 'guide'">
             <cpc-icon slot="top-ui" code="#icon-compass"></cpc-icon>指南
           </cpc-nav-top-elem>
-          <cpc-nav-top-elem elemKey="4" slot="nav-top-right" :click="toComponents" :isSignal="sign === 'components'" >
+          <cpc-nav-top-elem elemKey="3" slot="nav-top-right" :click="toComponents" :isSignal="sign === 'components'" >
             <cpc-icon slot="top-ui" code="#icon-widgets"></cpc-icon>组件
+          </cpc-nav-top-elem>
+          <cpc-nav-top-elem elemKey="4" slot="nav-top-right" :click="toEffect" :isSignal="sign === 'effect'" >
+            <cpc-icon slot="top-ui" code="#icon-flash"></cpc-icon>动效
           </cpc-nav-top-elem>
           <cpc-nav-top-elem elemKey="5" slot="nav-top-right" :click="toGithub">
             <cpc-icon slot="top-ui" code="#icon-github-circle"></cpc-icon>Github
@@ -83,6 +86,10 @@ export default {
     // 跳转到组件
     toComponents () {
       this.$router.push({path: '/components'})
+    },
+    // 跳转到动效
+    toEffect () {
+      this.$router.push({path: '/effect'})
     },
     // 跳转到项目github
     toGithub () {
