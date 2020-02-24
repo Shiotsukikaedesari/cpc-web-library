@@ -2,6 +2,7 @@ const {
   stripScript,
   stripTemplate,
   stripStyle,
+  deepStyle,
   genInlineComponentText
 } = require('./util');
 const md = require('./config');
@@ -51,8 +52,8 @@ module.exports = function(source) {
       
       // 这里循环该块下面的style的id
       let styleContent = commentContent.slice(styleStart + startStyleTagLen, styleEnd)
-      styleOutput += `\n.display-box-${styleContent.trim()} .show-component {
-        ${stripStyle(commentContent)}
+      styleOutput += `\n.display-box-${styleContent.trim()} .show-component > div {
+        ${deepStyle(stripStyle(commentContent))}
       }\n`
     }
     
@@ -70,7 +71,7 @@ module.exports = function(source) {
   // todo: 优化这段逻辑
   let pageScript = '';
   if (componenetsString) {
-    pageScript = `<script>
+    pageScript = `<script> 
       export default {
         name: 'component-doc',
         components: {
