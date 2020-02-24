@@ -74,11 +74,17 @@ export default {
     }
   },
   mounted () {
-    this.aniTimer = setTimeout(() => {
+    if (this.openAnimation !== 'none') {
+      this.aniTimer = setTimeout(() => {
+        this.animationMounted = this.animation
+        this.aniFunctionMounted = this.aniFunction
+        this.aniDurationMounted = this.aniDuration
+      }, 2000)
+    } else {
       this.animationMounted = this.animation
       this.aniFunctionMounted = this.aniFunction
       this.aniDurationMounted = this.aniDuration
-    }, 2000)
+    }
   },
   beforeDestroy () {
     clearTimeout(this.aniTimer)
