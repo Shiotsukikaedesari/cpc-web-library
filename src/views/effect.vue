@@ -7,7 +7,7 @@
                      <cpc-icon slot="side-ui" code="#icon-file-document-box"></cpc-icon>介绍
                   </cpc-nav-side-elem>
                   <cpc-nav-side-elem elemKey="1" slot="child" :click="toLoading">
-                     <cpc-icon slot="side-ui" code="#icon-rotate-right" animation="rotation2D-Ani" aniDuration="1000ms"></cpc-icon>Loading
+                     <cpc-icon slot="side-ui" code="#icon-rotate-right" animation="rotation2D-Ani" aniDuration="1000ms"></cpc-icon>加载效果
                   </cpc-nav-side-elem>
               </template>
           </cpc-nav-side>
