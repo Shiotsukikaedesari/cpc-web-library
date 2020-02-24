@@ -1,6 +1,6 @@
 ## 加载效果
-
-::: demo
+### 伪类:after叠加与动画延迟
+::: demo 动画scale与opacity渐变
 ``` html
 <template>
     <div class="loading-box">
