@@ -85,7 +85,7 @@ export default {
 </style>
 ```
 :::
-::: demo 跳动波：增加跳动动画
+::: demo 跳动：增加跳动动画
 ``` html
 <template>
     <div class="loading-box">
@@ -212,7 +212,7 @@ export default {
         align-items: center;
     }
     .loading-box > .rotate-one {
-        margin: 0 5px;
+        margin: 0 10px;
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -221,7 +221,7 @@ export default {
         animation: rotateAni 2s linear infinite;
     }
     .loading-box > .rotate-two {
-        margin: 0 5px;
+        margin: 0 10px;
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -263,7 +263,7 @@ export default {
         align-items: center;
     }
     .loading-box > .rotate-one {
-        margin: 0 5px;
+        margin: 0 10px;
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -272,13 +272,13 @@ export default {
         animation: rotateAni 2s linear infinite;
     }
     .loading-box > .rotate-two {
-        margin: 0 5px;
+        margin: 0 10px;
         width: 50px;
         height: 50px;
         border-radius: 50%;
         background: transparent;
         box-shadow: 0 8px 5px rgb(215, 83, 255);
-        animation: rotateAni 2s ease 500ms infinite;
+        animation: rotateAni 1s ease 500ms infinite;
     }
     @keyframes rotateAni {
         0% {transform: rotate(0);}
