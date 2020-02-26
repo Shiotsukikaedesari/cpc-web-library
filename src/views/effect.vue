@@ -7,7 +7,10 @@
                      <cpc-icon slot="side-ui" code="#icon-file-document-box"></cpc-icon>介绍
                   </cpc-nav-side-elem>
                   <cpc-nav-side-elem elemKey="1" slot="child" :click="toLoading">
-                     <cpc-icon slot="side-ui" code="#icon-rotate-right" animation="rotation2D-Ani" aniDuration="1000ms"></cpc-icon>加载效果
+                     <cpc-icon slot="side-ui" code="#icon-rotate-right" animation="rotation2D-Ani" aniDuration="1000ms"></cpc-icon>加载
+                  </cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="2" slot="child" :click="toCarousel">
+                     <cpc-icon slot="side-ui" code="#icon-cards" animation="drawer-X-Ani" aniDuration="2s"></cpc-icon>轮播
                   </cpc-nav-side-elem>
               </template>
           </cpc-nav-side>
@@ -36,6 +39,10 @@ export default {
     // 跳转到加载效果
     toLoading () {
       this.$router.push({path: '/effect/loading'})
+    },
+    // 跳转到轮播
+    toCarousel () {
+      this.$router.push({path: '/effect/carousel'})
     }
   },
   created () {
