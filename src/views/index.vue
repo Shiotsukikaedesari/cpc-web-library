@@ -100,11 +100,12 @@ export default {
     }
     > .button-box {
         > button {
-            color: rgb(167, 204, 255);
+            color: #fff;
             margin: 0 20px;
             font-size: 18px;
             cursor: pointer;
             padding: 5px 10px;
+            text-shadow: 0 0 6px rgb(86, 86, 86);
             border-left: 1px solid rgba(255, 255, 255, 0);
             border-right: 1px solid rgba(255, 255, 255, 0);
             box-sizing: border-box;
@@ -114,6 +115,7 @@ export default {
                 color: #fff;
             }
             &:active {
+                transition: all 100ms ease;
                 border-left: 1px solid rgb(255, 81, 217);
                 border-right: 1px solid rgb(255, 81, 217);
                 color: rgb(255, 81, 217);
