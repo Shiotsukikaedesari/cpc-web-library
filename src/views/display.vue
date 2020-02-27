@@ -2,7 +2,7 @@
     <div class="display">
       <header class="cpc-nav-top">
         <cpc-nav-top :height="headerHeight" :fixed="true">
-          <div class="top-logo" slot="nav-top-left"><img src="/static/logo-fill.png" alt=""></div>
+          <div class="top-logo" slot="nav-top-left"><img v-lazy="'/static/logo-fill.png'" alt=""></div>
           <cpc-nav-top-elem elemKey="1" slot="nav-top-left" :click="toIndex">
             <cpc-icon slot="top-ui" code="#icon-home"></cpc-icon>首页
             </cpc-nav-top-elem>

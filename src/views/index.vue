@@ -6,7 +6,7 @@
         </div>
         <div class="main flex-column-center" v-show="showMessage">
             <div class="logo">
-                <img src="/static/logo.png" alt="漫协logo">
+                <img v-lazy="'/static/logo.png'" alt="漫协logo">
             </div>
             <div class="introduce">
                 <span>一款基于Vue的组件库，为cpc官网提供支持（挖的坑是一定要填的！）</span>
@@ -75,8 +75,8 @@ export default {
       width: 100%;
       height: 100%;
     > img {
-      width: 100%;
-    height: 100%;
+      // width: 100%;
+      // height: 100%;
     }
   }
   .main {
@@ -90,7 +90,7 @@ export default {
     }
     > .logo {
         > img {
-            width: 260px;
+            // width: 260px;
         }
     }
     > .introduce {

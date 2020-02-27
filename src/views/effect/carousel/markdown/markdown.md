@@ -5,9 +5,9 @@
 <template>
     <div class="stage">
         <div class="box">
-            <div class="elem"></div>
-            <div class="elem"></div>
-            <div class="elem"></div>
+            <div class="elem" v-lazy:background-image= "{src: '/static/effect/carousel/1.png'}"></div>
+            <div class="elem" v-lazy:background-image= "{src: '/static/effect/carousel/2.png'}"></div>
+            <div class="elem" v-lazy:background-image= "{src: '/static/effect/carousel/3.png'}"></div>
         </div>
     </div>
 </template>
@@ -47,17 +47,23 @@ export default {
 }
 
 .box > .elem:first-child {
-    background: url('/static/effect/carousel/1.png');
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 50%;
     transform: translateZ(46px);
 }
 
 .box > .elem:nth-child(2) {
-    background: url('/static/effect/carousel/2.png');
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 50%;
     transform: rotateY(-120deg) translateZ(46px);
 }
 
 .box > .elem:last-child {
-    background: url('/static/effect/carousel/3.png');
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 50%;
     transform: rotateY(120deg) translateZ(46px);
 }
 
@@ -75,9 +81,9 @@ export default {
 <template>
     <div class="stage">
         <div class="box">
-            <div class="elem"></div>
-            <div class="elem"></div>
-            <div class="elem"></div>
+            <div class="elem" v-lazy:background-image= "{src: '/static/effect/carousel/1.png'}"></div>
+            <div class="elem" v-lazy:background-image= "{src: '/static/effect/carousel/2.png'}"></div>
+            <div class="elem" v-lazy:background-image= "{src: '/static/effect/carousel/3.png'}"></div>
         </div>
     </div>
 </template>
@@ -117,17 +123,23 @@ export default {
 }
 
 .box > .elem:first-child {
-    background: url('/static/effect/carousel/1.png');
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 50%;
     transform: translateZ(86px);
 }
 
 .box > .elem:nth-child(2) {
-    background: url('/static/effect/carousel/2.png');
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 50%;
     transform: rotateY(-120deg) translateZ(86px);
 }
 
 .box > .elem:last-child {
-    background: url('/static/effect/carousel/3.png');
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 50%;
     transform: rotateY(120deg) translateZ(86px);
 }
 
