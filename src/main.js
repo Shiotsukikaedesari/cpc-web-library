@@ -10,12 +10,19 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+// 引入vue-lazyLoad
+import lazyLoad from 'vue-lazyload'
 
 // 引入公共组件
 import './assets/common/js/source'
 
 // 引入工具类
 import Tools from './assets/common/js/tools'
+
+Vue.use(lazyLoad, {
+  loading: '/static/loading.gif',
+  error: '/static/error.png'
+})
 
 Vue.config.productionTip = false
 
