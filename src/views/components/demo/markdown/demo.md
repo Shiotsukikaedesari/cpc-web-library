@@ -1,6 +1,4 @@
 ## demo盒子调试页
-css样式的加载有待调整
-
 ::: demo demo测试1
 ``` html
 <template>
