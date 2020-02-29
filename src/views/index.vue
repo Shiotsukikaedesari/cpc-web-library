@@ -43,15 +43,15 @@ export default {
     },
     // 跳转到组件
     toComponent () {
-      this.$router.push({path: '/components', query: {sign: 'components'}})
+      this.$router.replace({path: '/components', query: {sign: 'components'}})
     },
     // 跳转到前端笔记
     toNotes () {
-      this.$router.push({path: '/notes', query: {sign: 'notes'}})
+      this.$router.replace({path: '/notes', query: {sign: 'notes'}})
     },
     // 跳转到动效
     toEffect () {
-      this.$router.push({path: '/effect', query: {sign: 'effect'}})
+      this.$router.replace({path: '/effect', query: {sign: 'effect'}})
     },
     // 呼出背景控制台
     toControl () {
