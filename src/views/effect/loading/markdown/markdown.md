@@ -470,3 +470,86 @@ export default {
 </style>
 ```
 :::
+::: demo 拖尾：伪类 + 定位 + 动画延迟
+``` html
+<template>
+    <div class="loading-box">
+        <div class="complex-box">
+            <div class="complex-elem complex-one">
+            </div>
+            <div class="complex-elem complex-two">
+            </div>
+            <div class="complex-elem complex-three">
+            </div>
+            <div class="complex-elem complex-four">
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+    .loading-box {
+        background: rgb(34, 4, 54);
+        width: 100%;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .loading-box > .complex-box {
+        width: 60px;
+        height: 60px;
+        position: relative;
+    }
+    .loading-box > .complex-box > .complex-elem {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+    }
+    .loading-box > .complex-box > .complex-elem:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 22.5px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+    }
+    .loading-box > .complex-box > .complex-one {
+        animation: complexAni 1s ease 300ms infinite;
+    }
+    .loading-box > .complex-box > .complex-one:after {
+        background: rgba(255, 255, 255, 0.3);
+    }
+    .loading-box > .complex-box > .complex-two {
+        animation: complexAni 1s ease 200ms infinite;
+    }
+    .loading-box > .complex-box > .complex-two:after {
+        background: rgba(255, 255, 255, 0.5);
+    }
+    .loading-box > .complex-box > .complex-three {
+        animation: complexAni 1s ease 100ms infinite;
+    }
+    .loading-box > .complex-box > .complex-three:after {
+        background: rgba(255, 255, 255, 0.7);
+    }
+    .loading-box > .complex-box > .complex-four {
+        animation: complexAni 1s ease infinite;
+    }
+    .loading-box > .complex-box > .complex-four:after {
+        background: rgb(255, 255, 255);
+    }
+    @keyframes complexAni {
+        0% {transform: rotate(0);}
+        100% {transform: rotate(360deg);}
+    }
+</style>
+```
+:::
