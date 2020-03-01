@@ -1,6 +1,6 @@
 ## 加载效果
-### 伪类:after叠加与动画延迟
-::: demo 波纹：动画scale与opacity渐变
+### 波纹
+::: demo 波纹：伪类 + 缩放 + 渐变
 ``` html
 <template>
     <div class="loading-box">
@@ -85,7 +85,7 @@ export default {
 </style>
 ```
 :::
-::: demo 跳动：增加跳动动画
+::: demo 跳动：伪类 + 缩放 + 渐变 + 跳动动画
 ``` html
 <template>
     <div class="loading-box">
@@ -184,7 +184,7 @@ export default {
 </style>
 ```
 :::
-::: demo 碰撞：增加左右动画
+::: demo 碰撞：伪类 + 缩放 + 渐变 + 撞击动画
 ``` html
 <template>
     <div class="loading-box">
@@ -470,7 +470,8 @@ export default {
 </style>
 ```
 :::
-::: demo 拖尾：伪类 + 定位 + 动画延迟
+### 拖尾
+::: demo 渐变间隔：伪类 + 定位 + 动画延迟
 ``` html
 <template>
     <div class="loading-box">
@@ -544,6 +545,299 @@ export default {
         animation: complexAni 1s ease infinite;
     }
     .loading-box > .complex-box > .complex-four:after {
+        background: rgb(255, 255, 255);
+    }
+    @keyframes complexAni {
+        0% {transform: rotate(0);}
+        100% {transform: rotate(360deg);}
+    }
+</style>
+```
+:::
+::: demo 渐变叠加：伪类 + 定位叠加 + 动画
+``` html
+<template>
+    <div class="loading-box">
+        <div class="complex-box">
+            <div class="complex-elem">
+            </div>
+            <div class="complex-elem">
+            </div>
+            <div class="complex-elem">
+            </div>
+            <div class="complex-elem">
+            </div>
+            <div class="complex-elem">
+            </div>
+            <div class="complex-elem">
+            </div>
+            <div class="complex-elem">
+            </div>
+            <div class="complex-elem">
+            </div>
+            <div class="complex-elem">
+            </div>
+            <div class="complex-elem">
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+    .loading-box {
+        background: rgb(34, 4, 54);
+        width: 100%;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .loading-box > .complex-box {
+        width: 60px;
+        height: 60px;
+        position: relative;
+        animation: complexAni 1s linear infinite;
+    }
+    .loading-box > .complex-box > .complex-elem {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+    }
+    .loading-box > .complex-box > .complex-elem:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 22.5px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+    }
+    .loading-box > .complex-box > .complex-elem:first-child {
+        transform: rotate(-90deg);
+    }
+    .loading-box > .complex-box > .complex-elem:first-child:after {
+        background: rgba(255, 255, 255, 0.1);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(2) {
+        transform: rotate(-80deg);
+
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(2):after {
+        background: rgba(255, 255, 255, 0.2);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(3) {
+        transform: rotate(-70deg);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(3):after {
+        background: rgba(255, 255, 255, 0.3);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(4) {
+        transform: rotate(-60deg);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(4):after {
+        background: rgba(255, 255, 255, 0.4);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(5) {
+        transform: rotate(-50deg);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(5):after {
+        background: rgba(255, 255, 255, 0.5);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(6) {
+        transform: rotate(-40deg);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(6):after {
+        background: rgba(255, 255, 255, 0.6);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(7) {
+        transform: rotate(-30deg);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(7):after {
+        background: rgba(255, 255, 255, 0.7);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(8) {
+        transform: rotate(-20deg);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(8):after {
+        background: rgba(255, 255, 255, 0.8);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(9) {
+        transform: rotate(-10deg);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(9):after {
+        background: rgba(255, 255, 255, 0.9);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(10) {
+        transform: rotate(0);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(10):after {
+        background: rgb(255, 255, 255);
+    }
+    @keyframes complexAni {
+        0% {transform: rotate(0);}
+        100% {transform: rotate(360deg);}
+    }
+</style>
+```
+:::
+::: demo 渐变叠加缩放：伪类 + 缩放 + 定位叠加 + 动画
+``` html
+<template>
+    <div class="loading-box">
+        <div class="complex-box">
+            <div class="complex-elem">
+            </div>
+            <div class="complex-elem">
+            </div>
+            <div class="complex-elem">
+            </div>
+            <div class="complex-elem">
+            </div>
+            <div class="complex-elem">
+            </div>
+            <div class="complex-elem">
+            </div>
+            <div class="complex-elem">
+            </div>
+            <div class="complex-elem">
+            </div>
+            <div class="complex-elem">
+            </div>
+            <div class="complex-elem">
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+    .loading-box {
+        background: rgb(34, 4, 54);
+        width: 100%;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .loading-box > .complex-box {
+        width: 60px;
+        height: 60px;
+        position: relative;
+        animation: complexAni 1s linear infinite;
+    }
+    .loading-box > .complex-box > .complex-elem {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+    }
+    .loading-box > .complex-box > .complex-elem:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        border-radius: 50%;
+    }
+    .loading-box > .complex-box > .complex-elem:first-child {
+        transform: rotate(-90deg);
+    }
+    .loading-box > .complex-box > .complex-elem:first-child:after {
+        width: 6px;
+        height: 6px;
+        left: 27px;
+        background: rgba(255, 255, 255, 0.1);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(2) {
+        transform: rotate(-80deg);
+
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(2):after {
+        width: 7px;
+        height: 7px;
+        left: 26.5px;
+        background: rgba(255, 255, 255, 0.2);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(3) {
+        transform: rotate(-70deg);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(3):after {
+        width: 8px;
+        height: 8px;
+        left: 26px;
+        background: rgba(255, 255, 255, 0.3);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(4) {
+        transform: rotate(-60deg);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(4):after {
+        width: 9px;
+        height: 9px;
+        left: 25.5px;
+        background: rgba(255, 255, 255, 0.4);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(5) {
+        transform: rotate(-50deg);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(5):after {
+        width: 10px;
+        height: 10px;
+        left: 25px;
+        background: rgba(255, 255, 255, 0.5);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(6) {
+        transform: rotate(-40deg);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(6):after {
+        width: 11px;
+        height: 11px;
+        left: 24.5px;
+        background: rgba(255, 255, 255, 0.6);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(7) {
+        transform: rotate(-30deg);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(7):after {
+        width: 12px;
+        height: 12px;
+        left: 24px;
+        background: rgba(255, 255, 255, 0.7);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(8) {
+        transform: rotate(-20deg);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(8):after {
+        width: 13px;
+        height: 13px;
+        left: 23.5px;
+        background: rgba(255, 255, 255, 0.8);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(9) {
+        transform: rotate(-10deg);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(9):after {
+        width: 14px;
+        height: 14px;
+        left: 23px;
+        background: rgba(255, 255, 255, 0.9);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(10) {
+        transform: rotate(0);
+    }
+    .loading-box > .complex-box > .complex-elem:nth-child(10):after {
+        width: 15px;
+        height: 15px;
+        left: 22.5px;
         background: rgb(255, 255, 255);
     }
     @keyframes complexAni {
