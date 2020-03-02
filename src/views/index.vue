@@ -39,7 +39,7 @@ export default {
     },
     // 跳转到指南
     toGuide () {
-      this.$router.push({path: '/display', query: {sign: 'guide'}})
+      this.$router.replace({path: '/display', query: {sign: 'guide'}})
     },
     // 跳转到组件
     toComponent () {
