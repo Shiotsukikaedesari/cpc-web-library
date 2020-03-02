@@ -847,3 +847,267 @@ export default {
 </style>
 ```
 :::
+### 色块渐变
+::: demo 色块 + 动画延迟
+``` html
+<template>
+    <div class="loading-box">
+        <div class="color-box">
+            <div></div>
+            <div></div> 
+            <div></div> 
+            <div></div> 
+            <div></div> 
+            <div></div> 
+            <div></div>
+            <div></div> 
+            <div></div> 
+            <div></div> 
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+    .loading-box {
+        background: rgb(34, 4, 54);
+        width: 100%;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .loading-box > .color-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .loading-box > .color-box > div {
+        width: 10px;
+        height: 5px;
+        background: rgb(255, 255, 255);
+    }
+    .loading-box > .color-box > div:first-child {
+        animation: colorAni 1.5s ease infinite;
+    }
+    .loading-box > .color-box > div:nth-child(2) {
+        animation: colorAni 1.5s ease 50ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(3) {
+        animation: colorAni 1.5s ease 100ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(4) {
+        animation: colorAni 1.5s ease 150ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(5) {
+        animation: colorAni 1.5s ease 200ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(6) {
+        animation: colorAni 1.5s ease 250ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(7) {
+        animation: colorAni 1.5s ease 300ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(8) {
+        animation: colorAni 1.5s ease 350ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(9) {
+        animation: colorAni 1.5s ease 400ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(10) {
+        animation: colorAni 1.5s ease 450ms infinite;
+    }
+    @keyframes colorAni {
+        0% {opacity: 0;}
+        50% {opacity: 1;};
+        100% {opacity: 0;}
+    }
+</style>
+```
+:::
+::: demo 色块 + 动画延迟 + 动画错位
+``` html
+<template>
+    <div class="loading-box">
+        <div class="color-box">
+            <div></div>
+            <div></div> 
+            <div></div> 
+            <div></div> 
+            <div></div> 
+            <div></div> 
+            <div></div>
+            <div></div> 
+            <div></div> 
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+    .loading-box {
+        background: rgb(34, 4, 54);
+        width: 100%;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .loading-box > .color-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .loading-box > .color-box > div {
+        width: 5px;
+        height: 10px;
+        background: rgb(255, 255, 255);
+    }
+    .loading-box > .color-box > div:first-child {
+        animation: colorAni 1s ease 250ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(2) {
+        animation: colorAni 1s ease 200ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(3) {
+        animation: colorAni 1s ease 150ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(4) {
+        animation: colorAni 1s ease 100ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(5) {
+        animation: colorAni 1s ease 50ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(6) {
+        animation: colorAni 1s ease infinite;
+    }
+    .loading-box > .color-box > div:nth-child(7) {
+        animation: colorAni 1s ease 50ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(8) {
+        animation: colorAni 1s ease 100ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(9) {
+        animation: colorAni 1s ease 150ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(10) {
+        animation: colorAni 1s ease 200ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(11) {
+        animation: colorAni 1s ease 250ms infinite;
+    }
+    @keyframes colorAni {
+        0% {opacity: 0;}
+        50% {opacity: 1;};
+        100% {opacity: 0;}
+    }
+</style>
+```
+:::
+::: demo 色块 + 动画延迟 + 色彩渐变
+``` html
+<template>
+    <div class="loading-box">
+        <div class="color-box">
+            <div></div>
+            <div></div> 
+            <div></div> 
+            <div></div> 
+            <div></div> 
+            <div></div> 
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div> 
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+    .loading-box {
+        background: rgb(34, 4, 54);
+        width: 100%;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .loading-box > .color-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .loading-box > .color-box > div {
+        width: 10px;
+        height: 5px;
+        background: rgb(255, 255, 255);
+    }
+    .loading-box > .color-box > div:first-child {
+        animation: colorAni2 7s ease infinite;
+    }
+    .loading-box > .color-box > div:nth-child(2) {
+        animation: colorAni2 7s ease 50ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(3) {
+        animation: colorAni2 7s ease 100ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(4) {
+        animation: colorAni2 7s ease 150ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(5) {
+        animation: colorAni2 7s ease 200ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(6) {
+        animation: colorAni2 7s ease 250ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(7) {
+        animation: colorAni2 7s ease 300ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(8) {
+        animation: colorAni2 7s ease 350ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(9) {
+        animation: colorAni2 7s ease 400ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(10) {
+        animation: colorAni2 7s ease 450ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(11) {
+        animation: colorAni2 7s ease 500ms infinite;
+    }
+    .loading-box > .color-box > div:nth-child(12) {
+        animation: colorAni2 7s ease 550ms infinite;
+    }
+    @keyframes colorAni2 {
+        0% {background: red;}
+        14% {background: orange;}
+        28% {background: yellow;}
+        42% {background: green;}
+        56% {background: cyan;}
+        70% {background: blue;}
+        84% {background: violet;}
+        100% {background: red;}
+    }
+</style>
+```
+:::
