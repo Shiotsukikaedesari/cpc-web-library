@@ -1,15 +1,14 @@
 <template>
     <div class="container">
         <div class="background">
-          <!-- <img src="/static/background.jpg" alt=""> -->
-          <cpc-index></cpc-index>
+          <cpc-index @showMessage="toControl"></cpc-index>
         </div>
-        <div class="main flex-column-center" v-show="showMessage">
+        <div class="main flex-column-center animation" :class="{'main-hidden': hideMessage, 'main-show': !hideMessage}">
             <div class="logo">
                 <img v-lazy="'/static/logo.png'" alt="漫协logo">
             </div>
             <div class="introduce">
-                <span>一款基于Vue的组件库，为cpc官网提供支持（挖的坑是一定要填的！）</span>
+                <span>一款基于Vue的前端开发库，为cpc官网提供支持（挖的坑是一定要填的！）</span>
             </div>
             <div class="button-box">
                 <button class="animation" @click="toGuide">指南</button>
@@ -17,19 +16,19 @@
                 <button class="animation" @click="toEffect">动效</button>
                 <button class="animation" @click="toGithub">Github</button>
                 <button class="animation" @click="toNotes">前端笔记</button>
-                <button class="animation" @click="toControl">隐藏前部</button>
+                <button class="animation" @click="toControl">3D world</button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import cpcIndex from '@/components/cpc-index.vue'
+import cpcIndex from '@/views/three.vue'
 export default {
   name: 'index',
   data () {
     return {
-      showMessage: true
+      hideMessage: false
     }
   },
   methods: {
@@ -55,7 +54,7 @@ export default {
     },
     // 呼出背景控制台
     toControl () {
-      this.showMessage = !this.showMessage
+      this.hideMessage = !this.hideMessage
     }
   },
   mounted () {
@@ -71,13 +70,10 @@ export default {
     width: 100%;
     height: 100%;
     .background {
+      // background: black;
       overflow: hidden;
       width: 100%;
       height: 100%;
-    > img {
-      // width: 100%;
-      // height: 100%;
-    }
   }
   .main {
     width: 100%;
@@ -85,13 +81,12 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 3;
     > div {
         margin: 20px;
     }
     > .logo {
-        > img {
-            // width: 260px;
-        }
+      height: 243.5px;
     }
     > .introduce {
         color: #fff;
@@ -122,6 +117,22 @@ export default {
             }
         }
     }
+  }
+  .main-hidden {
+    animation: hiddenMainAni 1.5s ease forwards;
+  }
+  .main-show {
+    animation: showMainAni 1.5s ease-out forwards;
+  }
+  @keyframes hiddenMainAni {
+    0% {opacity: 1; transform: translateY(0);};
+    99% {opacity: 0; transform: translateY(-100%);};
+    100% {opacity: 0; transform: translateY(-100%); display: none};
+  }
+  @keyframes showMainAni {
+    0% {opacity: 0; transform: translateY(-100%);};
+    99% {opacity: 1; transform: translateY(0);};
+    100% {opacity: 1; transform: translateY(0); display: block};
   }
 }
 </style>
