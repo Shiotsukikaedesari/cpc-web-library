@@ -4,8 +4,11 @@
         <cpc-nav-side :width="sideNavWidth" height="100%" background="">
           <template slot="menu">
                 <cpc-nav-side-elem elemKey="0" slot="child" :click="toIndex">首页</cpc-nav-side-elem>
-                <cpc-nav-side-elem elemKey="1" slot="child" :isSignal="true">初始场景辅助</cpc-nav-side-elem>
-                <cpc-nav-side-elem elemKey="2" slot="child">轮播</cpc-nav-side-elem>
+                <cpc-nav-side-elem elemKey="1" slot="child" :isSignal="true" :click="toInitThree">初始场景辅助</cpc-nav-side-elem>
+                <cpc-nav-side-elem elemKey="2" slot="child" :click="toWatchKeyframe">帧率监视器</cpc-nav-side-elem>
+                <cpc-nav-side-elem elemKey="3" slot="child" :click="toCameraFollowMouse">相机跟随鼠标</cpc-nav-side-elem>
+                <cpc-nav-side-elem elemKey="4" slot="child" :click="toAutoRotateCamera">相机自动旋转</cpc-nav-side-elem>
+                <cpc-nav-side-elem elemKey="5" slot="child" :click="toDragCamera">相机交互插件（OrbitControls）</cpc-nav-side-elem>
             </template>
         </cpc-nav-side>
     </div>
@@ -29,6 +32,26 @@ export default {
   methods: {
     toIndex () {
       this.$emit('showMessage')
+    },
+    // 初始场景辅助
+    toInitThree () {
+      this.$router.replace({path: '/three/initThree'})
+    },
+    // 帧率监视器
+    toWatchKeyframe () {
+      this.$router.replace({path: '/three/watchKeyframe'})
+    },
+    // 相机跟随鼠标
+    toCameraFollowMouse () {
+      this.$router.replace({path: '/three/cameraFollowMouse'})
+    },
+    // 相机自动旋转
+    toAutoRotateCamera () {
+      this.$router.replace({path: '/three/autoRotateCamera'})
+    },
+    // 相机拖动旋转
+    toDragCamera () {
+      this.$router.replace({path: '/three/dragCamera'})
     }
   },
   computed: {
