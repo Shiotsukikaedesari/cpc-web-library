@@ -18,20 +18,9 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index,
-      redirect: '/three/initThree',
-      children: [
-        Three3D
-      ]
+      redirect: '/three/dragCamera',
+      children: Three3D
     },
-    // {
-    //   path: '/three',
-    //   name: 'three',
-    //   component: Three3D,
-    //   redirect: '/three/initThree',
-    //   children: [
-    //     Three3DChildren
-    //   ]
-    // },
     {
       path: '/display',
       name: 'display',
