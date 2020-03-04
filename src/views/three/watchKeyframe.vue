@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
 export default {
   name: 'three-init',
   data () {
@@ -12,6 +13,7 @@ export default {
       renderer: new THREE.WebGLRenderer({antialias: true}), // 渲染器
       scene: new THREE.Scene(), // 场景
       camera: new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000), // 相机
+      stats: new Stats(), // 资源监视器
       helperBox: {
         axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
         gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')} // 网格
@@ -26,6 +28,7 @@ export default {
       this.initObj()
       this.initLight()
       this.initHelper()
+      this.initStats()
       this.updateRenderer()
     },
     // 初始渲染器
@@ -55,6 +58,16 @@ export default {
       this.scene.add(this.helperBox.axesHelper.helper)
       this.scene.add(this.helperBox.gridHelper.helper)
     },
+    // 初始监视器
+    initStats () {
+      this.stats.setMode(0)
+      this.stats.domElement.id = 'three-stats'
+      this.stats.domElement.style.position = 'absolute'
+      this.stats.domElement.style.left = 'unset'
+      this.stats.domElement.style.right = '0px'
+      this.stats.domElement.style.top = '0px'
+      document.body.appendChild(this.stats.domElement)
+    },
     // 动画
     initAnimation () {
     },
@@ -65,6 +78,10 @@ export default {
   },
   mounted () {
     this.init()
+  },
+  // 清空所有绑定事件与清空画布
+  beforeDestroy () {
+    document.body.removeChild(document.getElementById('three-stats'))
   }
 }
 </script>
