@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Index from '@/views/index'
 import Display from '@/views/display'
 
+import Three3D from './router-three'
+
 import Components from './router-components'
 import Guide from './router-guide'
 import Notes from './router-notes'
@@ -15,8 +17,21 @@ export default new Router({
     {
       path: '/',
       name: 'index',
-      component: Index
+      component: Index,
+      redirect: '/three/initThree',
+      children: [
+        Three3D
+      ]
     },
+    // {
+    //   path: '/three',
+    //   name: 'three',
+    //   component: Three3D,
+    //   redirect: '/three/initThree',
+    //   children: [
+    //     Three3DChildren
+    //   ]
+    // },
     {
       path: '/display',
       name: 'display',
