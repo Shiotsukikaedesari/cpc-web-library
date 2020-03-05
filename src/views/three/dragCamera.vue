@@ -1,5 +1,6 @@
 <template>
     <div class="three-display three-init">
+      <cpc-three-tips :tips="tips"></cpc-three-tips>
         <div id="three-canvas" class="three-canvas" ref="three-canvas"></div>
     </div>
 </template>
@@ -10,6 +11,7 @@ import {OrbitControls} from '../../../node_modules/three/examples/jsm/controls/O
 export default {
   data () {
     return {
+      tips: '', // 页面提示
       renderer: new THREE.WebGLRenderer({antialias: true}), // 渲染器
       scene: new THREE.Scene(), // 场景
       camera: new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000), // 相机
@@ -88,6 +90,9 @@ export default {
   },
   // 初始计算
   created () {
+    this.tips = `旋转相机：鼠标左键
+    缩放场景：鼠标滚轮
+    移动相机：鼠标右键`
   },
   // 所有事件绑在此钩子
   beforeMount () {
