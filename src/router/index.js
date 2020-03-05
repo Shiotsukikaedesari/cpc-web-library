@@ -18,7 +18,7 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index,
-      redirect: '/three/dragCamera',
+      redirect: '/three/gui',
       children: Three3D
     },
     {

@@ -5,6 +5,7 @@ import InitObj from '@/views/three/initObj'
 import CameraFollowMouse from '@/views/three/cameraFollowMouse'
 import AutoRotateCamera from '@/views/three/autoRotateCamera'
 import DragCamera from '@/views/three/dragCamera'
+import Gui from '@/views/three/gui'
 
 import ControlObj from '@/views/three/controlObj'
 export default
@@ -18,6 +19,11 @@ export default
     path: '/three/watchKeyframe',
     name: 'watchKeyframe',
     component: WatchKeyframe
+  },
+  {
+    path: '/three/gui',
+    name: 'gui',
+    component: Gui
   },
   {
     path: '/three/initObj',
