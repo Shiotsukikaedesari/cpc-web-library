@@ -3,14 +3,17 @@
     <div class="cpc-nav-side">
         <cpc-nav-side :width="sideNavWidth" height="100%" background="">
           <template slot="menu">
-            <cpc-nav-side-elem elemKey="0" slot="father" :click="toIndex">首页</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="0" slot="father" :click="toIndex">
+              <cpc-icon slot="side-ui" code="#icon-home"></cpc-icon>首页
+            </cpc-nav-side-elem>
             <cpc-nav-side-menu menuKey="1" slot="menu" :open="true">
               <cpc-nav-side-elem elemKey="1-0" slot="father" :father="true" isSignal>
                 <cpc-icon slot="side-ui" code="#icon-arrow-right-drop-circle"></cpc-icon>开始
               </cpc-nav-side-elem>
               <cpc-nav-side-elem elemKey="1-1" slot="child" :isSignal="true" :click="toInitThree">场景初始</cpc-nav-side-elem>
-              <cpc-nav-side-elem elemKey="1-2" slot="child" :click="toWatchKeyframe">帧率监视器（stats）</cpc-nav-side-elem>
+              <cpc-nav-side-elem elemKey="1-2" slot="child" :click="toWatchKeyframe">帧率监视器（Stats）</cpc-nav-side-elem>
               <cpc-nav-side-elem elemKey="1-3" slot="child" :click="toInitObj">初始物体</cpc-nav-side-elem>
+              <cpc-nav-side-elem elemKey="1-4" slot="child" :click="toGui">图形控制界面（Gui）</cpc-nav-side-elem>
             </cpc-nav-side-menu>
             <cpc-nav-side-menu menuKey="2" slot="menu">
               <cpc-nav-side-elem elemKey="2-0" slot="father" :father="true">
@@ -58,6 +61,10 @@ export default {
     toWatchKeyframe () {
       this.$router.replace({path: '/three/watchKeyframe'})
     },
+    // 图形控制界面
+    toGui () {
+      this.$router.replace({path: '/three/gui'})
+    },
     // 初始物体
     toInitObj () {
       this.$router.replace({path: '/three/initObj'})
@@ -98,7 +105,9 @@ export default {
         left: 0;
         z-index:1;
         >  .container {
-          background: transparent;
+          border: none;
+          box-shadow: none;
+          background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 70%);
           > .container  {
             /deep/ .father-elem {
               > .container {
