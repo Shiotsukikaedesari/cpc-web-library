@@ -8,7 +8,14 @@ export default new Vuex.Store({
     // 屏幕宽度
     innerWidth: window.innerWidth,
     // 屏幕高度
-    innerHeight: window.innerHeight
+    innerHeight: window.innerHeight,
+    // tips
+    threeTips: `    相机旋转：鼠标右键  相机缩放：鼠标滚轮
+    设置物体位移：W  设置物体旋转：E  设置物体缩放：R
+    控制X轴：X  控制Y轴：Y   控制Z轴：Z
+    变换固定位移100旋转15度缩放0.25：shift
+    设置控制器大小： +/-
+    禁用/启用控制器：空格 `
   },
   getters: {
     // 设置侧边栏的宽
@@ -72,6 +79,10 @@ export default new Vuex.Store({
     // 重置页面高度
     resetInnerHeight (state, newInnerHeight) {
       state.innerHeight = newInnerHeight
+    },
+    // 跟新threeTips
+    resetThreeTips (state, newThreeTips) {
+      state.threeTips = newThreeTips
     }
   },
   actions: {
@@ -80,6 +91,9 @@ export default new Vuex.Store({
     },
     resetInnerHeightFun (context, newInnerHeight) {
       context.commit('resetInnerHeight', newInnerHeight)
+    },
+    resetThreeTipsFun (context, newThreeTips) {
+      context.commit('resetThreeTips', newThreeTips)
     }
   },
   modules: {}
