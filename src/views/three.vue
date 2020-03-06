@@ -1,6 +1,7 @@
 <template>
   <div class="three-world">
-    <div class="cpc-nav-side">
+    <div class="three-left-nav">
+      <div class="cpc-nav-side">
         <cpc-nav-side :width="sideNavWidth" height="100%" background="">
           <template slot="menu">
             <cpc-nav-side-elem elemKey="0" slot="father" :click="toIndex">
@@ -31,11 +32,17 @@
             </cpc-nav-side-menu>
             </template>
         </cpc-nav-side>
+      </div>
+      <cpc-three-tips :tips="tips"></cpc-three-tips>
     </div>
      <div class="three-container">
       <router-view></router-view>
     </div>
-    <div class="three-link">
+    <div class="three-nav-switch flex-row-center">
+        <cpc-icon code="#icon-ray-start-arrow" color="black" size="20px"></cpc-icon>
+    </div>
+    <div class="three-link flex-row-center">
+      <cpc-icon code="#icon-code-tags" color="black" size="20px"></cpc-icon>
     </div>
   </div>
 </template>
@@ -46,10 +53,14 @@ export default {
   name: 'cpc-index',
   data () {
     return {
-      sideNavWidth: '300px'
+      sideNavWidth: '300px',
+      tips: '' // 提示
     }
   },
   methods: {
+    setTips (tips) {
+      this.tips = tips || ''
+    },
     toIndex () {
       this.$emit('showMessage')
     },
@@ -98,48 +109,52 @@ export default {
 .three-world {
   width: 100%;
   height: 100%;
-  > .cpc-nav-side {
-        height: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index:1;
-        >  .container {
-          border: none;
-          box-shadow: none;
-          background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 70%);
-          > .container  {
-            /deep/ .father-elem {
-              > .container {
-                background: transparent;
-                .icon-container {
-                  color: white;
-                }
+  > .three-left-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index:1;
+    display: flex;
+    height: 100%;
+    > .cpc-nav-side {
+      height: 100%;
+      > .container {
+        border: none;
+        box-shadow: none;
+        background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 70%);
+        > .container  {
+          /deep/ .father-elem {
+            > .container {
+              background: transparent;
+              .icon-container {
+                color: white;
               }
             }
-            /deep/ .child-elem {
-              > .container {
-                background: transparent;
-              }
-            }
-            background: transparent;
-            /deep/ .elem-box {
-              > .left-box {
-                > .ui {color: white;}
-                > .title {color: white;}
-              }
-              > .right-box {
-                > div[class*='signal'] {
-                  background: rgb(204, 0, 255);
-                  box-shadow: 0 0 4px white;
-                }
-              }
-            }
-             /deep/ .box-hover {
-                background: rgb(114, 114, 114);
-              }
           }
+          /deep/ .child-elem {
+            > .container {
+              background: transparent;
+            }
+          }
+          background: transparent;
+          /deep/ .elem-box {
+            > .left-box {
+              > .ui {color: white;}
+              > .title {color: white;}
+            }
+            > .right-box {
+              > div[class*='signal'] {
+                background: rgb(204, 0, 255);
+                box-shadow: 0 0 4px white;
+              }
+            }
+          }
+            /deep/ .box-hover {
+              background: rgb(114, 114, 114);
+            }
         }
+      }
+    }
   }
   > .three-container {
     position: fixed;
@@ -149,12 +164,23 @@ export default {
     width: 100%;
     height: 100%;
   }
+  > .three-nav-switch {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    z-index:1
+  }
   > .three-link {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 10px;
-    height: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
     background: white;
     z-index:1;
   }
