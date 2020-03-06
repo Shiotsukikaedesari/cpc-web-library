@@ -1,6 +1,5 @@
 <template>
     <div class="three-display three-init">
-        <cpc-three-tips :tips="tips"></cpc-three-tips>
         <div id="three-canvas" class="three-canvas" ref="three-canvas"></div>
     </div>
 </template>
@@ -8,12 +7,10 @@
 <script>
 import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
 import {OrbitControls} from '../../../node_modules/three/examples/jsm/controls/OrbitControls'
-import {TransformControls} from '../../../node_modules/three/examples/jsm/controls/TransformControls'
+import {GUI} from '../../../node_modules/three/examples/jsm/libs/dat.gui.module'
 export default {
   data () {
     return {
-      tip: '', // 提示
-
       renderer: '', // 渲染器
       scene: '', // 场景
       camera: '', // 相机
@@ -25,35 +22,51 @@ export default {
       },
       clock: '', // 世界时钟
       orbitControls: '', // 相机控件
-      transformControls: '', // 物体控件
-      animationFrame: '' // 动画
+      animationFrame: '', // 动画
+      gui: '', // 控制台
+      guiParam: '' // 控制台参数
     }
   },
   methods: {
     // 初始
     init () {
       this.initRender()
+      this.initScene()
+      this.initClock()
       this.initCamera()
       this.initObj()
       this.initLight()
       this.initHelper()
       this.initStats()
       this.initOrbitControls()
-      this.initTranformControls()
+      this.initGui()
       this.updateRenderer()
     },
     // 初始渲染器
     initRender () {
+      this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器
       this.renderer.setSize(window.innerWidth, window.innerHeight)
       this.$refs['three-canvas'].appendChild(this.renderer.domElement)
       this.renderer.setClearColor('rgb(15, 1, 25)')
     },
+    // 初始场景
+    initScene () {
+      this.scene = new THREE.Scene() // 场景
+    },
+    // 初始世界时钟
+    initClock () {
+      this.clock = new THREE.Clock() // 世界时钟
+    },
     // 光源
     initLight () {
+      this.lightBox = {
+        ambientLight: new THREE.AmbientLight('rgb(255, 255, 255)') // 环境光
+      }
       this.scene.add(this.lightBox.ambientLight)
     },
     // 初始相机
     initCamera () {
+      this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
       this.camera.position.x = 400
       this.camera.position.y = 400
       this.camera.position.z = 400
@@ -72,16 +85,21 @@ export default {
     },
     // 初始辅助
     initHelper () {
+      this.helperBox = {
+        axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
+        gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')} // 网格
+      }
       this.scene.add(this.helperBox.axesHelper.helper)
       this.scene.add(this.helperBox.gridHelper.helper)
     },
     // 初始监视器
     initStats () {
+      this.stats = new Stats() // 资源监视器
       this.stats.setMode(0)
       this.stats.domElement.id = 'three-stats'
       this.stats.domElement.style.position = 'absolute'
       this.stats.domElement.style.left = 'unset'
-      this.stats.domElement.style.right = '0px'
+      this.stats.domElement.style.right = '300px'
       this.stats.domElement.style.top = '0px'
       document.body.appendChild(this.stats.domElement)
     },
@@ -96,11 +114,26 @@ export default {
         RIGHT: THREE.MOUSE.ROTATE
       }
     },
-    // 加载物体控件
-    initTranformControls () {
-      this.transformControls = new TransformControls(this.camera, this.renderer.domElement)
-      this.transformControls.attach(this.objBox.obj1)
-      this.scene.add(this.transformControls)
+    // 初始控制台
+    initGui () {
+      this.gui = new GUI() // 控制台
+      this.guiParam = { // 控制参数
+        cameraAutoRotate: true,
+        positionX: 0,
+        positionY: 50,
+        positionZ: 0,
+        rotateX: 0,
+        rotateY: 0,
+        rotateZ: 0,
+        scale: 1
+      }
+      this.gui.add(this.guiParam, 'cameraAutoRotate')
+      this.gui.add(this.guiParam, 'positionX', -500, 500)
+      this.gui.add(this.guiParam, 'positionY', -500, 500)
+      this.gui.add(this.guiParam, 'positionZ', -500, 500)
+      this.gui.add(this.guiParam, 'rotateX', 0, 360)
+      this.gui.add(this.guiParam, 'rotateY', 0, 360)
+      this.gui.add(this.guiParam, 'rotateZ', 0, 360)
     },
     // 动画
     animation () {
@@ -111,6 +144,15 @@ export default {
       this.orbitControls.update(delta)
       this.renderer.render(this.scene, this.camera)
       this.stats.update()
+
+      this.orbitControls.autoRotate = this.guiParam.cameraAutoRotate
+      this.objBox.obj1.position.x = this.guiParam.positionX
+      this.objBox.obj1.position.y = this.guiParam.positionY
+      this.objBox.obj1.position.z = this.guiParam.positionZ
+      this.objBox.obj1.rotation.x = Math.PI * (this.guiParam.rotateX) / 180
+      this.objBox.obj1.rotation.y = Math.PI * (this.guiParam.rotateY) / 180
+      this.objBox.obj1.rotation.z = Math.PI * (this.guiParam.rotateZ) / 180
+
       this.animationFrame = requestAnimationFrame(this.updateRenderer)
     },
     // 清空物体缓存
@@ -125,30 +167,12 @@ export default {
       this.renderer.forceContextLoss()
       this.renderer.domElement = null
       this.clearObjCache(this.objBox.obj1)
+      // gui
+      this.gui.destroy()
     }
   },
   // 初始计算,信息
   created () {
-    this.tips = `相机旋转：鼠标右键  相机缩放：鼠标滚轮
-    设置物体位移：W  设置物体旋转：E  设置物体缩放：R
-    控制X轴：X  控制Y轴：Y   控制Z轴：Z
-    变换固定位移100旋转15度缩放0.25：shift
-    设置控制器大小： +/-
-    禁用/启用控制器：空格 `
-  },
-  beforeMount () {
-    this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器
-    this.scene = new THREE.Scene() // 场景
-    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
-    this.stats = new Stats() // 资源监视器
-    this.lightBox = {
-      ambientLight: new THREE.AmbientLight('rgb(255, 255, 255)') // 环境光
-    }
-    this.helperBox = {
-      axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
-      gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')} // 网格
-    }
-    this.clock = new THREE.Clock() // 世界时钟
   },
   mounted () {
     this.init()
@@ -203,7 +227,6 @@ export default {
           break
       }
     }
-    console.log(this.scene)
   },
   // 清空所有绑定事件与清空画布
   beforeDestroy () {
@@ -217,6 +240,7 @@ export default {
     this.lightBox = null
     this.helperBox = null
     this.clock = null
+    this.gui = null
     cancelAnimationFrame(this.animationFrame)
   }
 }

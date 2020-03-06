@@ -55,10 +55,10 @@ export default {
     },
     // 初始物体
     initObj () {
-      let geometry = new THREE.BoxGeometry(150, 150, 150, 4, 4)
+      let geometry = new THREE.BoxGeometry(100, 100, 150, 4, 4)
       let material = new THREE.MeshLambertMaterial({color: 'rgb(115, 30, 150)'})
       this.objBox.obj1 = new THREE.Mesh(geometry, material)
-      this.objBox.obj1.position.set(0, 75, 0)
+      this.objBox.obj1.position.set(0, 50, 0)
       this.scene.add(this.objBox.obj1)
     },
     // 初始辅助
@@ -101,7 +101,6 @@ export default {
       // 渲染器缓存
       this.renderer.dispose()
       this.renderer.forceContextLoss()
-      this.renderer.context = null
       this.renderer.domElement = null
       this.clearObjCache(this.objBox.obj1)
     }
