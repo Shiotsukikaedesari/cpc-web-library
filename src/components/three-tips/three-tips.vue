@@ -3,12 +3,23 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
   name: 'cpc-three-tips',
-  props: {
-    tips: {
-      type: String,
-      default: ''
+  data () {
+    return {
+      tips: ''
+    }
+  },
+  created () {
+    this.tips = this.threeTips
+  },
+  computed: {
+    ...mapState(['threeTips'])
+  },
+  watch: {
+    threeTips (newValue, oldValue) {
+      this.tips = newValue
     }
   }
 }
@@ -16,16 +27,12 @@ export default {
 
 <style lang="less" scoped>
 .three-tips {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  margin-left: -20%;
-  width: 40%;
+  display: inline-block;
   padding: 10px;
   color: white;
   text-shadow: 0 0 4px rgb(68, 68, 68);
-  text-align: center;
-  box-shadow: 0 0 8px rgb(168, 168, 168);
+  text-align: left;
   white-space:pre-wrap;
+  line-height: 25px;
 }
 </style>
