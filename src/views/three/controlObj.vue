@@ -14,23 +14,17 @@ export default {
     return {
       tip: '', // 提示
 
-      renderer: new THREE.WebGLRenderer({antialias: true}), // 渲染器
-      scene: new THREE.Scene(), // 场景
-      camera: new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000), // 相机
-      stats: new Stats(), // 资源监视器
-      lightBox: {
-        ambientLight: new THREE.AmbientLight('rgb(255, 255, 255)') // 环境光
-      },
-      helperBox: {
-        axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
-        gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')} // 网格
-      },
-      objBox: {
-        obj1: '' // 物体对象
-      },
-      clock: new THREE.Clock(), // 世界时钟
+      renderer: '', // 渲染器
+      scene: '', // 场景
+      camera: '', // 相机
+      stats: '', // 资源监视器
+      lightBox: '',
+      helperBox: '',
+      objBox: '',
+      clock: '', // 世界时钟
       orbitControls: '', // 相机控件
-      transformControls: '' // 物体控件
+      transformControls: '', // 物体控件
+      animationFrame: '' // 动画帧
     }
   },
   methods: {
@@ -115,7 +109,20 @@ export default {
       this.orbitControls.update(delta)
       this.renderer.render(this.scene, this.camera)
       this.stats.update()
-      requestAnimationFrame(this.updateRenderer)
+      this.animationFrame = requestAnimationFrame(this.updateRenderer)
+    },
+    // 清空物体缓存
+    clearObjCache (obj) {
+      obj.geometry.dispose()
+      obj.material.dispose()
+    },
+    // 清空缓存
+    clearCache () {
+      // 渲染器缓存
+      this.renderer.dispose()
+      this.renderer.forceContextLoss()
+      this.renderer.domElement = null
+      this.clearObjCache(this.objBox.obj1)
     }
   },
   // 初始计算,信息
@@ -128,7 +135,21 @@ export default {
     禁用/启用控制器：空格 `
   },
   beforeMount () {
-
+    this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器
+    this.scene = new THREE.Scene() // 场景
+    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
+    this.stats = new Stats() // 资源监视器
+    this.lightBox = {
+      ambientLight: new THREE.AmbientLight('rgb(255, 255, 255)') // 环境光
+    }
+    this.helperBox = {
+      axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
+      gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')} // 网格
+    }
+    this.objBox = {
+      obj1: '' // 物体对象
+    }
+    this.clock = new THREE.Clock() // 世界时钟
   },
   mounted () {
     this.init()
@@ -187,7 +208,17 @@ export default {
   // 清空所有绑定事件与清空画布
   beforeDestroy () {
     document.body.removeChild(document.getElementById('three-stats'))
-    window.onkeydown = ''
+    window.onkeydown = null
+    this.renderer = null
+    this.scene = null
+    this.camera = null
+    this.lightBox = null
+    this.helperBox = null
+    this.objBox = null
+    this.clock = null
+    this.orbitControls = null
+    this.transformControls = null
+    cancelAnimationFrame(this.animationFrame)
   }
 }
 </script>

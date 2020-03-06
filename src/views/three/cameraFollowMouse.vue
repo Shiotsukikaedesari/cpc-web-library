@@ -10,19 +10,16 @@ export default {
   name: 'three-init',
   data () {
     return {
-      renderer: new THREE.WebGLRenderer({antialias: true}), // 渲染器
-      scene: new THREE.Scene(), // 场景
-      camera: new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000), // 相机
-      stats: new Stats(), // 资源监视器
-      helperBox: {
-        axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
-        gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')} // 网格
-      },
+      renderer: '', // 渲染器
+      scene: '', // 场景
+      camera: '', // 相机
+      stats: '', // 资源监视器
+      helperBox: '',
 
       mouseX: 0, // 鼠标x
       mouseY: 0, // 鼠标y
-      innerWidth: window.innerWidth, // 屏幕宽度
-      innerHeight: window.innerHeight // 屏幕高度
+      innerWidth: '', // 屏幕宽度
+      innerHeight: '' // 屏幕高度
     }
   },
   methods: {
@@ -83,6 +80,19 @@ export default {
       this.camera.lookAt(new THREE.Vector3(0, 0, 0))
       this.renderer.render(this.scene, this.camera)
       this.stats.update()
+    },
+    // 清空物体缓存
+    clearObjCache (obj) {
+      obj.geometry.dispose()
+      obj.material.dispose()
+    },
+    // 清空缓存
+    clearCache () {
+      // 渲染器缓存
+      this.renderer.dispose()
+      this.renderer.forceContextLoss()
+      this.renderer.context = null
+      this.renderer.domElement = null
     }
   },
   // 所有事件绑在此钩子
@@ -92,6 +102,16 @@ export default {
       this.mouseY = event.clientY
       this.updateRenderer()
     }
+    this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器
+    this.scene = new THREE.Scene() // 场景
+    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
+    this.stats = new Stats() // 资源监视器
+    this.helperBox = {
+      axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
+      gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')} // 网格
+    }
+    this.innerWidth = window.innerWidth // 屏幕宽度
+    this.innerHeight = window.innerHeight // 屏幕高度
   },
   mounted () {
     this.init()
@@ -100,6 +120,16 @@ export default {
   beforeDestroy () {
     document.body.removeChild(document.getElementById('three-stats'))
     document.onmousemove = ''
+    this.clearCache()
+    this.renderer = null
+    this.scene = null
+    this.camera = null
+    this.stats = null
+    this.helperBox = null
+    this.mouseX = null
+    this.mouseY = null
+    this.innerWidth = null
+    this.innerHeight = null
   }
 }
 </script>

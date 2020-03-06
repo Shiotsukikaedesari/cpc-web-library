@@ -10,20 +10,16 @@ export default {
   name: 'three-init',
   data () {
     return {
-      renderer: new THREE.WebGLRenderer({antialias: true}), // 渲染器
-      scene: new THREE.Scene(), // 场景
-      camera: new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000), // 相机
-      stats: new Stats(), // 资源监视器
-      lightBox: {
-        ambientLight: new THREE.AmbientLight('rgb(255, 255, 255)') // 环境光
-      },
-      helperBox: {
-        axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
-        gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')} // 网格
-      },
+      renderer: '', // 渲染器
+      scene: '', // 场景
+      camera: '', // 相机
+      stats: '', // 资源监视器
+      lightBox: '',
+      helperBox: '',
       objBox: {
         obj1: '' // 物体对象
-      }
+      },
+      animationFrame: '' // 动画
     }
   },
   methods: {
@@ -93,7 +89,21 @@ export default {
       this.animation()
       this.renderer.render(this.scene, this.camera)
       this.stats.update()
-      requestAnimationFrame(this.updateRenderer)
+      this.animationFrame = requestAnimationFrame(this.updateRenderer)
+    },
+    // 清空物体缓存
+    clearObjCache (obj) {
+      obj.geometry.dispose()
+      obj.material.dispose()
+    },
+    // 清空缓存
+    clearCache () {
+      // 渲染器缓存
+      this.renderer.dispose()
+      this.renderer.forceContextLoss()
+      this.renderer.context = null
+      this.renderer.domElement = null
+      this.clearObjCache(this.objBox.obj1)
     }
   },
   // 初始计算
@@ -101,7 +111,17 @@ export default {
   },
   // 所有事件绑在此钩子
   beforeMount () {
-
+    this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器
+    this.scene = new THREE.Scene() // 场景
+    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
+    this.stats = new Stats() // 资源监视器
+    this.lightBox = {
+      ambientLight: new THREE.AmbientLight('rgb(255, 255, 255)') // 环境光
+    }
+    this.helperBox = {
+      axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
+      gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')} // 网格
+    }
   },
   mounted () {
     this.init()
@@ -110,6 +130,14 @@ export default {
   // 清空所有绑定事件与清空画布
   beforeDestroy () {
     document.body.removeChild(document.getElementById('three-stats'))
+    this.clearCache()
+    this.renderer = null
+    this.camera = null
+    this.stats = null
+    this.lightBox = null
+    this.helperBox = null
+    this.objBox = null
+    cancelAnimationFrame(this.animationFrame)
   }
 }
 </script>

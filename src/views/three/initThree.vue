@@ -9,13 +9,10 @@ export default {
   name: 'three-init',
   data () {
     return {
-      renderer: new THREE.WebGLRenderer({antialias: true}), // 渲染器
-      scene: new THREE.Scene(), // 场景
-      camera: new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000), // 相机
-      helperBox: {
-        axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
-        gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')} // 网格
-      }
+      renderer: '', // 渲染器
+      scene: '', // 场景
+      camera: '', // 相机
+      helperBox: ''
     }
   },
   methods: {
@@ -61,10 +58,40 @@ export default {
     // 加载场景
     updateRenderer () {
       this.renderer.render(this.scene, this.camera)
+    },
+    // 清空物体缓存
+    clearObjCache (obj) {
+      obj.geometry.dispose()
+      obj.material.dispose()
+    },
+    // 清空缓存
+    clearCache () {
+      // 渲染器缓存
+      this.renderer.dispose()
+      this.renderer.forceContextLoss()
+      this.renderer.context = null
+      this.renderer.domElement = null
+      this.renderer = null
+    }
+  },
+  beforeMount () {
+    this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器
+    this.scene = new THREE.Scene() // 场景
+    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
+    this.helperBox = {
+      axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
+      gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')} // 网格
     }
   },
   mounted () {
     this.init()
+  },
+  beforeDestroy () {
+    this.clearCache()
+    this.renderer = null
+    this.scene = null
+    this.camera = null
+    this.helperBox = null
   }
 }
 </script>
