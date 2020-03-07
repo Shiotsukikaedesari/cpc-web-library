@@ -104,6 +104,9 @@ export default {
       this.renderer.dispose()
       this.renderer.forceContextLoss()
       this.renderer.domElement = null
+      // 场景缓存
+      this.scene.dispose()
+      // 物体缓存
       this.clearObjCache(this.objBox.obj1)
     },
     ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])

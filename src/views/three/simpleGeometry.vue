@@ -175,6 +175,8 @@ export default {
       this.renderer.clear(true, true, true)
       this.renderer.context = null
       this.renderer.domElement = null
+      // 场景缓存
+      this.scene.dispose()
       // 几何体缓存
       this.clearObjCache(this.objBox.stage)
       this.clearObjCache(this.objBox.box)

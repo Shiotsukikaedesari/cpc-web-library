@@ -74,6 +74,8 @@ export default {
       this.renderer.context = null
       this.renderer.domElement = null
       this.renderer = null
+      // 场景缓存
+      this.scene.dispose()
     },
     ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
   },
