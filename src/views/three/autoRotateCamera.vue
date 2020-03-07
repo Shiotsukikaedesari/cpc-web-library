@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
 export default {
   name: 'three-init',
@@ -93,10 +94,16 @@ export default {
       this.renderer.forceContextLoss()
       this.renderer.context = null
       this.renderer.domElement = null
-    }
+    },
+    ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
   },
   // 初始计算
   created () {
+    // 展示的备注
+    let tips = `相机旋转：鼠标右键  相机缩放：鼠标滚轮 `
+    this.resetThreeTipsFun(tips)
+    // github链接
+    this.resetThreeLinkFun('/autoRotateCamera.vue')
   },
   // 所有事件绑在此钩子
   beforeMount () {

@@ -1,47 +1,49 @@
 <template>
   <div class="three-world">
-    <div class="three-left-nav">
-      <div class="cpc-nav-side">
-        <cpc-nav-side :width="sideNavWidth" height="100%" background="">
-          <template slot="menu">
-            <cpc-nav-side-elem elemKey="0" slot="father" :click="toIndex">
-              <cpc-icon slot="side-ui" code="#icon-home"></cpc-icon>首页
+    <div class="cpc-nav-side animation" :class="{'cpc-nav-side-hidden': hiddenNav}">
+      <cpc-nav-side :width="sideNavWidth" height="100%" background="">
+        <template slot="menu">
+          <cpc-nav-side-elem elemKey="0" slot="father" :click="toIndex">
+            <cpc-icon slot="side-ui" code="#icon-home"></cpc-icon>首页
+          </cpc-nav-side-elem>
+          <cpc-nav-side-menu menuKey="1" slot="menu" :open="true">
+            <cpc-nav-side-elem elemKey="1-0" slot="father" :father="true" isSignal>
+              <cpc-icon slot="side-ui" code="#icon-arrow-right-drop-circle"></cpc-icon>开始
             </cpc-nav-side-elem>
-            <cpc-nav-side-menu menuKey="1" slot="menu" :open="true">
-              <cpc-nav-side-elem elemKey="1-0" slot="father" :father="true" isSignal>
-                <cpc-icon slot="side-ui" code="#icon-arrow-right-drop-circle"></cpc-icon>开始
-              </cpc-nav-side-elem>
-              <cpc-nav-side-elem elemKey="1-1" slot="child" :isSignal="true" :click="toInitThree">场景初始</cpc-nav-side-elem>
-              <cpc-nav-side-elem elemKey="1-2" slot="child" :click="toWatchKeyframe">帧率监视器（Stats）</cpc-nav-side-elem>
-              <cpc-nav-side-elem elemKey="1-3" slot="child" :click="toInitObj">初始物体</cpc-nav-side-elem>
-              <cpc-nav-side-elem elemKey="1-4" slot="child" :click="toGui">图形控制界面（Gui）</cpc-nav-side-elem>
-            </cpc-nav-side-menu>
-            <cpc-nav-side-menu menuKey="2" slot="menu">
-              <cpc-nav-side-elem elemKey="2-0" slot="father" :father="true">
-                <cpc-icon slot="side-ui" code="#icon-camera"></cpc-icon>相机
-              </cpc-nav-side-elem>
-              <cpc-nav-side-elem elemKey="2-1" slot="child" :click="toCameraFollowMouse">相机跟随鼠标</cpc-nav-side-elem>
-              <cpc-nav-side-elem elemKey="2-2" slot="child" :click="toAutoRotateCamera">相机自动旋转</cpc-nav-side-elem>
-              <cpc-nav-side-elem elemKey="2-3" slot="child" :click="toDragCamera">相机交互插件（OrbitControls）</cpc-nav-side-elem>
-            </cpc-nav-side-menu>
-            <cpc-nav-side-menu menuKey="3" slot="menu">
-              <cpc-nav-side-elem elemKey="3-0" slot="father" :father="true">
-                <cpc-icon slot="side-ui" code="#icon-camera"></cpc-icon>物体
-              </cpc-nav-side-elem>
-              <cpc-nav-side-elem elemKey="3-1" slot="child" :click="toControlObj">物体交互控件（TransformControls）</cpc-nav-side-elem>
-            </cpc-nav-side-menu>
-            </template>
-        </cpc-nav-side>
-      </div>
-      <cpc-three-tips :tips="tips"></cpc-three-tips>
+            <cpc-nav-side-elem elemKey="1-1" slot="child" :isSignal="true" :click="toInitThree">场景初始</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="1-2" slot="child" :click="toWatchKeyframe">帧率监视器（Stats）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="1-3" slot="child" :click="toInitObj">初始物体</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="1-4" slot="child" :click="toGui">图形控制界面（Gui）</cpc-nav-side-elem>
+          </cpc-nav-side-menu>
+          <cpc-nav-side-menu menuKey="2" slot="menu">
+            <cpc-nav-side-elem elemKey="2-0" slot="father" :father="true">
+              <cpc-icon slot="side-ui" code="#icon-camera"></cpc-icon>相机
+            </cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="2-1" slot="child" :click="toCameraFollowMouse">相机跟随鼠标</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="2-2" slot="child" :click="toAutoRotateCamera">相机自动旋转</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="2-3" slot="child" :click="toDragCamera">相机交互插件（OrbitControls）</cpc-nav-side-elem>
+          </cpc-nav-side-menu>
+          <cpc-nav-side-menu menuKey="3" slot="menu">
+            <cpc-nav-side-elem elemKey="3-0" slot="father" :father="true">
+              <cpc-icon slot="side-ui" code="#icon-camera"></cpc-icon>物体
+            </cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="3-1" slot="child" :click="toControlObj">物体交互控件（TransformControls）</cpc-nav-side-elem>
+          </cpc-nav-side-menu>
+          </template>
+      </cpc-nav-side>
     </div>
+      <cpc-three-tips :tips="tips" :class="{'cpc-nav-side-hidden': hiddenNav}"></cpc-three-tips>
      <div class="three-container">
       <router-view></router-view>
     </div>
-    <div class="three-nav-switch flex-row-center">
-        <cpc-icon code="#icon-ray-start-arrow" color="black" size="20px"></cpc-icon>
+    <div
+    class="three-nav-switch flex-row-center animation"
+    :class="{'three-nav-switch-close': hiddenNav}"
+    @click="switchNav"
+    >
+        <cpc-icon code="#icon-ray-end-arrow" color="black" size="20px"></cpc-icon>
     </div>
-    <div class="three-link flex-row-center">
+    <div class="three-link flex-row-center animation" @click="openThreeLink">
       <cpc-icon code="#icon-code-tags" color="black" size="20px"></cpc-icon>
     </div>
   </div>
@@ -51,15 +53,26 @@
 import {mapGetters} from 'vuex'
 export default {
   name: 'cpc-index',
+  props: {
+    showNav: {
+      type: Boolean
+    }
+  },
   data () {
     return {
       sideNavWidth: '300px',
-      tips: '' // 提示
+      tips: '', // 提示
+      hiddenNav: true
     }
   },
   methods: {
-    setTips (tips) {
-      this.tips = tips || ''
+    // 打开链接
+    openThreeLink () {
+      window.open(this.setThreeLink)
+    },
+    // 导航栏开关
+    switchNav () {
+      this.hiddenNav = !this.hiddenNav
     },
     toIndex () {
       this.$emit('showMessage')
@@ -99,8 +112,16 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'setSideNavWidth'
+      'setThreeLink'
     ])
+  },
+  mounted () {
+    this.hiddenNav = !this.showNav
+  },
+  watch: {
+    showNav (newValue, oldValue) {
+      this.hiddenNav = !newValue
+    }
   }
 }
 </script>
@@ -109,52 +130,52 @@ export default {
 .three-world {
   width: 100%;
   height: 100%;
-  > .three-left-nav {
+  > .cpc-nav-side {
+    height: 100%;
     position: fixed;
     top: 0;
     left: 0;
     z-index:1;
-    display: flex;
-    height: 100%;
-    > .cpc-nav-side {
-      height: 100%;
-      > .container {
-        border: none;
-        box-shadow: none;
-        background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 70%);
-        > .container  {
-          /deep/ .father-elem {
-            > .container {
-              background: transparent;
-              .icon-container {
-                color: white;
-              }
+    display: inline-block;
+    > .container {
+      border: none;
+      box-shadow: none;
+      background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 70%);
+      > .container  {
+        /deep/ .father-elem {
+          > .container {
+            background: transparent;
+            .icon-container {
+              color: white;
             }
           }
-          /deep/ .child-elem {
-            > .container {
-              background: transparent;
-            }
-          }
-          background: transparent;
-          /deep/ .elem-box {
-            > .left-box {
-              > .ui {color: white;}
-              > .title {color: white;}
-            }
-            > .right-box {
-              > div[class*='signal'] {
-                background: rgb(204, 0, 255);
-                box-shadow: 0 0 4px white;
-              }
-            }
-          }
-            /deep/ .box-hover {
-              background: rgb(114, 114, 114);
-            }
         }
+        /deep/ .child-elem {
+          > .container {
+            background: transparent;
+          }
+        }
+        background: transparent;
+        /deep/ .elem-box {
+          > .left-box {
+            > .ui {color: white;}
+            > .title {color: white;}
+          }
+          > .right-box {
+            > div[class*='signal'] {
+              background: rgb(204, 0, 255);
+              box-shadow: 0 0 4px white;
+            }
+          }
+        }
+          /deep/ .box-hover {
+            background: rgb(114, 114, 114);
+          }
       }
     }
+  }
+  .cpc-nav-side-hidden {
+    transform: translateX(-300px);
   }
   > .three-container {
     position: fixed;
@@ -172,7 +193,22 @@ export default {
     height: 50px;
     border-radius: 50%;
     background: white;
-    z-index:1
+    z-index:1;
+    cursor: pointer;
+    &:hover {
+      background:rgb(204, 0, 255);
+    }
+    &:hover .icon-container {
+      color: white !important;
+    }
+    &:active {
+      transition-duration: 100ms;
+      background:rgb(230, 131, 255);
+      box-shadow: 0 0 8px rgb(255, 255, 255);
+    }
+  }
+  > .three-nav-switch-close {
+    transform: rotateZ(180deg);
   }
   > .three-link {
     position: fixed;
@@ -183,6 +219,18 @@ export default {
     border-radius: 50%;
     background: white;
     z-index:1;
+    cursor: pointer;
+    &:hover {
+      background:rgb(204, 0, 255);
+    }
+    &:hover .icon-container {
+      color: white !important;
+    }
+    &:active {
+      transition-duration: 100ms;
+      background:rgb(230, 131, 255);
+      box-shadow: 0 0 8px rgb(255, 255, 255);
+    }
   }
 }
 </style>

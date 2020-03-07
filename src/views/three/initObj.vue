@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
 export default {
   name: 'three-init',
@@ -103,10 +104,16 @@ export default {
       this.renderer.forceContextLoss()
       this.renderer.domElement = null
       this.clearObjCache(this.objBox.obj1)
-    }
+    },
+    ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
   },
   // 初始计算
   created () {
+    // 展示的备注
+    let tips = ``
+    this.resetThreeTipsFun(tips)
+    // github链接
+    this.resetThreeLinkFun('/initObj.vue')
   },
   // 所有事件绑在此钩子
   beforeMount () {

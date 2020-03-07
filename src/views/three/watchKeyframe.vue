@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
 export default {
   name: 'three-init',
@@ -84,7 +85,16 @@ export default {
       this.renderer.forceContextLoss()
       this.renderer.domElement = null
       this.clearObjCache(this.objBox.obj1)
-    }
+    },
+    ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
+  },
+  // 初始计算,信息
+  created () {
+    // 展示的备注
+    let tips = `相机旋转：鼠标右键  相机缩放：鼠标滚轮 `
+    this.resetThreeTipsFun(tips)
+    // github链接
+    this.resetThreeLinkFun('/gui.vue')
   },
   beforeMount () {
     this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器

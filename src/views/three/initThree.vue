@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 export default {
   name: 'three-init',
   data () {
@@ -72,7 +73,16 @@ export default {
       this.renderer.context = null
       this.renderer.domElement = null
       this.renderer = null
-    }
+    },
+    ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
+  },
+  // 初始计算,信息
+  created () {
+    // 展示的备注
+    let tips = ` `
+    this.resetThreeTipsFun(tips)
+    // github链接
+    this.resetThreeLinkFun('/initThree.vue')
   },
   beforeMount () {
     this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器

@@ -10,12 +10,9 @@ export default new Vuex.Store({
     // 屏幕高度
     innerHeight: window.innerHeight,
     // tips
-    threeTips: `    相机旋转：鼠标右键  相机缩放：鼠标滚轮
-    设置物体位移：W  设置物体旋转：E  设置物体缩放：R
-    控制X轴：X  控制Y轴：Y   控制Z轴：Z
-    变换固定位移100旋转15度缩放0.25：shift
-    设置控制器大小： +/-
-    禁用/启用控制器：空格 `
+    threeTips: ``,
+    // three github link
+    threeLink: ''
   },
   getters: {
     // 设置侧边栏的宽
@@ -69,6 +66,10 @@ export default new Vuex.Store({
       } else {
         return 'calc(3% + 60px)'
       }
+    },
+    // 设置three-link的链接
+    setThreeLink: state => {
+      return `https://github.com/Shiotsukikaedesari/cpc-component-library/blob/master/src/views/three/${state.threeLink}`
     }
   },
   mutations: {
@@ -83,6 +84,10 @@ export default new Vuex.Store({
     // 跟新threeTips
     resetThreeTips (state, newThreeTips) {
       state.threeTips = newThreeTips
+    },
+    // 更新threeLink
+    resetThreeLink (state, newThreeLink) {
+      state.threeLink = newThreeLink
     }
   },
   actions: {
@@ -94,6 +99,9 @@ export default new Vuex.Store({
     },
     resetThreeTipsFun (context, newThreeTips) {
       context.commit('resetThreeTips', newThreeTips)
+    },
+    resetThreeLinkFun (context, newThreeLink) {
+      context.commit('resetThreeLink', newThreeLink)
     }
   },
   modules: {}

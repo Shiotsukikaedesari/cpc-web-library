@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="background">
-          <cpc-index @showMessage="toControl"></cpc-index>
+          <cpc-index @showMessage="toControl" :showNav="showNav"></cpc-index>
         </div>
         <div class="main flex-column-center animation" :class="{'main-hidden': hideMessage, 'main-show': !hideMessage}">
             <div class="logo">
@@ -28,7 +28,8 @@ export default {
   name: 'index',
   data () {
     return {
-      hideMessage: false
+      hideMessage: false,
+      showNav: false // 展示内部导航
     }
   },
   methods: {
@@ -55,6 +56,7 @@ export default {
     // 呼出背景控制台
     toControl () {
       this.hideMessage = !this.hideMessage
+      this.showNav = !this.showNav
     }
   },
   mounted () {
@@ -119,10 +121,10 @@ export default {
     }
   }
   .main-hidden {
-    animation: hiddenMainAni 1.5s ease forwards;
+    animation: hiddenMainAni 1.3s ease forwards;
   }
   .main-show {
-    animation: showMainAni 1.5s ease-out forwards;
+    animation: showMainAni 1.3s ease-out forwards;
   }
   @keyframes hiddenMainAni {
     0% {opacity: 1; transform: translateY(0);};

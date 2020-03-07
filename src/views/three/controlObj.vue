@@ -1,19 +1,17 @@
 <template>
     <div class="three-display three-init">
-        <cpc-three-tips :tips="tips"></cpc-three-tips>
         <div id="three-canvas" class="three-canvas" ref="three-canvas"></div>
     </div>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
 import {OrbitControls} from '../../../node_modules/three/examples/jsm/controls/OrbitControls'
 import {TransformControls} from '../../../node_modules/three/examples/jsm/controls/TransformControls'
 export default {
   data () {
     return {
-      tip: '', // 提示
-
       renderer: '', // 渲染器
       scene: '', // 场景
       camera: '', // 相机
@@ -123,16 +121,20 @@ export default {
       this.renderer.forceContextLoss()
       this.renderer.domElement = null
       this.clearObjCache(this.objBox.obj1)
-    }
+    },
+    ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
   },
   // 初始计算,信息
   created () {
-    this.tips = `相机旋转：鼠标右键  相机缩放：鼠标滚轮
+    let tips = `    相机旋转：鼠标左键键  相机移动：鼠标右键  相机缩放：鼠标滚轮
     设置物体位移：W  设置物体旋转：E  设置物体缩放：R
     控制X轴：X  控制Y轴：Y   控制Z轴：Z
     变换固定位移100旋转15度缩放0.25：shift
     设置控制器大小： +/-
     禁用/启用控制器：空格 `
+    this.resetThreeTipsFun(tips)
+    // github链接
+    this.resetThreeLinkFun('/controlObj.vue')
   },
   beforeMount () {
     this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器

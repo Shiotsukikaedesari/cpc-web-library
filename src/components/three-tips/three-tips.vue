@@ -1,5 +1,5 @@
 <template>
-    <div class="three-tips" v-text="tips"></div>
+    <div class="three-tips animation" v-text="tips"></div>
 </template>
 
 <script>
@@ -27,7 +27,12 @@ export default {
 
 <style lang="less" scoped>
 .three-tips {
-  display: inline-block;
+  position: fixed;
+  top: 0;
+  left: 300px;
+  z-index:1;
+  display: block;
+  float: left;
   padding: 10px;
   color: white;
   text-shadow: 0 0 4px rgb(68, 68, 68);

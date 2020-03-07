@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
 import {OrbitControls} from '../../../node_modules/three/examples/jsm/controls/OrbitControls'
 export default {
@@ -97,13 +98,18 @@ export default {
       this.renderer.forceContextLoss()
       this.renderer.context = null
       this.renderer.domElement = null
-    }
+    },
+    ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
   },
   // 初始计算
   created () {
-    this.tips = `旋转相机：鼠标左键
+    // 展示的备注
+    let tips = `    旋转相机：鼠标左键
     缩放场景：鼠标滚轮
-    移动相机：鼠标右键`
+    移动相机：鼠标右键 `
+    this.resetThreeTipsFun(tips)
+    // github链接
+    this.resetThreeLinkFun('/dragCamera.vue')
   },
   // 所有事件绑在此钩子
   beforeMount () {
