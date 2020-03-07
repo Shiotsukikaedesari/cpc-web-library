@@ -9,6 +9,8 @@ import Gui from '@/views/three/gui'
 
 import ControlObj from '@/views/three/controlObj'
 import SimpleGeometry from '@/views/three/simpleGeometry'
+import ComplexGeometry from '@/views/three/complexGeometry'
+
 export default
 [
   {
@@ -55,5 +57,10 @@ export default
     path: '/three/dragCamera',
     name: 'dragCamera',
     component: DragCamera
+  },
+  {
+    path: '/three/complexGeometry',
+    name: 'complexGeometry',
+    component: ComplexGeometry
   }
 ]
