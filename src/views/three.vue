@@ -25,9 +25,22 @@
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="3" slot="menu">
             <cpc-nav-side-elem elemKey="3-0" slot="father" :father="true">
-              <cpc-icon slot="side-ui" code="#icon-camera"></cpc-icon>物体
+              <cpc-icon slot="side-ui" code="#icon-hexagon"></cpc-icon>物体
             </cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="3-1" slot="child" :click="toControlObj">物体交互控件（TransformControls）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="3-2" slot="child" :click="toSimpleGeometry">简单几何体</cpc-nav-side-elem>
+          </cpc-nav-side-menu>
+          <cpc-nav-side-menu menuKey="4" slot="menu">
+            <cpc-nav-side-elem elemKey="4-0" slot="father" :father="true">
+              <cpc-icon slot="side-ui" code="#icon-lightbulb-on"></cpc-icon>光源
+            </cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="4-1" slot="child" :click="toControlObj">环境光（AmbientLight）</cpc-nav-side-elem>
+          </cpc-nav-side-menu>
+          <cpc-nav-side-menu menuKey="5" slot="menu">
+            <cpc-nav-side-elem elemKey="5-0" slot="father" :father="true">
+              <cpc-icon slot="side-ui" code="#icon-vector-triangle"></cpc-icon>材质
+            </cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="5-1" slot="child" :click="toControlObj">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           </template>
       </cpc-nav-side>
@@ -108,6 +121,10 @@ export default {
     // 物体交互插件
     toControlObj () {
       this.$router.replace({path: '/three/controlObj'})
+    },
+    // 简单几何体
+    toSimpleGeometry () {
+      this.$router.replace({path: '/three/simpleGeometry'})
     }
   },
   computed: {

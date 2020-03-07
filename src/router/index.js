@@ -18,7 +18,7 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index,
-      redirect: '/three/gui',
+      redirect: '/three/SimpleGeometry',
       children: Three3D
     },
     {

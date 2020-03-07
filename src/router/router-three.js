@@ -8,6 +8,7 @@ import DragCamera from '@/views/three/dragCamera'
 import Gui from '@/views/three/gui'
 
 import ControlObj from '@/views/three/controlObj'
+import SimpleGeometry from '@/views/three/simpleGeometry'
 export default
 [
   {
@@ -41,13 +42,18 @@ export default
     component: AutoRotateCamera
   },
   {
-    path: '/three/dragCamera',
-    name: 'dragCamera',
-    component: DragCamera
+    path: '/three/simpleGeometry',
+    name: 'simpleGeometry',
+    component: SimpleGeometry
   },
   {
     path: '/three/controlObj',
     name: 'controlObj',
     component: ControlObj
+  },
+  {
+    path: '/three/dragCamera',
+    name: 'dragCamera',
+    component: DragCamera
   }
 ]
