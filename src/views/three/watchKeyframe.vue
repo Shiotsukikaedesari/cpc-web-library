@@ -81,6 +81,7 @@ export default {
     // 清空缓存
     clearCache () {
       // 渲染器缓存
+      this.renderer.clear(true, true, true)
       this.renderer.dispose()
       this.renderer.forceContextLoss()
       this.renderer.domElement = null
@@ -94,7 +95,7 @@ export default {
     let tips = `相机旋转：鼠标右键  相机缩放：鼠标滚轮 `
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('/gui.vue')
+    this.resetThreeLinkFun('/watchKeyframe.vue')
   },
   beforeMount () {
     this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器

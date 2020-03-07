@@ -1,6 +1,5 @@
 <template>
     <div class="three-display three-init">
-      <cpc-three-tips :tips="tips"></cpc-three-tips>
         <div id="three-canvas" class="three-canvas" ref="three-canvas"></div>
     </div>
 </template>

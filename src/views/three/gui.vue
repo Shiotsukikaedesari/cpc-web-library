@@ -164,6 +164,7 @@ export default {
     // 清空缓存
     clearCache () {
       // 渲染器缓存
+      this.renderer.clear(true, true, true)
       this.renderer.dispose()
       this.renderer.forceContextLoss()
       this.renderer.domElement = null
