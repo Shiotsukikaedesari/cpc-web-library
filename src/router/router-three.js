@@ -10,6 +10,8 @@ import Gui from '@/views/three/gui'
 import ControlObj from '@/views/three/controlObj'
 import SimpleGeometry from '@/views/three/simpleGeometry'
 import ComplexGeometry from '@/views/three/complexGeometry'
+import PlaneGeometry from '@/views/three/planeGeometry'
+import PipeGeometry from '@/views/three/pipeGeometry'
 
 export default
 [
@@ -62,5 +64,15 @@ export default
     path: '/three/complexGeometry',
     name: 'complexGeometry',
     component: ComplexGeometry
+  },
+  {
+    path: '/three/planeGeometry',
+    name: 'planeGeometry',
+    component: PlaneGeometry
+  },
+  {
+    path: '/three/pipeGeometry',
+    name: 'pipeGeometry',
+    component: PipeGeometry
   }
 ]

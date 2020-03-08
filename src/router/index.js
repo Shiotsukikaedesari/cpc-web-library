@@ -18,7 +18,7 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index,
-      redirect: '/three/complexGeometry',
+      redirect: '/three/pipeGeometry',
       children: Three3D
     },
     {

@@ -6,11 +6,11 @@
           <cpc-nav-side-elem elemKey="0" slot="father" :click="toIndex">
             <cpc-icon slot="side-ui" code="#icon-home"></cpc-icon>首页
           </cpc-nav-side-elem>
-          <cpc-nav-side-menu menuKey="1" slot="menu" :open="true">
-            <cpc-nav-side-elem elemKey="1-0" slot="father" :father="true" isSignal>
+          <cpc-nav-side-menu menuKey="1" slot="menu">
+            <cpc-nav-side-elem elemKey="1-0" slot="father" :father="true">
               <cpc-icon slot="side-ui" code="#icon-arrow-right-drop-circle"></cpc-icon>开始
             </cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="1-1" slot="child" :isSignal="true" :click="toInitThree">场景初始</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="1-1" slot="child" :click="toInitThree">场景初始</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="1-2" slot="child" :click="toWatchKeyframe">帧率监视器（Stats）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="1-3" slot="child" :click="toInitObj">初始物体</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="1-4" slot="child" :click="toGui">图形控制界面（Gui）</cpc-nav-side-elem>
@@ -23,13 +23,15 @@
             <cpc-nav-side-elem elemKey="2-2" slot="child" :click="toAutoRotateCamera">相机自动旋转</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="2-3" slot="child" :click="toDragCamera">相机交互插件（OrbitControls）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
-          <cpc-nav-side-menu menuKey="3" slot="menu">
-            <cpc-nav-side-elem elemKey="3-0" slot="father" :father="true">
+          <cpc-nav-side-menu menuKey="3" slot="menu" open>
+            <cpc-nav-side-elem elemKey="3-0" slot="father" :father="true" isSignal>
               <cpc-icon slot="side-ui" code="#icon-hexagon"></cpc-icon>物体
             </cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="3-1" slot="child" :click="toControlObj">物体交互控件（TransformControls）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="3-2" slot="child" :click="toSimpleGeometry">简单几何体</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="3-3" slot="child" :click="toComplexGeometry">复杂几何体</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="3-4" slot="child" :click="toPlanGeometry">平面几何体</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="3-5" slot="child" isSignal :click="toPipeGeometry">管状几何体</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="4" slot="menu">
             <cpc-nav-side-elem elemKey="4-0" slot="father" :father="true">
@@ -130,6 +132,14 @@ export default {
     // 复杂几何体
     toComplexGeometry () {
       this.$router.replace({path: '/three/complexGeometry'})
+    },
+    // 平面几何体
+    toPlanGeometry () {
+      this.$router.replace({path: '/three/planeGeometry'})
+    },
+    // 管状几何
+    toPipeGeometry () {
+      this.$router.replace({path: '/three/pipeGeometry'})
     }
   },
   computed: {
