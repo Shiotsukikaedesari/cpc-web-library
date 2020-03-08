@@ -103,7 +103,7 @@ export default {
   // 初始计算
   created () {
     // 展示的备注
-    let tips = `相机旋转：鼠标右键  相机缩放：鼠标滚轮 `
+    let tips = ``
     this.resetThreeTipsFun(tips)
     // github链接
     this.resetThreeLinkFun('/autoRotateCamera.vue')
