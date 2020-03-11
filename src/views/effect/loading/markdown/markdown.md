@@ -1111,3 +1111,57 @@ export default {
 </style>
 ```
 :::
+### 融合
+::: demo 动画延迟 + filter: blur()、filter: contrast()
+``` html
+<template>
+    <div class="loading-box">
+        <div class="fuse-box">
+            <div></div>
+            <div></div> 
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+    .loading-box {
+        background: rgb(34, 4, 54);
+        width: 100%;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .loading-box > .fuse-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        filter: contrast(20);
+    }
+    .loading-box > .fuse-box > div {
+        margin: 0 5px;
+        width: 40px;
+        height: 40px;
+        filter: blur(5px);
+        border-radius: 50%;
+        background: rgb(255, 255, 255);
+    }
+    @keyframes colorAni2 {
+        0% {background: red;}
+        14% {background: orange;}
+        28% {background: yellow;}
+        42% {background: green;}
+        56% {background: cyan;}
+        70% {background: blue;}
+        84% {background: violet;}
+        100% {background: red;}
+    }
+</style>
+```
+:::
