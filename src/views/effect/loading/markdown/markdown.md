@@ -1112,13 +1112,15 @@ export default {
 ```
 :::
 ### 融合
-::: demo 动画延迟 + filter: blur()、filter: contrast()
+::: demo 融球：动画交错 + filter: blur()、filter: contrast()
 ``` html
 <template>
     <div class="loading-box">
         <div class="fuse-box">
             <div></div>
-            <div></div> 
+            <div></div>
+            <div></div>
+            <div></div>  
         </div>
     </div>
 </template>
@@ -1131,7 +1133,7 @@ export default {
 
 <style>
     .loading-box {
-        background: rgb(34, 4, 54);
+        background: black;
         width: 100%;
         height: 100px;
         display: flex;
@@ -1143,24 +1145,31 @@ export default {
         justify-content: center;
         align-items: center;
         filter: contrast(20);
+        width: 370px;
+        height: 100px;
+        background-color: black;
+        animation: fuseAni2 4s ease infinite;
     }
     .loading-box > .fuse-box > div {
-        margin: 0 5px;
-        width: 40px;
-        height: 40px;
-        filter: blur(5px);
+        margin: 0 10px;
+        width: 35px;
+        height: 35px;
+        filter: blur(10px);
         border-radius: 50%;
         background: rgb(255, 255, 255);
     }
-    @keyframes colorAni2 {
-        0% {background: red;}
-        14% {background: orange;}
-        28% {background: yellow;}
-        42% {background: green;}
-        56% {background: cyan;}
-        70% {background: blue;}
-        84% {background: violet;}
-        100% {background: red;}
+    .loading-box > .fuse-box > div:first-child {
+        animation: fuseAni 4s ease infinite;
+    }
+    @keyframes fuseAni {
+        0% {transform: translateX(0);}
+        40% {transform: translateX(220px);}
+        100% {transform: translateX(220px);}
+    }
+    @keyframes fuseAni2 {
+        0% {transform: translateX(0);}
+        40% {transform: translateX(0);}
+        100% {transform: translateX(-55px);}
     }
 </style>
 ```
