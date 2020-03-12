@@ -23,4 +23,5 @@
 [CPCNACG](https:// "vue官网")
 
 ## 贡献人员
-Shiotsukikaedesari——[Github](https://github.com/Shiotsukikaedesari "vue官网")
+Shiotsukikaedesari——[Github](https://github.com/Shiotsukikaedesari "Github主页")
+hcity——[Github](https://github.com/hcity002 "Github主页")
