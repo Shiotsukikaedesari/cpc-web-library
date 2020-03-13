@@ -31,8 +31,8 @@
             <cpc-nav-side-elem elemKey="3-2" slot="child" :click="toSimpleGeometry">简单几何体</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="3-3" slot="child" :click="toComplexGeometry">复杂几何体</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="3-4" slot="child" :click="toPlanGeometry">平面几何体</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="3-5" slot="child" isSignal :click="toPipeGeometry">管状几何体</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="3-5" slot="child" isSignal :click="toEdgesGeometry">边缘几何体（EdgesGeometry）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="3-5" slot="child" :click="toPipeGeometry">管状几何体</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="3-6" slot="child" isSignal :click="toEdgesGeometry">边缘几何体（EdgesGeometry）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="4" slot="menu">
             <cpc-nav-side-elem elemKey="4-0" slot="father" :father="true">

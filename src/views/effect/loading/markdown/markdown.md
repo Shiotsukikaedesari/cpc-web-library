@@ -1112,7 +1112,8 @@ export default {
 ```
 :::
 ### 融合
-::: demo 融球：动画交错 + filter: blur()、filter: contrast() idea by: hcity——[Github](https://github.com/hcity002 "Github主页")
+idea by: [hcity](https://github.com/hcity002 "Github主页")
+::: demo 融球：动画交错 + filter: blur()、filter: contrast()
 ``` html
 <template>
     <div class="loading-box">
