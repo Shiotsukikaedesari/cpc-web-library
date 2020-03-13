@@ -12,6 +12,7 @@ import SimpleGeometry from '@/views/three/simpleGeometry'
 import ComplexGeometry from '@/views/three/complexGeometry'
 import PlaneGeometry from '@/views/three/planeGeometry'
 import PipeGeometry from '@/views/three/pipeGeometry'
+import EdgesGeometry from '@/views/three/edgesGeometry'
 
 export default
 [
@@ -74,5 +75,10 @@ export default
     path: '/three/pipeGeometry',
     name: 'pipeGeometry',
     component: PipeGeometry
+  },
+  {
+    path: '/three/edgesGeometry',
+    name: 'edgesGeometry',
+    component: EdgesGeometry
   }
 ]
