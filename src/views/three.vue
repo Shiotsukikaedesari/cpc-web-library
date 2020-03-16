@@ -10,41 +10,43 @@
             <cpc-nav-side-elem elemKey="1-0" slot="father" :father="true">
               <cpc-icon slot="side-ui" code="#icon-arrow-right-drop-circle"></cpc-icon>开始
             </cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="1-1" slot="child" :click="toInitThree">场景初始</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="1-2" slot="child" :click="toWatchKeyframe">帧率监视器（Stats）</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="1-3" slot="child" :click="toInitObj">初始物体</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="1-4" slot="child" :click="toGui">图形控制界面（Gui）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="1-1" slot="child" :click="jump('initThree')">场景初始</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="1-2" slot="child" :click="jump('watchKeyframe')">帧率监视器（Stats）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="1-3" slot="child" :click="jump('initObj')">初始物体</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="1-4" slot="child" :click="jump('gui')">图形控制界面（Gui）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="2" slot="menu">
             <cpc-nav-side-elem elemKey="2-0" slot="father" :father="true">
               <cpc-icon slot="side-ui" code="#icon-camera"></cpc-icon>相机
             </cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="2-1" slot="child" :click="toCameraFollowMouse">相机跟随鼠标</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="2-2" slot="child" :click="toAutoRotateCamera">相机自动旋转</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="2-3" slot="child" :click="toDragCamera">相机交互插件（OrbitControls）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="2-1" slot="child" :click="jump('cameraFollowMouse')">相机跟随鼠标</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="2-2" slot="child" :click="jump('autoRotateCamera')">相机自动旋转</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="2-3" slot="child" :click="jump('dragCamera')">相机交互插件（OrbitControls）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="3" slot="menu" open>
             <cpc-nav-side-elem elemKey="3-0" slot="father" :father="true" isSignal>
               <cpc-icon slot="side-ui" code="#icon-hexagon"></cpc-icon>物体
             </cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="3-1" slot="child" :click="toControlObj">物体交互控件（TransformControls）</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="3-2" slot="child" :click="toSimpleGeometry">简单几何体</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="3-3" slot="child" :click="toComplexGeometry">复杂几何体</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="3-4" slot="child" :click="toPlanGeometry">平面几何体</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="3-5" slot="child" :click="toPipeGeometry">管状几何体</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="3-6" slot="child" isSignal :click="toEdgesGeometry">边缘几何体（EdgesGeometry）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="3-1" slot="child" :click="jump('controlObj')">物体交互控件（TransformControls）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="3-2" slot="child" :click="jump('simpleGeometry')">简单几何体</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="3-3" slot="child" :click="jump('complexGeometry')">复杂几何体</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="3-4" slot="child" :click="jump('planeGeometry')">平面几何体</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="3-5" slot="child" :click="jump('pipeGeometry')">管状几何体</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="3-6" slot="child" :click="jump('edgesGeometry')">边缘几何体（EdgesGeometry）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="3-7" slot="child" :click="jump('extrudeGeometry')">挤压几何体（ExtrudeGeometry）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="3-8" slot="child" isSignal :click="jump('latheGeometry')">车削几何体（LatheGeometry）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="4" slot="menu">
             <cpc-nav-side-elem elemKey="4-0" slot="father" :father="true">
               <cpc-icon slot="side-ui" code="#icon-lightbulb-on"></cpc-icon>光源
             </cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="4-1" slot="child" :click="toControlObj">环境光（AmbientLight）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="4-1" slot="child" :click="jump('ambientLight')">环境光（AmbientLight）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="5" slot="menu">
             <cpc-nav-side-elem elemKey="5-0" slot="father" :father="true">
               <cpc-icon slot="side-ui" code="#icon-vector-triangle"></cpc-icon>材质
             </cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="5-1" slot="child" :click="toControlObj">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="5-1" slot="child" :click="jump('lineBasicMaterial')">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           </template>
       </cpc-nav-side>
@@ -94,57 +96,12 @@ export default {
     toIndex () {
       this.$emit('showMessage')
     },
-    // 初始场景辅助
-    toInitThree () {
-      this.$router.replace({path: '/three/initThree'})
-    },
-    // 帧率监视器
-    toWatchKeyframe () {
-      this.$router.replace({path: '/three/watchKeyframe'})
-    },
-    // 图形控制界面
-    toGui () {
-      this.$router.replace({path: '/three/gui'})
-    },
-    // 初始物体
-    toInitObj () {
-      this.$router.replace({path: '/three/initObj'})
-    },
-    // 相机跟随鼠标
-    toCameraFollowMouse () {
-      this.$router.replace({path: '/three/cameraFollowMouse'})
-    },
-    // 相机自动旋转
-    toAutoRotateCamera () {
-      this.$router.replace({path: '/three/autoRotateCamera'})
-    },
-    // 相机拖动旋转
-    toDragCamera () {
-      this.$router.replace({path: '/three/dragCamera'})
-    },
-    // 物体交互插件
-    toControlObj () {
-      this.$router.replace({path: '/three/controlObj'})
-    },
-    // 简单几何体
-    toSimpleGeometry () {
-      this.$router.replace({path: '/three/simpleGeometry'})
-    },
-    // 复杂几何体
-    toComplexGeometry () {
-      this.$router.replace({path: '/three/complexGeometry'})
-    },
-    // 平面几何体
-    toPlanGeometry () {
-      this.$router.replace({path: '/three/planeGeometry'})
-    },
-    // 管状几何
-    toPipeGeometry () {
-      this.$router.replace({path: '/three/pipeGeometry'})
-    },
-    // 边缘几何
-    toEdgesGeometry () {
-      this.$router.replace({path: '/three/edgesGeometry'})
+    // 路由跳转
+    jump (path) {
+      function jump () {
+        this.$router.replace({path: `/three/${path}`})
+      }
+      return jump
     }
   },
   computed: {
