@@ -15,6 +15,7 @@ import PipeGeometry from '@/views/three/pipeGeometry'
 import EdgesGeometry from '@/views/three/edgesGeometry'
 import ExtrudeGeometry from '@/views/three/extrudeGeometry'
 import LatheGeometry from '@/views/three/latheGeometry'
+import ShapeGeometry from '@/views/three/shapeGeometry'
 
 export default
 [
@@ -92,5 +93,10 @@ export default
     path: '/three/latheGeometry',
     name: 'latheGeometry',
     component: LatheGeometry
+  },
+  {
+    path: '/three/shapeGeometry',
+    name: 'shapeGeometry',
+    component: ShapeGeometry
   }
 ]

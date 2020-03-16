@@ -34,7 +34,8 @@
             <cpc-nav-side-elem elemKey="3-5" slot="child" :click="jump('pipeGeometry')">管状几何体</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="3-6" slot="child" :click="jump('edgesGeometry')">边缘几何体（EdgesGeometry）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="3-7" slot="child" :click="jump('extrudeGeometry')">挤压几何体（ExtrudeGeometry）</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="3-8" slot="child" isSignal :click="jump('latheGeometry')">车削几何体（LatheGeometry）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="3-8" slot="child" :click="jump('latheGeometry')">车削几何体（LatheGeometry）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="3-9" slot="child" isSignal :click="jump('ShapeGeometry')">形状几何体（ShapeGeometry）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="4" slot="menu">
             <cpc-nav-side-elem elemKey="4-0" slot="father" :father="true">

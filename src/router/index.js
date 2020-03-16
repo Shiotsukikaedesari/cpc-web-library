@@ -18,7 +18,7 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index,
-      redirect: '/three/latheGeometry',
+      redirect: '/three/shapeGeometry',
       children: Three3D
     },
     {
