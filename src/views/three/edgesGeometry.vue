@@ -184,7 +184,7 @@ export default {
     移动相机：鼠标右键 `
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('/sedgesGeometry.vue')
+    this.resetThreeLinkFun('/edgesGeometry.vue')
   },
   // 所有事件绑在此钩子
   beforeMount () {
