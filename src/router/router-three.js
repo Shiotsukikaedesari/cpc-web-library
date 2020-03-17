@@ -17,6 +17,7 @@ import ExtrudeGeometry from '@/views/three/extrudeGeometry'
 import LatheGeometry from '@/views/three/latheGeometry'
 import ShapeGeometry from '@/views/three/shapeGeometry'
 import TextGeometry from '@/views/three/textGeometry'
+import WireframeGeometry from '@/views/three/wireframeGeometry'
 
 export default
 [
@@ -104,5 +105,10 @@ export default
     path: '/three/textGeometry',
     name: 'textGeometry',
     component: TextGeometry
+  },
+  {
+    path: '/three/wireframeGeometry',
+    name: 'wireframeGeometry',
+    component: WireframeGeometry
   }
 ]

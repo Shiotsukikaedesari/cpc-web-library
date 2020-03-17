@@ -18,7 +18,7 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index,
-      redirect: '/three/textGeometry',
+      redirect: '/three/wireframeGeometry',
       children: Three3D
     },
     {
