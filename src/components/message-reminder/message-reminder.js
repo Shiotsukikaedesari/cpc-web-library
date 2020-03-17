@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import MessageReminder from './message-reminder'
+import MessageReminder from './message-reminder.vue'
 
 const Tips = Vue.extend(MessageReminder)
 
