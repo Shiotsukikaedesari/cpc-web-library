@@ -16,6 +16,7 @@ import EdgesGeometry from '@/views/three/edgesGeometry'
 import ExtrudeGeometry from '@/views/three/extrudeGeometry'
 import LatheGeometry from '@/views/three/latheGeometry'
 import ShapeGeometry from '@/views/three/shapeGeometry'
+import TextGeometry from '@/views/three/textGeometry'
 
 export default
 [
@@ -98,5 +99,10 @@ export default
     path: '/three/shapeGeometry',
     name: 'shapeGeometry',
     component: ShapeGeometry
+  },
+  {
+    path: '/three/textGeometry',
+    name: 'textGeometry',
+    component: TextGeometry
   }
 ]
