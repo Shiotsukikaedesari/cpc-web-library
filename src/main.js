@@ -19,6 +19,9 @@ import './assets/common/js/source'
 // 引入工具类
 import Tools from './assets/common/js/tools'
 
+// 引入全局消息提示
+import MessageReminder from './components/message-reminder/message-reminder'
+
 Vue.use(lazyLoad, {
   loading: '/static/loading.gif',
   error: '/static/error.png'
@@ -27,6 +30,8 @@ Vue.use(lazyLoad, {
 Vue.config.productionTip = false
 
 Vue.prototype.$tools = Tools
+// 消息弹窗
+Vue.prototype.$Tips = MessageReminder.config()
 
 /* eslint-disable no-new */
 new Vue({

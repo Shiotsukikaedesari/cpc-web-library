@@ -6,13 +6,13 @@
                   <cpc-nav-side-elem elemKey="1-0" slot="father" :father="true" :isSignal="true" :arrowInit="true">
                     <cpc-icon slot="side-ui" code="#icon-arrow-right-drop-circle"></cpc-icon>开始
                   </cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="1-1" slot="child" :isSignal="true" :click="toIntro">
+                  <cpc-nav-side-elem elemKey="1-1" slot="child" :isSignal="true" :click="jump('intro')">
                     <cpc-icon slot="side-ui" code="#icon-file-document-box" size="20px"></cpc-icon>基本介绍
                   </cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="1-2" slot="child" :click="toUseExplain">
+                  <cpc-nav-side-elem elemKey="1-2" slot="child" :click="jump('use-explain')">
                     <cpc-icon slot="side-ui" code="#icon-comment-text" size="20px"></cpc-icon>编写说明
                   </cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="1-3" slot="child" :click="toDemo">
+                  <cpc-nav-side-elem elemKey="1-3" slot="child" :click="jump('demo')">
                     <cpc-icon slot="side-ui" code="#icon-microscope" size="20px"></cpc-icon>DEMO测试
                   </cpc-nav-side-elem>
               </cpc-nav-side-menu>
@@ -20,13 +20,13 @@
                   <cpc-nav-side-elem elemKey="2-0" slot="father" :father="true">
                     <cpc-icon slot="side-ui" code="#icon-cube"></cpc-icon>通用组件
                   </cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="2-1" slot="child" :click="toIcon">
+                  <cpc-nav-side-elem elemKey="2-1" slot="child" :click="jump('icon')">
                     <cpc-icon slot="side-ui" code="#icon-resize-bottom-right"></cpc-icon>图标
                   </cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="2-2" slot="child" :click="toButton">
+                  <cpc-nav-side-elem elemKey="2-2" slot="child" :click="jump('button')">
                     <cpc-icon slot="side-ui" code="#icon-nest-protect"></cpc-icon>按钮
                   </cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="2-3" slot="child" :click="toMessagePopup">
+                  <cpc-nav-side-elem elemKey="2-3" slot="child" :click="jump('message-reminder')">
                     <cpc-icon slot="side-ui" code="#icon-checkbox-multiple-blank"></cpc-icon>消息弹窗
                   </cpc-nav-side-elem>
               </cpc-nav-side-menu>
@@ -57,29 +57,12 @@ export default {
     }
   },
   methods: {
-    // 跳转到基本介绍
-    toIntro () {
-      this.$router.push({path: '/components/intro'})
-    },
-    // 跳转到组件说明
-    toUseExplain () {
-      this.$router.push({path: '/components/use-explain'})
-    },
-    // 跳转到组件盒子测试
-    toDemo () {
-      this.$router.push({path: '/components/demo'})
-    },
-    // 跳转到图标
-    toIcon () {
-      this.$router.push({path: '/components/icon'})
-    },
-    // 跳转到按钮
-    toButton () {
-      this.$router.push({path: '/components/button'})
-    },
-    // 跳转到消息弹窗
-    toMessagePopup () {
-      this.$router.push({path: '/components/message-popup'})
+    // 路由跳转
+    jump (path) {
+      function jump () {
+        this.$router.replace({path: `/components/${path}`})
+      }
+      return jump
     }
   },
   created () {

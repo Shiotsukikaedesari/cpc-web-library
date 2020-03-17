@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import Markdown from './markdown/message-popup.md'
+import Markdown from './markdown/message-reminder.md'
 export default {
-  name: 'components-message-popup',
+  name: 'components-message-reminder',
   mounted () {
 
   },

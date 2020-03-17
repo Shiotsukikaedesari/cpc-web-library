@@ -5,7 +5,7 @@ import ComponentsDemo from '@/views/components/demo/demo'
 import Intro from '@/views/components/intro/intro'
 import Icon from '@/views/components/icon/icon'
 import Button from '@/views/components/button/button'
-import messagePopup from '@/views/components/message-popup/message-popup'
+import MessageReminder from '@/views/components/message-reminder/message-reminder'
 
 export default
 {
@@ -40,9 +40,9 @@ export default
       component: Button
     },
     {
-      path: '/components/message-popup',
-      name: 'components-message-popup',
-      component: messagePopup
+      path: '/components/message-reminder',
+      name: 'components-message-reminder',
+      component: MessageReminder
     }
   ]
 }

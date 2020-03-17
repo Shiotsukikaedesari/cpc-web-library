@@ -16,7 +16,7 @@ import MdNav from '@/components/md-nav'
 import Button from '@/components/button'
 import ButtonGroup from '@/components/button-group'
 
-import MessagePopup from '@/components/message-popup'
+import MessagePopup from '@/components/message-reminder'
 
 import ThreeTips from '@/components/three-tips'
 
