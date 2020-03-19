@@ -92,11 +92,11 @@ export default {
       //   this.scene.add(this.objBox.stage)
       // 车削几何体
       var points = []
-      for (let i = 0; i < 10; i += 1) {
-        points.push(new THREE.Vector2(Math.sin(i * 0.2) * 10 + 5, (i - 5) * 2))
+      for (let i = 0; i < 15; i += 1) {
+        points.push(new THREE.Vector2(Math.sin(i * 0.2) * 10 + 10, (i - 5) * 2))
       }
-      geometry = new THREE.LatheGeometry(points, 32)
-      material = new THREE.MeshNormalMaterial()
+      geometry = new THREE.LatheGeometry(points, 48)
+      material = new THREE.MeshNormalMaterial({side: THREE.DoubleSide})
       material.emissiveIntensity = 10
       this.objBox.lathe = new THREE.Mesh(geometry, material)
       this.objBox.lathe.castShadow = true

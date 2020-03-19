@@ -94,7 +94,10 @@ export default {
       this.scene.add(this.objBox.stage)
       // 圆形平面几何
       geometry = new THREE.CircleGeometry(40, 32)
-      material = new THREE.MeshLambertMaterial({color: 'rgb(230, 230, 230)'})
+      material = new THREE.MeshLambertMaterial({
+        color: 'rgb(230, 230, 230)',
+        side: THREE.DoubleSide
+      })
       this.objBox.circle = new THREE.Mesh(geometry, material)
       this.objBox.circle.castShadow = true
       this.objBox.circle.receiveShadow = true

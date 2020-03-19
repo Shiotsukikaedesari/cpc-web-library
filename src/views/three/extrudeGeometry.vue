@@ -96,7 +96,9 @@ export default {
       let width = 8
       // 方形平面几何
       geometry = new THREE.PlaneGeometry(length, width)
-      material = new THREE.MeshLambertMaterial({color: 'rgb(230, 230, 230)'})
+      material = new THREE.MeshLambertMaterial({
+        color: 'rgb(230, 230, 230)'
+      })
       this.objBox.plane = new THREE.Mesh(geometry, material)
       this.objBox.plane.castShadow = true
       this.objBox.plane.receiveShadow = true
