@@ -1,16 +1,21 @@
 <template>
-  <div
-  id="message-reminder"
-  class="message-reminder animation"
-  :class="{'message-reminder-show': show}">
-    <div class="message-reminder-container flex-row-between">
-      <div class="message-reminder-header">
-        <div class="message-reminder-header-box flex-row">
-          <cpc-icon code="#icon-apple-mobileme" :color="iconColor"></cpc-icon>
-          <div class="message-reminder-header-title" v-text="message"></div>
+  <div class="cpc-message-reminder flex-column">
+    <div
+    class="cpc-message-reminder-container animation flex-row-between "
+    :class="{
+      'cpc-message-reminder-container-hidden': item.hidden,
+      'cpc-message-reminder-container-show': item.show
+      }"
+    v-for="(item, index) in messageList"
+    :key="index"
+    >
+      <div class="cpc-message-reminder-header">
+        <div class="cpc-message-reminder-header-box flex-row">
+          <cpc-icon :code="item.icon" :color="item.color"></cpc-icon>
+          <div class="cpc-message-reminder-header-title" v-text="item.message"></div>
         </div>
       </div>
-      <div class="message-reminder-close-icon animation">
+      <div class="cpc-message-reminder-close-icon animation">
         <cpc-icon code="#icon-close" size="14px" color="grey"></cpc-icon>
       </div>
     </div>
@@ -22,22 +27,42 @@ export default {
   name: 'cpc-message-reminder',
   data () {
     return {
-      show: false, // 是否展示弹窗
-      iconColor: 'rgb(195, 43, 209)',
+      icon: '#icon-apple-mobileme', // 图标
+      color: 'rgb(195, 43, 209)',
       message: '这里是弹窗提示信息',
-      type: '', // 弹窗类型
-      showTime: 2000, // 暂时时长
-      timer: '' // 显示时长定时器
+      type: 'default', // 弹窗类型
+      duration: 2000, // 暂时时长
+      messageList: [
+        // message // 消息
+        // icon //图标
+        // color // 图标颜色
+        // duration // 单个时长
+        // type // 弹窗类型
+      ] // 消息队列
     }
   },
   methods: {
-    showTips () {
-      this.show = true
-      this.timer = setTimeout(() => {
-        this.show = false
-        setTimeout(() => {
-        }, 2000)
-      }, this.showTime)
+    showTips ({
+      message = this.message,
+      icon = this.icon,
+      color = this.color,
+      duration = this.duration,
+      type = this.type
+    } = {}) {
+      let temp = {
+        message,
+        icon,
+        color,
+        duration,
+        type,
+        show: true,
+        hidden: false,
+        timer: ''
+      }
+      this.messageList.push(temp)
+
+      this.$nextTick(() => {
+      })
     }
   },
   mounted () {
@@ -62,41 +87,57 @@ export default {
 @warningColor: rgb(255, 153, 0);
 @warningWaitingColor: rgb(255, 181, 70);
 @warningTextHover: rgb(219, 149, 44);
-.message-reminder {
-  box-shadow: 0 0 4px @waitingThemeColor;
-  border-radius: 5px;
-  display: inline-block;
+.cpc-message-reminder {
   position: fixed;
   z-index: 10000;
   top: -50px;
   left: 50%;
-  background: white;
-  &:hover {
-    box-shadow: 0 0 10px @themeColor;
-  }
-  > .message-reminder-container {
+  > .cpc-message-reminder-container {
+    box-shadow: 0 0 4px rgb(85, 7, 90);
+    border-radius: 5px;
+    background: white;
     padding: 5px 10px;
-    > .message-reminder-close-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform:translateY(60px);
+    &:hover {
+      box-shadow: 0 0 10px rgb(134, 12, 145);
+    }
+    > .cpc-message-reminder-close-icon {
       cursor: pointer;
       &:hover {
         transform: rotateZ(180deg);
       }
     }
-    > .message-reminder-header {
-      > .message-reminder-header-box {
+    > .cpc-message-reminder-header {
+      > .cpc-message-reminder-header-box {
         color: #666;
         > .icon-container {
 
         }
-        > .message-reminder-header-title {
+        > .cpc-message-reminder-header-title {
           margin: 0 20px 0 10px;
           cursor: default;
+          white-space: nowrap;
         }
       }
     }
   }
+  .cpc-message-reminder-container-show {
+    animation: showReminder 500ms ease-out both;
+  }
+  .cpc-message-reminder-container-hidden {
+    animation: hiddenReminder 500ms ease-out both;
+  }
+  @keyframes showReminder {
+    0% {transform:translateY(0)};
+    100% {transform:translateY(60px)};
+  }
+  @keyframes hiddenReminder {
+    0% {transform:translateY(60px)};
+    100% {transform:translateY(0)};
+  }
 }
-.message-reminder-show {
-  transform: translateY(60px);
-}
+
 </style>
