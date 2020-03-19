@@ -18,6 +18,9 @@ import LatheGeometry from '@/views/three/latheGeometry'
 import ShapeGeometry from '@/views/three/shapeGeometry'
 import TextGeometry from '@/views/three/textGeometry'
 import WireframeGeometry from '@/views/three/wireframeGeometry'
+import BufferGeometry from '@/views/three/bufferGeometry'
+
+import AmbientLight from '@/views/three/ambientLight'
 
 export default
 [
@@ -110,5 +113,15 @@ export default
     path: '/three/wireframeGeometry',
     name: 'wireframeGeometry',
     component: WireframeGeometry
+  },
+  {
+    path: '/three/bufferGeometry',
+    name: 'bufferGeometry',
+    component: BufferGeometry
+  },
+  {
+    path: '/three/ambientLight',
+    name: 'ambientLight',
+    component: AmbientLight
   }
 ]

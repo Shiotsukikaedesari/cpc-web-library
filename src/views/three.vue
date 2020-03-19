@@ -23,8 +23,8 @@
             <cpc-nav-side-elem elemKey="2-2" slot="child" :click="jump('autoRotateCamera')">相机自动旋转</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="2-3" slot="child" :click="jump('dragCamera')">相机交互插件（OrbitControls）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
-          <cpc-nav-side-menu menuKey="3" slot="menu" open>
-            <cpc-nav-side-elem elemKey="3-0" slot="father" :father="true" isSignal>
+          <cpc-nav-side-menu menuKey="3" slot="menu">
+            <cpc-nav-side-elem elemKey="3-0" slot="father" :father="true">
               <cpc-icon slot="side-ui" code="#icon-hexagon"></cpc-icon>物体
             </cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="3-1" slot="child" :click="jump('controlObj')">物体交互控件（TransformControls）</cpc-nav-side-elem>
@@ -37,7 +37,7 @@
             <cpc-nav-side-elem elemKey="3-8" slot="child" :click="jump('latheGeometry')">车削几何体（LatheGeometry）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="3-9" slot="child" :click="jump('shapeGeometry')">形状几何体（ShapeGeometry）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="3-10" slot="child" :click="jump('textGeometry')">文本几何体（textGeometry）</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="3-11" slot="child" isSignal :click="jump('wireframeGeometry')">网格几何体（wireframeGeometry）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="3-11" slot="child" :click="jump('wireframeGeometry')">网格几何体（wireframeGeometry）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="4" slot="menu">
             <cpc-nav-side-elem elemKey="4-0" slot="father" :father="true">
@@ -50,6 +50,33 @@
               <cpc-icon slot="side-ui" code="#icon-vector-triangle"></cpc-icon>材质
             </cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="5-1" slot="child" :click="jump('lineBasicMaterial')">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
+          </cpc-nav-side-menu>
+          <cpc-nav-side-menu menuKey="6" slot="menu">
+            <cpc-nav-side-elem elemKey="6-0" slot="father" :father="true">
+              <cpc-icon slot="side-ui" code="#icon-crosshairs-gps"></cpc-icon>核心
+            </cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="6-1" slot="child" :click="jump('bufferGeometry')">缓存区几何体（bufferGeometry）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="6-2" slot="child" :click="jump('bufferGeometry')">网格模型（mesh）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="6-2" slot="child" :click="jump('bufferGeometry')">线模型（line）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="6-2" slot="child" :click="jump('bufferGeometry')">点模型（point）</cpc-nav-side-elem>
+          </cpc-nav-side-menu>
+          <cpc-nav-side-menu menuKey="7" slot="menu">
+            <cpc-nav-side-elem elemKey="7-0" slot="father" :father="true">
+              <cpc-icon slot="side-ui" code="#icon-vector-triangle"></cpc-icon>加载器（Loader）
+            </cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="7-1" slot="child" :click="jump('lineBasicMaterial')">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
+          </cpc-nav-side-menu>
+          <cpc-nav-side-menu menuKey="8" slot="menu">
+            <cpc-nav-side-elem elemKey="8-0" slot="father" :father="true">
+              <cpc-icon slot="side-ui" code="#icon-vector-triangle"></cpc-icon>后期处理（EffectComposer）
+            </cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="8-1" slot="child" :click="jump('lineBasicMaterial')">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
+          </cpc-nav-side-menu>
+          <cpc-nav-side-menu menuKey="9" slot="menu">
+            <cpc-nav-side-elem elemKey="8-0" slot="father" :father="true">
+              <cpc-icon slot="side-ui" code="#icon-vector-triangle"></cpc-icon>应用
+            </cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="8-1" slot="child" :click="jump('lineBasicMaterial')">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           </template>
       </cpc-nav-side>
