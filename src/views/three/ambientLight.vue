@@ -70,9 +70,9 @@ export default {
     // 初始相机
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
-      this.camera.position.x = 400
-      this.camera.position.y = 400
-      this.camera.position.z = 400
+      this.camera.position.x = 650
+      this.camera.position.y = 0
+      this.camera.position.z = 650
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
@@ -85,9 +85,9 @@ export default {
 
       let geometry = new THREE.BoxBufferGeometry(50, 50, 50)
       // 颜色
-      let colorRange = [30, 127, 225]
+      let colorRange = [0, 64, 128, 192, 255]
       // 空间位置
-      let positionRange = [-100, 0, 100]
+      let positionRange = [-200, -100, 0, 100, 200]
 
       for (let x = 0; x < positionRange.length; x += 1) {
         for (let y = 0; y < positionRange.length; y += 1) {
@@ -101,7 +101,6 @@ export default {
           }
         }
       }
-      console.log(this.objBox.group)
       this.scene.add(this.objBox.group)
     },
     // 初始辅助
