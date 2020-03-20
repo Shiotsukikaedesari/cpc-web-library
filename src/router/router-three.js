@@ -21,6 +21,8 @@ import WireframeGeometry from '@/views/three/wireframeGeometry'
 import BufferGeometry from '@/views/three/bufferGeometry'
 
 import AmbientLight from '@/views/three/ambientLight'
+import DirectionalLight from '@/views/three/directionalLight'
+import HemisphereLight from '@/views/three/hemisphereLight'
 
 export default
 [
@@ -123,5 +125,15 @@ export default
     path: '/three/ambientLight',
     name: 'ambientLight',
     component: AmbientLight
+  },
+  {
+    path: '/three/directionalLight',
+    name: 'directionalLight',
+    component: DirectionalLight
+  },
+  {
+    path: '/three/hemisphereLight',
+    name: 'hemisphereLight',
+    component: HemisphereLight
   }
 ]

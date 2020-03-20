@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="background">
-          <cpc-index @showMessage="toControl" :showNav="showNav"></cpc-index>
+          <cpc-index @showMessage="toControl" :hideMessage="hideMessage" :showNav="showNav"></cpc-index>
         </div>
         <div class="main flex-column-center animation" :class="{'main-hidden': hideMessage, 'main-show': !hideMessage}">
             <div class="logo">

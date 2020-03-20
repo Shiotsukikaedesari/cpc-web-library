@@ -40,10 +40,12 @@
             <cpc-nav-side-elem elemKey="3-11" slot="child" :click="jump('wireframeGeometry')">网格几何体（wireframeGeometry）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="4" slot="menu" open>
-            <cpc-nav-side-elem elemKey="4-0" slot="father" :father="true" isSignal>
+            <cpc-nav-side-elem elemKey="4-0" slot="father" :father="true" isSignal arrowInit>
               <cpc-icon slot="side-ui" code="#icon-lightbulb-on"></cpc-icon>光源
             </cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="4-1" slot="child" isSignal :click="jump('ambientLight')">环境光（AmbientLight）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="4-1" slot="child" :click="jump('ambientLight')">环境光（AmbientLight）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="4-2" slot="child" :click="jump('directionalLight')">平行光（DirectionalLight）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="4-3" slot="child" isSignal :click="jump('hemisphereLight')">半球光（HemisphereLight）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="5" slot="menu">
             <cpc-nav-side-elem elemKey="5-0" slot="father" :father="true">
@@ -57,8 +59,8 @@
             </cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="6-1" slot="child" :click="jump('bufferGeometry')">缓存区几何体（bufferGeometry）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="6-2" slot="child" :click="jump('bufferGeometry')">网格模型（mesh）</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="6-2" slot="child" :click="jump('bufferGeometry')">线模型（line）</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="6-2" slot="child" :click="jump('bufferGeometry')">点模型（point）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="6-3" slot="child" :click="jump('bufferGeometry')">线模型（line）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="6-4" slot="child" :click="jump('bufferGeometry')">点模型（point）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="7" slot="menu">
             <cpc-nav-side-elem elemKey="7-0" slot="father" :father="true">
@@ -73,10 +75,10 @@
             <cpc-nav-side-elem elemKey="8-1" slot="child" :click="jump('lineBasicMaterial')">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="9" slot="menu">
-            <cpc-nav-side-elem elemKey="8-0" slot="father" :father="true">
+            <cpc-nav-side-elem elemKey="9-0" slot="father" :father="true">
               <cpc-icon slot="side-ui" code="#icon-vector-triangle"></cpc-icon>应用
             </cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="8-1" slot="child" :click="jump('lineBasicMaterial')">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="9-1" slot="child" :click="jump('lineBasicMaterial')">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           </template>
       </cpc-nav-side>
@@ -87,12 +89,15 @@
     </div>
     <div
     class="three-nav-switch flex-row-center animation"
-    :class="{'three-nav-switch-close': hiddenNav}"
+    :class="{
+      'three-nav-switch-close': hiddenNav,
+      'three-nav-switch-hidden': !hideMessage
+    }"
     @click="switchNav"
     >
         <cpc-icon code="#icon-ray-end-arrow" color="black" size="20px"></cpc-icon>
     </div>
-    <div class="three-link flex-row-center animation" @click="openThreeLink">
+    <div class="three-link flex-row-center animation" :class="{'three-nav-switch-hidden': !hideMessage}" @click="openThreeLink">
       <cpc-icon code="#icon-code-tags" color="black" size="20px"></cpc-icon>
     </div>
   </div>
@@ -104,6 +109,9 @@ export default {
   name: 'cpc-index',
   props: {
     showNav: {
+      type: Boolean
+    },
+    hideMessage: {
       type: Boolean
     }
   },
@@ -233,6 +241,9 @@ export default {
   }
   > .three-nav-switch-close {
     transform: rotateZ(180deg);
+  }
+  > .three-nav-switch-hidden {
+    opacity: 0;
   }
   > .three-link {
     position: fixed;
