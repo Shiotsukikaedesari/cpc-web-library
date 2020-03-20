@@ -39,11 +39,11 @@
             <cpc-nav-side-elem elemKey="3-10" slot="child" :click="jump('textGeometry')">文本几何体（textGeometry）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="3-11" slot="child" :click="jump('wireframeGeometry')">网格几何体（wireframeGeometry）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
-          <cpc-nav-side-menu menuKey="4" slot="menu">
+          <cpc-nav-side-menu menuKey="4" slot="menu" open>
             <cpc-nav-side-elem elemKey="4-0" slot="father" :father="true">
               <cpc-icon slot="side-ui" code="#icon-lightbulb-on"></cpc-icon>光源
             </cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="4-1" slot="child" :click="jump('ambientLight')">环境光（AmbientLight）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="4-1" slot="child" signal :click="jump('ambientLight')">环境光（AmbientLight）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="5" slot="menu">
             <cpc-nav-side-elem elemKey="5-0" slot="father" :father="true">

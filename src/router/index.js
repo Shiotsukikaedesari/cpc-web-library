@@ -18,7 +18,7 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index,
-      redirect: '/three/wireframeGeometry',
+      redirect: '/three/ambientLight',
       children: Three3D
     },
     {
