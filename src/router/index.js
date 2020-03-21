@@ -18,7 +18,7 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index,
-      redirect: '/three/hemisphereLight',
+      redirect: '/three/pointLight',
       children: Three3D
     },
     {

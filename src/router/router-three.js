@@ -23,6 +23,7 @@ import BufferGeometry from '@/views/three/bufferGeometry'
 import AmbientLight from '@/views/three/ambientLight'
 import DirectionalLight from '@/views/three/directionalLight'
 import HemisphereLight from '@/views/three/hemisphereLight'
+import PointLight from '@/views/three/pointLight'
 
 export default
 [
@@ -135,5 +136,10 @@ export default
     path: '/three/hemisphereLight',
     name: 'hemisphereLight',
     component: HemisphereLight
+  },
+  {
+    path: '/three/pointLight',
+    name: 'pointLight',
+    component: PointLight
   }
 ]
