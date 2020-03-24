@@ -139,16 +139,16 @@ export default {
         name: 'AmbientLight Controller'
       }) // 控制台
       this.guiParam = { // 控制参数
-        color: [255, 255, 255],
-        intensity: 1,
-        positionX: 0,
-        positionY: 250,
-        positionZ: 0
+        color: this.lightBox.directionalLight.color.getHex(),
+        intensity: this.lightBox.directionalLight.intensity,
+        positionX: this.lightBox.directionalLight.position.x,
+        positionY: this.lightBox.directionalLight.position.y,
+        positionZ: this.lightBox.directionalLight.position.z
       }
       this.gui
         .addColor(this.guiParam, 'color', -500, 500)
         .onChange(data => {
-          this.lightBox.directionalLight.color = new THREE.Color(data[0], data[1], data[2])
+          this.lightBox.directionalLight.color.setHex(data)
         })
       this.gui
         .add(this.guiParam, 'intensity', 0, 10)

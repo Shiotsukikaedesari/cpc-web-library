@@ -163,9 +163,7 @@ export default {
         positionZ: this.lightBox.rectAreaLight.position.z,
         rotationX: 0,
         rotationY: 0,
-        rotationZ: 0,
-        scaleX: 1,
-        scaleY: 1
+        rotationZ: 0
       }
       this.gui
         .addColor(this.guiParam, 'color', -500, 500, 1)

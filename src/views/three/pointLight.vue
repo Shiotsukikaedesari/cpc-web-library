@@ -133,27 +133,21 @@ export default {
     // 初始控制台
     initGui () {
       this.gui = new GUI({
-        name: 'AmbientLight Controller'
+        name: 'pointLight Controller'
       }) // 控制台
       this.guiParam = { // 控制参数
-        color: [255, 255, 255],
-        intensity: 3,
-        distance: 400,
-        decay: 0.5,
-        positionX: 0,
-        positionY: 0,
-        positionZ: 0,
-        rotationX: 0,
-        rotationY: 0,
-        rotationZ: 0,
-        scaleX: 1,
-        scaleY: 1,
-        scaleZ: 1
+        color: this.lightBox.pointLight.color.getHex(),
+        intensity: this.lightBox.pointLight.intensity,
+        distance: this.lightBox.pointLight.distance,
+        decay: this.lightBox.pointLight.decay,
+        positionX: this.lightBox.pointLight.position.x,
+        positionY: this.lightBox.pointLight.position.y,
+        positionZ: this.lightBox.pointLight.position.z
       }
       this.gui
         .addColor(this.guiParam, 'color', -500, 500)
         .onChange(data => {
-          this.lightBox.pointLight.color = new THREE.Color(data[0], data[1], data[2])
+          this.lightBox.pointLight.color.setHex(data)
         })
       this.gui
         .add(this.guiParam, 'intensity', 0, 10)
@@ -184,36 +178,6 @@ export default {
         .add(this.guiParam, 'positionZ', -500, 500)
         .onChange(data => {
           this.lightBox.pointLight.position.x = data
-        })
-      this.gui
-        .add(this.guiParam, 'rotationX', -180, 180)
-        .onChange(data => {
-          this.lightBox.pointLight.rotation.x = Math.PI / 180 * data
-        })
-      this.gui
-        .add(this.guiParam, 'rotationY', -180, 180)
-        .onChange(data => {
-          this.lightBox.pointLight.rotation.y = Math.PI / 180 * data
-        })
-      this.gui
-        .add(this.guiParam, 'rotationZ', -180, 180)
-        .onChange(data => {
-          this.lightBox.pointLight.rotation.z = Math.PI / 180 * data
-        })
-      this.gui
-        .add(this.guiParam, 'scaleX', 1, 5)
-        .onChange(data => {
-          this.lightBox.pointLight.scale.x = data
-        })
-      this.gui
-        .add(this.guiParam, 'scaleY', 1, 5)
-        .onChange(data => {
-          this.lightBox.pointLight.scale.y = data
-        })
-      this.gui
-        .add(this.guiParam, 'scaleZ', 1, 5)
-        .onChange(data => {
-          this.lightBox.pointLight.scale.z = data
         })
     },
     // 动画

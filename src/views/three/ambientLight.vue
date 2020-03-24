@@ -134,13 +134,13 @@ export default {
         name: 'AmbientLight Controller'
       }) // 控制台
       this.guiParam = { // 控制参数
-        color: [255, 255, 255],
+        color: this.lightBox.ambientLight.color.getHex(),
         intensity: 1
       }
       this.gui
         .addColor(this.guiParam, 'color', -500, 500)
         .onChange(data => {
-          this.lightBox.ambientLight.color = new THREE.Color(data[0], data[1], data[2])
+          this.lightBox.ambientLight.color.setHex(data)
         })
       this.gui
         .add(this.guiParam, 'intensity', 0, 10)

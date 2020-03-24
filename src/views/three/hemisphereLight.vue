@@ -47,7 +47,7 @@ export default {
     initRender () {
       this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器
       this.renderer.setSize(window.innerWidth, window.innerHeight)
-      this.renderer.shadowMapEnabled = true // 渲染器阴影渲染
+      this.renderer.shadowMap.enabled = true // 渲染器阴影渲染
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap // 阴影类型
       this.$refs['three-canvas'].appendChild(this.renderer.domElement)
       this.renderer.setClearColor('rgb(15, 1, 25)')
@@ -66,13 +66,14 @@ export default {
         hemisphereLight: new THREE.HemisphereLight('rgb(255, 255, 255)', 'rgb(0, 0, 0)', 2.5) // 半球光
       }
       this.scene.add(this.lightBox.hemisphereLight)
+      console.log(this.lightBox.hemisphereLight)
     },
     // 初始相机
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
-      this.camera.position.x = 700
-      this.camera.position.y = 0
-      this.camera.position.z = 700
+      this.camera.position.x = 650
+      this.camera.position.y = 30
+      this.camera.position.z = 650
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
@@ -136,28 +137,25 @@ export default {
         name: 'AmbientLight Controller'
       }) // 控制台
       this.guiParam = { // 控制参数
-        skyColor: [255, 255, 255],
-        groundColor: [0, 0, 0],
-        intensity: 2.5,
-        positionX: 0,
-        positionY: 0,
-        positionZ: 0,
-        rotationX: 0,
-        rotationY: 0,
-        rotationZ: 0,
-        scaleX: 1,
-        scaleY: 1,
-        scaleZ: 1
+        skyColor: this.lightBox.hemisphereLight.color.getHex(),
+        groundColor: this.lightBox.hemisphereLight.groundColor.getHex(),
+        intensity: this.lightBox.hemisphereLight.intensity,
+        positionX: this.lightBox.hemisphereLight.position.x,
+        positionY: this.lightBox.hemisphereLight.position.y,
+        positionZ: this.lightBox.hemisphereLight.position.z,
+        rotationX: this.lightBox.hemisphereLight.rotation.x,
+        rotationY: this.lightBox.hemisphereLight.rotation.y,
+        rotationZ: this.lightBox.hemisphereLight.rotation.z
       }
       this.gui
         .addColor(this.guiParam, 'skyColor', -500, 500)
         .onChange(data => {
-          this.lightBox.hemisphereLight.skyColor = new THREE.Color(data[0], data[1], data[2])
+          this.lightBox.hemisphereLight.color.setHex(data)
         })
       this.gui
         .addColor(this.guiParam, 'groundColor', -500, 500)
         .onChange(data => {
-          this.lightBox.hemisphereLight.groundColor = new THREE.Color(data[0], data[1], data[2])
+          this.lightBox.hemisphereLight.groundColor.setHex(data)
         })
       this.gui
         .add(this.guiParam, 'intensity', 0, 10)
@@ -193,21 +191,6 @@ export default {
         .add(this.guiParam, 'rotationZ', -180, 180)
         .onChange(data => {
           this.lightBox.hemisphereLight.rotation.z = Math.PI / 180 * data
-        })
-      this.gui
-        .add(this.guiParam, 'scaleX', 1, 5)
-        .onChange(data => {
-          this.lightBox.hemisphereLight.scale.x = data
-        })
-      this.gui
-        .add(this.guiParam, 'scaleY', 1, 5)
-        .onChange(data => {
-          this.lightBox.hemisphereLight.scale.y = data
-        })
-      this.gui
-        .add(this.guiParam, 'scaleZ', 1, 5)
-        .onChange(data => {
-          this.lightBox.hemisphereLight.scale.z = data
         })
     },
     // 动画
