@@ -95,7 +95,7 @@ export default {
       for (let x = 0; x < positionRange.length; x += 1) {
         for (let y = 0; y < positionRange.length; y += 1) {
           for (let z = 0; z < positionRange.length; z += 1) {
-            let material = new THREE.MeshPhongMaterial({color: `rgb(${colorRange[x]}, ${colorRange[y]}, ${colorRange[z]})`})
+            let material = new THREE.MeshPhongMaterial({color: `rgb(${colorRange[x]}, ${colorRange[y]}, ${colorRange[z]})`, roughness: 0})
             let box = new THREE.Mesh(geometry, material)
             box.castShadow = true
             box.receiveShadow = true

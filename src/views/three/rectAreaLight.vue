@@ -66,10 +66,12 @@ export default {
     },
     // 光源
     initLight () {
+      RectAreaLightUniformsLib.init()
       this.lightBox = {
-        rectAreaLight: new THREE.RectAreaLight('rgb(255, 255, 255)', 2, 300, 300) // 平面光
+        rectAreaLight: new THREE.RectAreaLight('rgb(255, 255, 255)', 2, 100, 300) // 平面光
+
       }
-      this.lightBox.rectAreaLight.position.set(300, 300, 300)
+      this.lightBox.rectAreaLight.position.set(300, 100, 300)
       this.lightBox.rectAreaLight.lookAt(0, 0, 0)
       this.scene.add(this.lightBox.rectAreaLight)
     },
@@ -158,12 +160,7 @@ export default {
         intensity: this.lightBox.rectAreaLight.intensity,
         width: this.lightBox.rectAreaLight.width,
         height: this.lightBox.rectAreaLight.height,
-        positionX: this.lightBox.rectAreaLight.position.x,
-        positionY: this.lightBox.rectAreaLight.position.y,
-        positionZ: this.lightBox.rectAreaLight.position.z,
-        rotationX: 0,
-        rotationY: 0,
-        rotationZ: 0
+        positionY: this.lightBox.rectAreaLight.position.y
       }
       this.gui
         .addColor(this.guiParam, 'color', -500, 500, 1)
@@ -190,43 +187,25 @@ export default {
           this.objBox.rectLightMesh.scale.y = data
         })
       this.gui
-        .add(this.guiParam, 'positionX', -500, 500, 1)
-        .onChange(data => {
-          this.lightBox.rectAreaLight.position.x = data
-        })
-      this.gui
         .add(this.guiParam, 'positionY', -500, 500, 1)
         .onChange(data => {
           this.lightBox.rectAreaLight.position.y = data
-        })
-      this.gui
-        .add(this.guiParam, 'positionZ', -500, 500, 1)
-        .onChange(data => {
-          this.lightBox.rectAreaLight.position.x = data
-        })
-      this.gui
-        .add(this.guiParam, 'rotationX', -180, 180, 1)
-        .onChange(data => {
-          this.lightBox.rectAreaLight.rotation.x = Math.PI / 180 * data
-        })
-      this.gui
-        .add(this.guiParam, 'rotationY', -180, 180, 1)
-        .onChange(data => {
-          this.lightBox.rectAreaLight.rotation.y = Math.PI / 180 * data
-        })
-      this.gui
-        .add(this.guiParam, 'rotationZ', -180, 180, 1)
-        .onChange(data => {
-          this.lightBox.rectAreaLight.rotation.z = Math.PI / 180 * data
+          this.lightBox.rectAreaLight.lookAt(0, 0, 0)
         })
     },
     // 动画
-    animation () {
+    animation (delta) {
+      let r = 400
+      let deg = Date.now() * 0.001
+      this.lightBox.rectAreaLight.position.x = -Math.cos(deg) * r
+      this.lightBox.rectAreaLight.position.z = -Math.sin(deg) * r
+      this.lightBox.rectAreaLight.lookAt(0, 0, 0)
     },
     // 加载场景
     updateRenderer () {
       let delta = this.clock.getDelta()
       this.orbitControls.update(delta)
+      this.animation()
       this.renderer.render(this.scene, this.camera)
       this.stats.update()
 
@@ -268,7 +247,6 @@ export default {
     this.resetThreeLinkFun('rectAreaLight.vue')
   },
   mounted () {
-    RectAreaLightUniformsLib.init()
     this.init()
   },
   // 清空所有绑定事件与清空画布
