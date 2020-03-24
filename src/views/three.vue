@@ -46,7 +46,8 @@
             <cpc-nav-side-elem elemKey="4-1" slot="child" :click="jump('ambientLight')">环境光（AmbientLight）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="4-2" slot="child" :click="jump('directionalLight')">平行光（DirectionalLight）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="4-3" slot="child" :click="jump('hemisphereLight')">半球光（HemisphereLight）</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="4-4" slot="child" isSignal :click="jump('pointLight')">点光源（PointLight）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="4-4" slot="child" :click="jump('pointLight')">点光（PointLight）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="4-5" slot="child" isSignal :click="jump('rectAreaLight')">平面光（RectAreaLight）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="5" slot="menu">
             <cpc-nav-side-elem elemKey="5-0" slot="father" :father="true">

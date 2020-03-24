@@ -24,6 +24,7 @@ import AmbientLight from '@/views/three/ambientLight'
 import DirectionalLight from '@/views/three/directionalLight'
 import HemisphereLight from '@/views/three/hemisphereLight'
 import PointLight from '@/views/three/pointLight'
+import RectAreaLight from '@/views/three/rectAreaLight'
 
 export default
 [
@@ -141,5 +142,10 @@ export default
     path: '/three/pointLight',
     name: 'pointLight',
     component: PointLight
+  },
+  {
+    path: '/three/rectAreaLight',
+    name: 'rectAreaLight',
+    component: RectAreaLight
   }
 ]
