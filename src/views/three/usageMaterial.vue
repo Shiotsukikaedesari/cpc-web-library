@@ -64,18 +64,18 @@ export default {
     // 光源
     initLight () {
       this.lightBox = {
-        spotLight: new THREE.SpotLight('rgb(255, 255, 255)', 1.5, 0, Math.PI / 180 * 45, 0.3, 0) // 半球光
+        spotLight: new THREE.SpotLight('rgb(255, 255, 255)', 1.5, 450, Math.PI / 180 * 60, 0.2, 0) // 半球光
       }
-      this.lightBox.spotLight.position.set(100, 400, 100)
+      this.lightBox.spotLight.position.set(100, 300, 100)
       this.lightBox.spotLight.castShadow = true
       this.scene.add(this.lightBox.spotLight)
     },
     // 初始相机
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
-      this.camera.position.x = 300
-      this.camera.position.y = 600
-      this.camera.position.z = 300
+      this.camera.position.x = 200
+      this.camera.position.y = 100
+      this.camera.position.z = 200
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
@@ -83,7 +83,7 @@ export default {
     },
     // 初始物体
     initObj () {
-      let geometry = new THREE.BoxGeometry(200, 10, 600, 4, 4)
+      let geometry = new THREE.BoxGeometry(500, 10, 500, 4, 4)
       let material = new THREE.MeshStandardMaterial({
         color: `rgb(45, 0, 50)`,
         roughness: 0,
@@ -113,7 +113,7 @@ export default {
       }
       // this.scene.add(this.helperBox.axesHelper.helper)
       // this.scene.add(this.helperBox.gridHelper.helper)
-      // this.scene.add(this.helperBox.spotLightHelper.helper)
+      this.scene.add(this.helperBox.spotLightHelper.helper)
     },
     // 初始监视器
     initStats () {
@@ -190,7 +190,7 @@ export default {
     },
     // 动画
     animation () {
-      let r = 250
+      let r = 300
       let deg = Date.now() * 0.001
       this.lightBox.spotLight.position.x = -Math.cos(deg) * r
       this.lightBox.spotLight.position.z = Math.sin(deg) * r
