@@ -47,7 +47,7 @@ export default {
     initRender () {
       this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器
       this.renderer.setSize(window.innerWidth, window.innerHeight)
-      this.renderer.shadowMap.enabled = true // 渲染器阴影渲染
+      this.renderer.shadowMapEnabled = true // 渲染器阴影渲染
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap // 阴影类型
       this.$refs['three-canvas'].appendChild(this.renderer.domElement)
       this.renderer.setClearColor('rgb(15, 1, 25)')
@@ -63,16 +63,18 @@ export default {
     // 光源
     initLight () {
       this.lightBox = {
-        hemisphereLight: new THREE.HemisphereLight('rgb(255, 255, 255)', 'rgb(0, 0, 0)', 2.5) // 半球光
+        spotLight: new THREE.SpotLight('rgb(255, 255, 255)', 1.5, 800, Math.PI / 180 * 30, 0.3, 0) // 半球光
       }
-      this.scene.add(this.lightBox.hemisphereLight)
+      this.lightBox.spotLight.position.set(400, 400, 400)
+      this.lightBox.spotLight.castShadow = true
+      this.scene.add(this.lightBox.spotLight)
     },
     // 初始相机
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
-      this.camera.position.x = 650
-      this.camera.position.y = 30
-      this.camera.position.z = 650
+      this.camera.position.x = 400
+      this.camera.position.y = -600
+      this.camera.position.z = 400
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
@@ -92,7 +94,11 @@ export default {
       for (let x = 0; x < positionRange.length; x += 1) {
         for (let y = 0; y < positionRange.length; y += 1) {
           for (let z = 0; z < positionRange.length; z += 1) {
-            let material = new THREE.MeshPhongMaterial({color: `rgb(${colorRange[x]}, ${colorRange[y]}, ${colorRange[z]})`})
+            let material = new THREE.MeshStandardMaterial({
+              color: `rgb(${colorRange[x]}, ${colorRange[y]}, ${colorRange[z]})`,
+              roughness: 0,
+              metalness: 0
+            })
             let box = new THREE.Mesh(geometry, material)
             box.castShadow = true
             box.receiveShadow = true
@@ -108,11 +114,11 @@ export default {
       this.helperBox = {
         axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
         gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')}, // 网格
-        hemisphereLightHelper: {helper: new THREE.HemisphereLightHelper(this.lightBox.hemisphereLight, 200)} // 半球
+        spotLightHelper: {helper: new THREE.SpotLightHelper(this.lightBox.spotLight)} // 聚光
       }
       // this.scene.add(this.helperBox.axesHelper.helper)
-      this.scene.add(this.helperBox.gridHelper.helper)
-      this.scene.add(this.helperBox.hemisphereLightHelper.helper)
+      // this.scene.add(this.helperBox.gridHelper.helper)
+      this.scene.add(this.helperBox.spotLightHelper.helper)
     },
     // 初始监视器
     initStats () {
@@ -133,30 +139,71 @@ export default {
     // 初始控制台
     initGui () {
       this.gui = new GUI({
-        name: 'AmbientLight Controller'
+        name: 'spotLight Controller'
       }) // 控制台
       this.guiParam = { // 控制参数
-        skyColor: this.lightBox.hemisphereLight.color.getHex(),
-        groundColor: this.lightBox.hemisphereLight.groundColor.getHex(),
-        intensity: this.lightBox.hemisphereLight.intensity
+        castShadow: this.lightBox.spotLight.castShadow,
+        color: this.lightBox.spotLight.color.getHex(),
+        intensity: this.lightBox.spotLight.intensity,
+        distance: this.lightBox.spotLight.distance,
+        angle: this.lightBox.spotLight.angle * 180 / Math.PI,
+        penumbra: this.lightBox.spotLight.penumbra,
+        decay: this.lightBox.spotLight.decay,
+        positionX: this.lightBox.spotLight.position.x,
+        positionY: this.lightBox.spotLight.position.y,
+        positionZ: this.lightBox.spotLight.position.z
       }
-      this.gui
-        .addColor(this.guiParam, 'skyColor', -500, 500)
+      let lightSetting = this.gui.addFolder('Light setting')
+      lightSetting.add(this.guiParam, 'castShadow')
         .onChange(data => {
-          this.lightBox.hemisphereLight.color.setHex(data)
-          this.helperBox.hemisphereLightHelper.helper.update()
+          this.lightBox.spotLight.castShadow = data
         })
-      this.gui
-        .addColor(this.guiParam, 'groundColor', -500, 500)
+      lightSetting.addColor(this.guiParam, 'color', -500, 500)
         .onChange(data => {
-          this.lightBox.hemisphereLight.groundColor.setHex(data)
-          this.helperBox.hemisphereLightHelper.helper.update()
+          this.lightBox.spotLight.color.setHex(data)
+          this.helperBox.spotLightHelper.helper.update()
         })
-      this.gui
-        .add(this.guiParam, 'intensity', 0, 10)
+      lightSetting.add(this.guiParam, 'intensity', 0, 10)
         .onChange(data => {
-          this.lightBox.hemisphereLight.intensity = data
-          this.helperBox.hemisphereLightHelper.helper.update()
+          this.lightBox.spotLight.intensity = data
+          this.helperBox.spotLightHelper.helper.update()
+        })
+      lightSetting.add(this.guiParam, 'distance', 0, 1000, 1)
+        .onChange(data => {
+          this.lightBox.spotLight.distance = data
+          this.helperBox.spotLightHelper.helper.update()
+        })
+      lightSetting.add(this.guiParam, 'angle', 0, 60, 1)
+        .onChange(data => {
+          this.lightBox.spotLight.angle = Math.PI / 180 * data
+          this.helperBox.spotLightHelper.helper.update()
+        })
+      lightSetting.add(this.guiParam, 'penumbra', 0, 1, 0.1)
+        .onChange(data => {
+          this.lightBox.spotLight.penumbra = data
+          this.helperBox.spotLightHelper.helper.update()
+        })
+      lightSetting.add(this.guiParam, 'decay', 0, 5, 0.1)
+        .onChange(data => {
+          this.lightBox.spotLight.decay = data
+          this.helperBox.spotLightHelper.helper.update()
+        })
+      lightSetting.open()
+      let lightPosition = this.gui.addFolder('Light position')
+      lightPosition.add(this.guiParam, 'positionX', -500, 500, 1)
+        .onChange(data => {
+          this.lightBox.spotLight.position.x = data
+          this.helperBox.spotLightHelper.helper.update()
+        })
+      lightPosition.add(this.guiParam, 'positionY', -500, 500, 1)
+        .onChange(data => {
+          this.lightBox.spotLight.position.y = data
+          this.helperBox.spotLightHelper.helper.update()
+        })
+      lightPosition.add(this.guiParam, 'positionZ', -500, 500, 1)
+        .onChange(data => {
+          this.lightBox.spotLight.position.z = data
+          this.helperBox.spotLightHelper.helper.update()
         })
     },
     // 动画
@@ -202,7 +249,7 @@ export default {
     移动相机：鼠标右键 `
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('hemisphereLight.vue')
+    this.resetThreeLinkFun('spotLight.vue')
   },
   mounted () {
     this.init()

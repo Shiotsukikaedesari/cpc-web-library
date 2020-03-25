@@ -67,6 +67,7 @@ export default {
         directionalLight: new THREE.DirectionalLight('rgb(255, 255, 255)', 1) // 平行光
       }
       this.lightBox.directionalLight.position.set(0, 300, 0)
+      this.lightBox.directionalLight.castShadow = true
       // this.scene.add(this.lightBox.ambientLight)
       this.scene.add(this.lightBox.directionalLight)
     },

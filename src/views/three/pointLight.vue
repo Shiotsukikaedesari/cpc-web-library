@@ -65,6 +65,7 @@ export default {
       this.lightBox = {
         pointLight: new THREE.PointLight('rgb(255, 255, 255)', 3, 400, 0.5) // 半球光
       }
+      this.lightBox.pointLight.castShadow = false
       this.scene.add(this.lightBox.pointLight)
     },
     // 初始相机
@@ -140,6 +141,7 @@ export default {
         name: 'pointLight Controller'
       }) // 控制台
       this.guiParam = { // 控制参数
+        castShadow: this.lightBox.pointLight.castShadow,
         color: this.lightBox.pointLight.color.getHex(),
         intensity: this.lightBox.pointLight.intensity,
         distance: this.lightBox.pointLight.distance,
@@ -149,24 +151,33 @@ export default {
         positionZ: this.lightBox.pointLight.position.z
       }
       this.gui
+        .add(this.guiParam, 'castShadow')
+        .onChange(data => {
+          this.lightBox.pointLight.castShadow = data
+        })
+      this.gui
         .addColor(this.guiParam, 'color', -500, 500)
         .onChange(data => {
           this.lightBox.pointLight.color.setHex(data)
+          this.helperBox.pointLight.helper.update()
         })
       this.gui
         .add(this.guiParam, 'intensity', 0, 10)
         .onChange(data => {
           this.lightBox.pointLight.intensity = data
+          this.helperBox.pointLight.helper.update()
         })
       this.gui
         .add(this.guiParam, 'distance', 0, 600)
         .onChange(data => {
           this.lightBox.pointLight.distance = data
+          this.helperBox.pointLight.helper.update()
         })
       this.gui
         .add(this.guiParam, 'decay', 0, 5)
         .onChange(data => {
           this.lightBox.pointLight.decay = data
+          this.helperBox.pointLight.helper.update()
         })
       this.gui
         .add(this.guiParam, 'positionX', -500, 500)
