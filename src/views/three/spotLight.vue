@@ -149,9 +149,7 @@ export default {
         angle: this.lightBox.spotLight.angle * 180 / Math.PI,
         penumbra: this.lightBox.spotLight.penumbra,
         decay: this.lightBox.spotLight.decay,
-        positionX: this.lightBox.spotLight.position.x,
-        positionY: this.lightBox.spotLight.position.y,
-        positionZ: this.lightBox.spotLight.position.z
+        positionY: this.lightBox.spotLight.position.y
       }
       let lightSetting = this.gui.addFolder('Light setting')
       lightSetting.add(this.guiParam, 'castShadow')
@@ -190,29 +188,26 @@ export default {
         })
       lightSetting.open()
       let lightPosition = this.gui.addFolder('Light position')
-      lightPosition.add(this.guiParam, 'positionX', -500, 500, 1)
-        .onChange(data => {
-          this.lightBox.spotLight.position.x = data
-          this.helperBox.spotLightHelper.helper.update()
-        })
       lightPosition.add(this.guiParam, 'positionY', -500, 500, 1)
         .onChange(data => {
           this.lightBox.spotLight.position.y = data
           this.helperBox.spotLightHelper.helper.update()
         })
-      lightPosition.add(this.guiParam, 'positionZ', -500, 500, 1)
-        .onChange(data => {
-          this.lightBox.spotLight.position.z = data
-          this.helperBox.spotLightHelper.helper.update()
-        })
+      lightPosition.open()
     },
     // 动画
     animation () {
+      let r = 400
+      let deg = Date.now() * 0.001
+      this.lightBox.spotLight.position.x = -Math.cos(deg) * r
+      this.lightBox.spotLight.position.z = -Math.sin(deg) * r
+      this.helperBox.spotLightHelper.helper.update()
     },
     // 加载场景
     updateRenderer () {
       let delta = this.clock.getDelta()
       this.orbitControls.update(delta)
+      this.animation()
       this.renderer.render(this.scene, this.camera)
       this.stats.update()
 
