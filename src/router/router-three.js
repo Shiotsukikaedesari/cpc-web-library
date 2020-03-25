@@ -27,6 +27,8 @@ import PointLight from '@/views/three/pointLight'
 import RectAreaLight from '@/views/three/rectAreaLight'
 import SpotLight from '@/views/three/spotLight'
 
+import UsageMaterial from '@/views/three/usageMaterial'
+
 export default
 [
   {
@@ -153,5 +155,10 @@ export default
     path: '/three/spotLight',
     name: 'spotLight',
     component: SpotLight
+  },
+  {
+    path: '/three/usageMaterial',
+    name: 'usageMaterial',
+    component: UsageMaterial
   }
 ]

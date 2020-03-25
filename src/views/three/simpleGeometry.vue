@@ -48,7 +48,7 @@ export default {
     initRender () {
       this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器
       this.renderer.setSize(window.innerWidth, window.innerHeight)
-      this.renderer.shadowMapEnabled = true // 渲染器阴影渲染
+      this.renderer.shadowMap.enabled = true // 渲染器阴影渲染
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap // 阴影类型
       this.$refs['three-canvas'].appendChild(this.renderer.domElement)
       this.renderer.setClearColor('rgb(15, 1, 25)')
@@ -173,7 +173,6 @@ export default {
       this.renderer.dispose()
       this.renderer.forceContextLoss()
       this.renderer.clear(true, true, true)
-      this.renderer.context = null
       this.renderer.domElement = null
       // 场景缓存
       this.scene.dispose()

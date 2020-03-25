@@ -19,7 +19,8 @@ export default {
       lightBox: '',
       helperBox: '',
       objBox: {
-        group: ''
+        stage: '',
+        box: ''
       },
       clock: '', // 世界时钟
       orbitControls: '', // 相机控件
@@ -63,18 +64,18 @@ export default {
     // 光源
     initLight () {
       this.lightBox = {
-        spotLight: new THREE.SpotLight('rgb(255, 255, 255)', 1.5, 800, Math.PI / 180 * 30, 0.3, 0) // 半球光
+        spotLight: new THREE.SpotLight('rgb(255, 255, 255)', 1.5, 0, Math.PI / 180 * 45, 0.3, 0) // 半球光
       }
-      this.lightBox.spotLight.position.set(400, 400, 400)
+      this.lightBox.spotLight.position.set(100, 400, 100)
       this.lightBox.spotLight.castShadow = true
       this.scene.add(this.lightBox.spotLight)
     },
     // 初始相机
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
-      this.camera.position.x = 400
-      this.camera.position.y = -600
-      this.camera.position.z = 400
+      this.camera.position.x = 300
+      this.camera.position.y = 600
+      this.camera.position.z = 300
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
@@ -82,32 +83,26 @@ export default {
     },
     // 初始物体
     initObj () {
-      // 设置组合
-      this.objBox.group = new THREE.Group()
-
-      let geometry = new THREE.BoxBufferGeometry(50, 50, 50)
-      // 颜色
-      let colorRange = [0, 64, 128, 192, 255]
-      // 空间位置
-      let positionRange = [-200, -100, 0, 100, 200]
-
-      for (let x = 0; x < positionRange.length; x += 1) {
-        for (let y = 0; y < positionRange.length; y += 1) {
-          for (let z = 0; z < positionRange.length; z += 1) {
-            let material = new THREE.MeshStandardMaterial({
-              color: `rgb(${colorRange[x]}, ${colorRange[y]}, ${colorRange[z]})`,
-              roughness: 0,
-              metalness: 0
-            })
-            let box = new THREE.Mesh(geometry, material)
-            box.castShadow = true
-            box.receiveShadow = true
-            box.position.set(positionRange[x], positionRange[y], positionRange[z])
-            this.objBox.group.add(box)
-          }
-        }
-      }
-      this.scene.add(this.objBox.group)
+      let geometry = new THREE.BoxGeometry(200, 10, 600, 4, 4)
+      let material = new THREE.MeshStandardMaterial({
+        color: `rgb(45, 0, 50)`,
+        roughness: 0,
+        metalness: 0
+      })
+      this.objBox.stage = new THREE.Mesh(geometry, material)
+      this.objBox.stage.castShadow = true
+      this.objBox.stage.receiveShadow = true
+      this.objBox.stage.position.set(0, 5, 0)
+      this.scene.add(this.objBox.stage)
+      // 方体
+      geometry = new THREE.BoxGeometry(50, 50, 50, 4, 4)
+      material = new THREE.MeshLambertMaterial({color: 'rgb(230, 230, 230)'})
+      material.emissiveIntensity = 10
+      this.objBox.box = new THREE.Mesh(geometry, material)
+      this.objBox.box.castShadow = true
+      this.objBox.box.receiveShadow = true
+      this.objBox.box.position.set(0, 30, 0)
+      this.scene.add(this.objBox.box)
     },
     // 初始辅助
     initHelper () {
@@ -118,7 +113,7 @@ export default {
       }
       // this.scene.add(this.helperBox.axesHelper.helper)
       // this.scene.add(this.helperBox.gridHelper.helper)
-      this.scene.add(this.helperBox.spotLightHelper.helper)
+      // this.scene.add(this.helperBox.spotLightHelper.helper)
     },
     // 初始监视器
     initStats () {
@@ -139,7 +134,7 @@ export default {
     // 初始控制台
     initGui () {
       this.gui = new GUI({
-        name: 'spotLight Controller'
+        name: 'usageMeterial Controller'
       }) // 控制台
       this.guiParam = { // 控制参数
         castShadow: this.lightBox.spotLight.castShadow,
@@ -186,18 +181,16 @@ export default {
           this.lightBox.spotLight.decay = data
           this.helperBox.spotLightHelper.helper.update()
         })
-      lightSetting.open()
-      let lightPosition = this.gui.addFolder('Light position')
-      lightPosition.add(this.guiParam, 'positionY', -500, 500, 1)
+      lightSetting.add(this.guiParam, 'positionY', -500, 500, 1)
         .onChange(data => {
           this.lightBox.spotLight.position.y = data
           this.helperBox.spotLightHelper.helper.update()
         })
-      lightPosition.open()
+      lightSetting.open()
     },
     // 动画
     animation () {
-      let r = 400
+      let r = 250
       let deg = Date.now() * 0.001
       this.lightBox.spotLight.position.x = -Math.cos(deg) * r
       this.lightBox.spotLight.position.z = Math.sin(deg) * r
@@ -226,9 +219,8 @@ export default {
       this.renderer.forceContextLoss()
       this.renderer.domElement = null
       // 清空物体
-      this.objBox.group.children.forEach(elem => {
-        this.clearObjCache(elem)
-      })
+      this.clearObjCache(this.objBox.stage)
+      this.clearObjCache(this.objBox.box)
       // 场景缓存
       this.scene.dispose()
       // 辅助对象缓存
