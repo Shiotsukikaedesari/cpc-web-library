@@ -66,7 +66,7 @@ export default {
         spotLight: new THREE.SpotLight('rgb(255, 255, 255)', 1.5, 800, Math.PI / 180 * 30, 0.3, 0) // 半球光
       }
       this.lightBox.spotLight.position.set(400, 400, 400)
-      this.lightBox.spotLight.castShadow = true
+      this.lightBox.spotLight.castShadow = false
       this.scene.add(this.lightBox.spotLight)
     },
     // 初始相机
@@ -118,7 +118,7 @@ export default {
       }
       // this.scene.add(this.helperBox.axesHelper.helper)
       // this.scene.add(this.helperBox.gridHelper.helper)
-      this.scene.add(this.helperBox.spotLightHelper.helper)
+      // this.scene.add(this.helperBox.spotLightHelper.helper)
     },
     // 初始监视器
     initStats () {
@@ -142,6 +142,7 @@ export default {
         name: 'spotLight Controller'
       }) // 控制台
       this.guiParam = { // 控制参数
+        showHelper: false,
         castShadow: this.lightBox.spotLight.castShadow,
         color: this.lightBox.spotLight.color.getHex(),
         intensity: this.lightBox.spotLight.intensity,
@@ -152,6 +153,14 @@ export default {
         positionY: this.lightBox.spotLight.position.y
       }
       let lightSetting = this.gui.addFolder('Light setting')
+      lightSetting.add(this.guiParam, 'showHelper')
+        .onChange(data => {
+          if (data) {
+            this.scene.add(this.helperBox.spotLightHelper.helper)
+          } else {
+            this.scene.remove(this.helperBox.spotLightHelper.helper)
+          }
+        })
       lightSetting.add(this.guiParam, 'castShadow')
         .onChange(data => {
           this.lightBox.spotLight.castShadow = data

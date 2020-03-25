@@ -66,6 +66,7 @@ export default {
     },
     // 光源
     initLight () {
+      // 这个方法应该会影响材质的漫反射roughness计算，具体不得而知，漫反射为0的效果并不会对这个生效
       RectAreaLightUniformsLib.init()
       this.lightBox = {
         rectAreaLight: new THREE.RectAreaLight('rgb(255, 255, 255)', 2, 100, 300) // 平面光

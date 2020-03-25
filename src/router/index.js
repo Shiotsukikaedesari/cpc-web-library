@@ -18,7 +18,7 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index,
-      redirect: '/three/usageMaterial',
+      redirect: '/three/SpotLight',
       children: Three3D
     },
     {
