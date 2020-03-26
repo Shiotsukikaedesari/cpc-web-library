@@ -13,7 +13,7 @@
             <cpc-icon slot="top-ui" code="#icon-widgets"></cpc-icon>组件
           </cpc-nav-top-elem>
           <cpc-nav-top-elem elemKey="4" slot="nav-top-right" :click="toStyle" :isSignal="sign === 'style'" >
-            <cpc-icon slot="top-ui" code="#icon-flash"></cpc-icon>UI风格
+            <cpc-icon slot="top-ui" code="#icon-drawing-box"></cpc-icon>UI风格
           </cpc-nav-top-elem>
           <cpc-nav-top-elem elemKey="5" slot="nav-top-right" :click="toEffect" :isSignal="sign === 'effect'" >
             <cpc-icon slot="top-ui" code="#icon-flash"></cpc-icon>交互动效

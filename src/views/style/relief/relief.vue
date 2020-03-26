@@ -5,9 +5,8 @@
 </template>
 
 <script>
-import markdown from './markdown/about.md'
+import markdown from './markdown/markdown.md'
 export default {
-  name: 'guide-about',
   data () {
     return {
 

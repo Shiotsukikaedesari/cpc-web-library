@@ -3,8 +3,11 @@
         <div class="cpc-nav-side">
           <cpc-nav-side :width="sideNavWidth" height="100%" background="">
               <template slot="menu">
-                  <cpc-nav-side-elem elemKey="0" slot="child" isSignal :click="jump('intro')">
+                  <cpc-nav-side-elem elemKey="0" slot="child" :click="jump('intro')">
                      <cpc-icon slot="side-ui" code="#icon-file-document-box"></cpc-icon>介绍
+                  </cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="1" slot="child" isSignal :click="jump('relief')">
+                     <cpc-icon slot="side-ui" code="#icon-file-document-box"></cpc-icon>浮雕
                   </cpc-nav-side-elem>
               </template>
           </cpc-nav-side>
