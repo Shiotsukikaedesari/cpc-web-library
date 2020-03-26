@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div :class="['nav-top', 'flex-row', 'border-base', {'fixed': fixed}]" :style="{'width': width, 'height': height}">
+        <div :class="['nav-top', 'flex-row-between', 'border-base', {'fixed': fixed}]" :style="{'width': width, 'height': height}">
           <div class="left-box flex-row" :style="{'width': leftWidth}">
             <slot name="nav-top-left"></slot>
           </div>
@@ -47,12 +47,19 @@ export default {
     let leftSlot = this.$slots['nav-top-left']
     let centerSlot = this.$slots['nav-top-center']
     let rightSlot = this.$slots['nav-top-right']
-    if (!centerSlot) {
-      this.rightWidth = '50%'
-      this.leftWidth = '50%'
+    if (!centerSlot && rightSlot && leftSlot) {
+      this.rightWidth = 'unset'
+      this.leftWidth = 'unset'
       this.centerWidth = '0%'
-    }
-    if (!leftSlot && !rightSlot) {
+    } else if (!centerSlot && !rightSlot) {
+      this.rightWidth = '0'
+      this.leftWidth = '100%'
+      this.centerWidth = '0%'
+    } else if (!centerSlot && !leftSlot) {
+      this.rightWidth = '100%'
+      this.leftWidth = '0%'
+      this.centerWidth = '0%'
+    } else if (!leftSlot && !rightSlot) {
       this.rightWidth = '0%'
       this.leftWidth = '0%'
       this.centerWidth = '100%'
