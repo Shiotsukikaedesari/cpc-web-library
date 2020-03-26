@@ -9,6 +9,7 @@ import Components from './router-components'
 import Guide from './router-guide'
 import Notes from './router-notes'
 import Effect from './router-effect'
+import Style from './router-style'
 
 Vue.use(Router)
 
@@ -30,7 +31,8 @@ export default new Router({
         Components,
         Guide,
         Notes,
-        Effect
+        Effect,
+        Style
       ]
     },
     {

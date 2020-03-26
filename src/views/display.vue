@@ -12,13 +12,16 @@
           <cpc-nav-top-elem elemKey="3" slot="nav-top-right" :click="toComponents" :isSignal="sign === 'components'" >
             <cpc-icon slot="top-ui" code="#icon-widgets"></cpc-icon>组件
           </cpc-nav-top-elem>
-          <cpc-nav-top-elem elemKey="4" slot="nav-top-right" :click="toEffect" :isSignal="sign === 'effect'" >
-            <cpc-icon slot="top-ui" code="#icon-flash"></cpc-icon>动效
+          <cpc-nav-top-elem elemKey="4" slot="nav-top-right" :click="toStyle" :isSignal="sign === 'style'" >
+            <cpc-icon slot="top-ui" code="#icon-flash"></cpc-icon>UI风格
           </cpc-nav-top-elem>
-          <cpc-nav-top-elem elemKey="5" slot="nav-top-right" :click="toGithub">
+          <cpc-nav-top-elem elemKey="5" slot="nav-top-right" :click="toEffect" :isSignal="sign === 'effect'" >
+            <cpc-icon slot="top-ui" code="#icon-flash"></cpc-icon>交互动效
+          </cpc-nav-top-elem>
+          <cpc-nav-top-elem elemKey="6" slot="nav-top-right" :click="toGithub">
             <cpc-icon slot="top-ui" code="#icon-github-circle"></cpc-icon>Github
           </cpc-nav-top-elem>
-          <cpc-nav-top-elem elemKey="6" slot="nav-top-right" :click="toNotes" :isSignal="sign === 'notes'">
+          <cpc-nav-top-elem elemKey="7" slot="nav-top-right" :click="toNotes" :isSignal="sign === 'notes'">
             <cpc-icon slot="top-ui" code="#icon-note-multiple"></cpc-icon>前端笔记
           </cpc-nav-top-elem>
         </cpc-nav-top>
@@ -82,6 +85,10 @@ export default {
     // 跳转到指南
     toGuide () {
       this.$router.push({path: '/guide'})
+    },
+    // 跳转到UI风格
+    toStyle () {
+      this.$router.push({path: '/style'})
     },
     // 跳转到组件
     toComponents () {

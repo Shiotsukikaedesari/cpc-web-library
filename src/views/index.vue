@@ -13,7 +13,8 @@
             <div class="button-box">
                 <button class="animation" @click="toGuide">指南</button>
                 <button class="animation" @click="toComponent">组件</button>
-                <button class="animation" @click="toEffect">动效</button>
+                <button class="animation" @click="toStyle">UI风格</button>
+                <button class="animation" @click="toEffect">交互动效</button>
                 <button class="animation" @click="toGithub">Github</button>
                 <button class="animation" @click="toNotes">前端笔记</button>
                 <button class="animation" @click="toControl">3D world</button>
@@ -44,6 +45,10 @@ export default {
     // 跳转到组件
     toComponent () {
       this.$router.replace({path: '/components', query: {sign: 'components'}})
+    },
+    // 跳转到风格
+    toStyle () {
+      this.$router.replace({path: '/style', query: {sign: 'style'}})
     },
     // 跳转到前端笔记
     toNotes () {
