@@ -3,6 +3,8 @@
 // 引入全局less
 import './assets/common/less/base.less'
 import './assets/common/css/cpc-highlight.css'
+// 引入风格UI
+import './assets/common/less/relief.less'
 // 引入UI文件
 import './assets/icon/iconfont'
 
