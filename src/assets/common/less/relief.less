@@ -6,10 +6,7 @@
 // 主色：
 //     灰：grey
 //     红：red
-//     橙：orange
-//     黄：yellow
 //     绿：green
-//     青：cyan
 //     蓝：blue
 //     紫：violet
 // 色系：
@@ -209,5 +206,236 @@
         @baseHShadow @baseVShadow @baseBlur @baseSpread @darkRedShadow,
         @baseHShadow @baseVShadow @baseBlur @baseSpread @darkRedShadow,
         -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkRedHightLight;
+    }
+}
+// 绿色-浅色系
+@lightGreenBg: rgb(217, 255, 217);
+@lightGreenShadow: rgb(193, 236, 193);
+@lightGreenShadowConvex: rgb(218, 253, 218);
+@lightGreenHightLightConvex: rgb(255, 255, 255);
+@lightGreenHightLight: rgb(230, 255, 230);
+.relief-bg-green-light {
+    background: @lightGreenBg;
+}
+.relief-green-light-plane {
+    background: @lightGreenBg;
+    box-shadow:
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @lightGreenHightLight,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @lightGreenShadow,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @lightGreenShadow,
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @lightGreenHightLight;
+}
+.relief-green-light-concave {
+    background: @lightGreenBg;
+    box-shadow: @baseConcaveHShadow @baseConcaveVShadow @baseConcaveBlur @baseConcaveSpread @lightGreenShadow inset;
+    &::before {
+        box-shadow:
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @lightGreenHightLight,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @lightGreenShadow,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @lightGreenShadow,
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @lightGreenHightLight;
+    }
+}
+.relief-green-light-convex {
+    background: radial-gradient(farthest-side at @baseConvexHShadow @baseConvexVShadow, @lightGreenHightLightConvex, @lightGreenShadowConvex);
+    &::before {
+        box-shadow:
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @lightGreenHightLight,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @lightGreenShadow,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @lightGreenShadow,
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @lightGreenHightLight;
+    }
+}
+
+// 绿色-深色系
+@darkGreenBg: rgb(0, 60, 0);
+@darkGreenShadow: rgb(0, 30, 0);
+@darkGreenShadowConvex: rgb(0, 40, 0);
+@darkGreenHightLightConvex: rgb(0, 90, 0);
+@darkGreenHightLight: rgb(0, 70, 0);
+.relief-bg-green-dark {
+    background: @darkGreenBg;
+}
+.relief-green-dark-plane {
+    background: @darkGreenBg;
+    box-shadow:
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkGreenHightLight,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @darkGreenShadow,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @darkGreenShadow,
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkGreenHightLight;
+}
+.relief-green-dark-concave {
+    background: @darkGreenBg;
+    box-shadow: @baseConcaveHShadow @baseConcaveVShadow @baseConcaveBlur @baseConcaveSpread @darkGreenShadow inset;
+    &::before {
+        box-shadow:
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkGreenHightLight,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @darkGreenShadow,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @darkGreenShadow,
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkGreenHightLight;
+    }
+}
+.relief-green-dark-convex {
+    background: radial-gradient(farthest-side at @baseConvexHShadow @baseConvexVShadow, @darkGreenHightLightConvex, @darkGreenShadowConvex);
+    &::before {
+        box-shadow:
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkGreenHightLight,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @darkGreenShadow,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @darkGreenShadow,
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkGreenHightLight;
+    }
+}
+// 自定义色-浅色系
+@lightBlueBg: rgb(236, 236, 255);
+@lightBlueShadow: rgb(193, 193, 243);
+@lightBlueShadowConvex: rgb(219, 219, 248);
+@lightBlueHightLightConvex: rgb(255, 255, 255);
+@lightBlueHightLight: rgb(243, 243, 255);
+.relief-bg-blue-light {
+    background: @lightBlueBg;
+}
+.relief-blue-light-plane {
+    background: @lightBlueBg;
+    box-shadow:
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @lightBlueHightLight,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @lightBlueShadow,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @lightBlueShadow,
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @lightBlueHightLight;
+}
+.relief-blue-light-concave {
+    background: @lightBlueBg;
+    box-shadow: @baseConcaveHShadow @baseConcaveVShadow @baseConcaveBlur @baseConcaveSpread @lightBlueShadow inset;
+    &::before {
+        box-shadow:
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @lightBlueHightLight,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @lightBlueShadow,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @lightBlueShadow,
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @lightBlueHightLight;
+    }
+}
+.relief-blue-light-convex {
+    background: radial-gradient(farthest-side at @baseConvexHShadow @baseConvexVShadow, @lightBlueHightLightConvex, @lightBlueShadowConvex);
+    &::before {
+        box-shadow:
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @lightBlueHightLight,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @lightBlueShadow,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @lightBlueShadow,
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @lightBlueHightLight;
+    }
+}
+
+// 蓝色-深色系
+@darkBlueBg: rgb(0, 0, 85);
+@darkBlueShadow: rgb(0, 0, 25);
+@darkBlueShadowConvex: rgb(0, 0, 50);
+@darkBlueHightLightConvex: rgb(0, 0, 200);
+@darkBlueHightLight: rgb(0, 0, 120);
+.relief-bg-blue-dark {
+    background: @darkBlueBg;
+}
+.relief-blue-dark-plane {
+    background: @darkBlueBg;
+    box-shadow:
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkBlueHightLight,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @darkBlueShadow,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @darkBlueShadow,
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkBlueHightLight;
+}
+.relief-blue-dark-concave {
+    background: @darkBlueBg;
+    box-shadow: @baseConcaveHShadow @baseConcaveVShadow @baseConcaveBlur @baseConcaveSpread @darkBlueShadow inset;
+    &::before {
+        box-shadow:
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkBlueHightLight,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @darkBlueShadow,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @darkBlueShadow,
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkBlueHightLight;
+    }
+}
+.relief-blue-dark-convex {
+    background: radial-gradient(farthest-side at @baseConvexHShadow @baseConvexVShadow, @darkBlueHightLightConvex, @darkBlueShadowConvex);
+    &::before {
+        box-shadow:
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkBlueHightLight,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @darkBlueShadow,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @darkBlueShadow,
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkBlueHightLight;
+    }
+}
+// 自定义色-浅色系
+@lightDIYBg: rgb(252, 232, 255);
+@lightDIYShadow: rgb(230, 202, 235);
+@lightDIYShadowConvex: rgb(245, 224, 248);
+@lightDIYHightLightConvex: rgb(255, 255, 255);
+@lightDIYHightLight: rgb(253, 239, 255);
+.relief-bg-DIY-light {
+    background: @lightDIYBg;
+}
+.relief-DIY-light-plane {
+    background: @lightDIYBg;
+    box-shadow:
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @lightDIYHightLight,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @lightDIYShadow,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @lightDIYShadow,
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @lightDIYHightLight;
+}
+.relief-DIY-light-concave {
+    background: @lightDIYBg;
+    box-shadow: @baseConcaveHShadow @baseConcaveVShadow @baseConcaveBlur @baseConcaveSpread @lightDIYShadow inset;
+    &::before {
+        box-shadow:
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @lightDIYHightLight,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @lightDIYShadow,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @lightDIYShadow,
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @lightDIYHightLight;
+    }
+}
+.relief-DIY-light-convex {
+    background: radial-gradient(farthest-side at @baseConvexHShadow @baseConvexVShadow, @lightDIYHightLightConvex, @lightDIYShadowConvex);
+    &::before {
+        box-shadow:
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @lightDIYHightLight,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @lightDIYShadow,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @lightDIYShadow,
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @lightDIYHightLight;
+    }
+}
+
+// 自定义色-深色系
+@darkDIYBg: rgb(63, 0, 75);
+@darkDIYShadow: rgb(34, 0, 41);
+@darkDIYShadowConvex: rgb(47, 0, 38);
+@darkDIYHightLightConvex: rgb(103, 0, 123);
+@darkDIYHightLight: rgb(80, 0, 96);
+.relief-bg-DIY-dark {
+    background: @darkDIYBg;
+}
+.relief-DIY-dark-plane {
+    background: @darkDIYBg;
+    box-shadow:
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkDIYHightLight,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @darkDIYShadow,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @darkDIYShadow,
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkDIYHightLight;
+}
+.relief-DIY-dark-concave {
+    background: @darkDIYBg;
+    box-shadow: @baseConcaveHShadow @baseConcaveVShadow @baseConcaveBlur @baseConcaveSpread @darkDIYShadow inset;
+    &::before {
+        box-shadow:
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkDIYHightLight,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @darkDIYShadow,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @darkDIYShadow,
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkDIYHightLight;
+    }
+}
+.relief-DIY-dark-convex {
+    background: radial-gradient(farthest-side at @baseConvexHShadow @baseConvexVShadow, @darkDIYHightLightConvex, @darkDIYShadowConvex);
+    &::before {
+        box-shadow:
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkDIYHightLight,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @darkDIYShadow,
+        @baseHShadow @baseVShadow @baseBlur @baseSpread @darkDIYShadow,
+        -@baseHShadow -@baseVShadow @baseBlur @baseSpread @darkDIYHightLight;
     }
 }
