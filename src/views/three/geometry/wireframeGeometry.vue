@@ -6,9 +6,8 @@
 
 <script>
 import {mapActions} from 'vuex'
-import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
-import {OrbitControls} from '../../../node_modules/three/examples/jsm/controls/OrbitControls'
-import { ParametricGeometries } from '../../../node_modules/three/examples/jsm/geometries/ParametricGeometries.js'
+import Stats from '../../../../node_modules/three/examples/jsm/libs/stats.module'
+import {OrbitControls} from '../../../../node_modules/three/examples/jsm/controls/OrbitControls'
 export default {
   data () {
     return {
@@ -21,10 +20,9 @@ export default {
       lightBox: '',
       objBox: {
         stage: '',
-        tube: '',
-        torus: '',
-        torusKnot: '',
-        Parametric: ''
+        box: '',
+        boxLine: '',
+        wireframeLine: ''
       },
       clock: '', // 世界时钟
       orbitControls: '', // 相机控件
@@ -68,7 +66,7 @@ export default {
         ambientLight: new THREE.AmbientLight('rgb(255, 255, 255)'), // 环境光
         spotLight: new THREE.SpotLight('rgb(255, 255, 255)', 1.5)
       }
-      this.lightBox.spotLight.position.set(220, 250, 200)
+      this.lightBox.spotLight.position.set(220, 200, 200)
       this.lightBox.spotLight.castShadow = true
       this.lightBox.spotLight.angle = Math.PI / 3
       this.scene.add(this.lightBox.spotLight)
@@ -77,9 +75,9 @@ export default {
     // 初始相机
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
-      this.camera.position.x = 350
-      this.camera.position.y = 200
-      this.camera.position.z = 350
+      this.camera.position.x = 200
+      this.camera.position.y = 150
+      this.camera.position.z = 400
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
@@ -87,52 +85,37 @@ export default {
     },
     // 初始物体
     initObj () {
-      let geometry = new THREE.BoxGeometry(200, 10, 500, 4, 4)
+      let geometry = new THREE.BoxGeometry(200, 10, 600, 4, 4)
       let material = new THREE.MeshLambertMaterial({color: 'rgb(45, 0, 50)'})
       this.objBox.stage = new THREE.Mesh(geometry, material)
       this.objBox.stage.castShadow = true
       this.objBox.stage.receiveShadow = true
       this.objBox.stage.position.set(0, 5, 0)
       this.scene.add(this.objBox.stage)
-      // 管道几何
-      let path = new THREE.CatmullRomCurve3([
-        new THREE.Vector3(0, -20, -40),
-        new THREE.Vector3(0, -20, -20),
-        new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(0, 20, 20),
-        new THREE.Vector3(0, 20, 40)
-      ])
-      geometry = new THREE.TubeGeometry(path, 20, 5, 12, false)
-      material = new THREE.MeshNormalMaterial()
-      this.objBox.tube = new THREE.Mesh(geometry, material)
-      this.objBox.tube.castShadow = true
-      this.objBox.tube.receiveShadow = true
-      this.objBox.tube.position.set(0, 40, -150)
-      this.scene.add(this.objBox.tube)
-      // 圆环几何体
-      geometry = new THREE.TorusGeometry(20, 4, 32, 64)
-      this.objBox.torus = new THREE.Mesh(geometry, material)
-      this.objBox.torus.castShadow = true
-      this.objBox.torus.receiveShadow = true
-      this.objBox.torus.position.set(0, 40, -50)
-      this.scene.add(this.objBox.torus)
-      // 圆环扭曲几何
-      geometry = new THREE.TorusKnotGeometry(18, 4, 128, 16, 3, 2)
-      this.objBox.torusKnot = new THREE.Mesh(geometry, material)
-      this.objBox.torusKnot.castShadow = true
-      this.objBox.torusKnot.receiveShadow = true
-      this.objBox.torusKnot.position.set(0, 40, 50)
-      this.scene.add(this.objBox.torusKnot)
-      // 参数化几何
-      geometry = new THREE.ParametricGeometry(ParametricGeometries.klein, 32, 32)
-      this.objBox.parametric = new THREE.Mesh(geometry, material)
-      this.objBox.parametric.castShadow = true
-      this.objBox.parametric.receiveShadow = true
-      this.objBox.parametric.scale.x = 3
-      this.objBox.parametric.scale.y = 3
-      this.objBox.parametric.scale.z = 3
-      this.objBox.parametric.position.set(0, 40, 150)
-      this.scene.add(this.objBox.parametric)
+      // 方体
+      geometry = new THREE.BoxGeometry(50, 50, 50, 4, 4)
+      material = new THREE.MeshLambertMaterial({color: 'rgb(230, 230, 230)'})
+      material.emissiveIntensity = 10
+      this.objBox.box = new THREE.Mesh(geometry, material)
+      this.objBox.box.castShadow = true
+      this.objBox.box.receiveShadow = true
+      this.objBox.box.position.set(0, 36, 100)
+      this.scene.add(this.objBox.box)
+      // 网格几何
+      let wireframe = new THREE.WireframeGeometry(geometry)
+      this.objBox.wireframeLine = new THREE.LineSegments(wireframe, new THREE.LineBasicMaterial({ color: 0xffffff }))
+      this.objBox.wireframeLine.material.opacity = 0.5
+      this.objBox.wireframeLine.material.transparent = true
+      this.objBox.wireframeLine.position.set(0, 36, 0)
+      this.scene.add(this.objBox.wireframeLine)
+      // 组合
+      let line = new THREE.LineSegments(wireframe, new THREE.LineBasicMaterial({ color: 0xffffff }))
+      this.objBox.boxLine = new THREE.Mesh(geometry, material)
+      this.objBox.boxLine.castShadow = true
+      this.objBox.boxLine.receiveShadow = true
+      this.objBox.boxLine.add(line)
+      this.objBox.boxLine.position.set(0, 36, -100)
+      this.scene.add(this.objBox.boxLine)
     },
     // 初始辅助
     initHelper () {
@@ -143,7 +126,7 @@ export default {
 
       }
       // this.scene.add(this.helperBox.spotLightHelper.helper)
-      this.scene.add(this.helperBox.axesHelper.helper)
+    //   this.scene.add(this.helperBox.axesHelper.helper)
       // this.scene.add(this.helperBox.gridHelper.helper)
     },
     // 初始监视器
@@ -163,23 +146,11 @@ export default {
       this.orbitControls.autoRotate = true
     },
     // 动画
-    animation (delta) {
-      this.objBox.tube.rotation.y += delta
-      this.objBox.tube.rotation.z += delta
-
-      this.objBox.torus.rotation.y += delta
-
-      this.objBox.torusKnot.rotation.z += delta
-      this.objBox.torusKnot.rotation.x += delta
-
-      this.objBox.parametric.rotation.z += delta
-      this.objBox.parametric.rotation.x += delta
+    animation () {
     },
     // 加载场景
     updateRenderer () {
-      let delta = this.clock.getDelta()
-      this.orbitControls.update(delta)
-      this.animation(delta)
+      this.orbitControls.update(this.clock.getDelta())
       this.renderer.render(this.scene, this.camera)
       this.stats.update()
       this.animationFrame = requestAnimationFrame(this.updateRenderer)
@@ -201,10 +172,9 @@ export default {
       this.scene.dispose()
       // 几何体缓存
       this.clearObjCache(this.objBox.stage)
-      this.clearObjCache(this.objBox.tube)
-      this.clearObjCache(this.objBox.torus)
-      this.clearObjCache(this.objBox.torusKnot)
-      this.clearObjCache(this.objBox.parametric)
+      this.clearObjCache(this.objBox.box)
+      this.clearObjCache(this.objBox.wireframeLine)
+      this.clearObjCache(this.objBox.boxLine)
     },
     ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
   },
@@ -216,7 +186,7 @@ export default {
     移动相机：鼠标右键 `
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('/pipeGeometry.vue')
+    this.resetThreeLinkFun('geometry/edgesGeometry.vue')
   },
   // 所有事件绑在此钩子
   beforeMount () {

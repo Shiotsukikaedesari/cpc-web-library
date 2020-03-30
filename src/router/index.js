@@ -19,7 +19,7 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index,
-      redirect: '/three/SpotLight',
+      redirect: '/three/OBJLoader',
       children: Three3D
     },
     {

@@ -6,8 +6,8 @@
 
 <script>
 import {mapActions} from 'vuex'
-import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
-import {OrbitControls} from '../../../node_modules/three/examples/jsm/controls/OrbitControls'
+import Stats from '../../../../node_modules/three/examples/jsm/libs/stats.module'
+import {OrbitControls} from '../../../../node_modules/three/examples/jsm/controls/OrbitControls'
 export default {
   data () {
     return {
@@ -20,10 +20,10 @@ export default {
       lightBox: '',
       objBox: {
         stage: '',
-        box: '',
-        cone: '',
-        cylinder: '',
-        sphere: ''
+        dodecahedron: '',
+        icosahedron: '',
+        octahedron: '',
+        tetrahedron: ''
       },
       clock: '', // 世界时钟
       orbitControls: '', // 相机控件
@@ -67,7 +67,7 @@ export default {
         ambientLight: new THREE.AmbientLight('rgb(255, 255, 255)'), // 环境光
         spotLight: new THREE.SpotLight('rgb(255, 255, 255)', 1.5)
       }
-      this.lightBox.spotLight.position.set(220, 200, 200)
+      this.lightBox.spotLight.position.set(220, 250, 200)
       this.lightBox.spotLight.castShadow = true
       this.lightBox.spotLight.angle = Math.PI / 3
       this.scene.add(this.lightBox.spotLight)
@@ -76,9 +76,9 @@ export default {
     // 初始相机
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
-      this.camera.position.x = 300
+      this.camera.position.x = 350
       this.camera.position.y = 200
-      this.camera.position.z = 500
+      this.camera.position.z = 350
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
@@ -86,43 +86,42 @@ export default {
     },
     // 初始物体
     initObj () {
-      let geometry = new THREE.BoxGeometry(200, 10, 600, 4, 4)
+      let geometry = new THREE.BoxGeometry(400, 10, 400, 4, 4)
       let material = new THREE.MeshLambertMaterial({color: 'rgb(45, 0, 50)'})
       this.objBox.stage = new THREE.Mesh(geometry, material)
       this.objBox.stage.castShadow = true
       this.objBox.stage.receiveShadow = true
       this.objBox.stage.position.set(0, 5, 0)
       this.scene.add(this.objBox.stage)
-      // 方体
-      geometry = new THREE.BoxGeometry(50, 50, 50, 4, 4)
+      // 五边形十二面体
+      geometry = new THREE.DodecahedronGeometry(40, 0)
       material = new THREE.MeshLambertMaterial({color: 'rgb(230, 230, 230)'})
-      material.emissiveIntensity = 10
-      this.objBox.box = new THREE.Mesh(geometry, material)
-      this.objBox.box.castShadow = true
-      this.objBox.box.receiveShadow = true
-      this.objBox.box.position.set(0, 30, -150)
-      this.scene.add(this.objBox.box)
-      // 椎体
-      geometry = new THREE.ConeGeometry(30, 80, 4)
-      this.objBox.cone = new THREE.Mesh(geometry, material)
-      this.objBox.cone.castShadow = true
-      this.objBox.cone.receiveShadow = true
-      this.objBox.cone.position.set(0, 50, -50)
-      this.scene.add(this.objBox.cone)
-      // 柱体
-      geometry = new THREE.CylinderGeometry(20, 20, 80, 8)
-      this.objBox.cylinder = new THREE.Mesh(geometry, material)
-      this.objBox.cylinder.castShadow = true
-      this.objBox.cylinder.receiveShadow = true
-      this.objBox.cylinder.position.set(0, 50, 50)
-      this.scene.add(this.objBox.cylinder)
-      // 球体
-      geometry = new THREE.SphereGeometry(20, 20, 80, 6)
-      this.objBox.sphere = new THREE.Mesh(geometry, material)
-      this.objBox.sphere.castShadow = true
-      this.objBox.sphere.receiveShadow = true
-      this.objBox.sphere.position.set(0, 30, 150)
-      this.scene.add(this.objBox.sphere)
+      this.objBox.dodecahedron = new THREE.Mesh(geometry, material)
+      this.objBox.dodecahedron.castShadow = true
+      this.objBox.dodecahedron.receiveShadow = true
+      this.objBox.dodecahedron.position.set(0, 55, -100)
+      this.scene.add(this.objBox.dodecahedron)
+      // 三边形十二面体
+      geometry = new THREE.IcosahedronGeometry(40, 0)
+      this.objBox.icosahedron = new THREE.Mesh(geometry, material)
+      this.objBox.icosahedron.castShadow = true
+      this.objBox.icosahedron.receiveShadow = true
+      this.objBox.icosahedron.position.set(100, 55, 0)
+      this.scene.add(this.objBox.icosahedron)
+      // 三边形八面体
+      geometry = new THREE.OctahedronGeometry(40, 0)
+      this.objBox.octahedron = new THREE.Mesh(geometry, material)
+      this.objBox.octahedron.castShadow = true
+      this.objBox.octahedron.receiveShadow = true
+      this.objBox.octahedron.position.set(-100, 55, 0)
+      this.scene.add(this.objBox.octahedron)
+      // 三边形四面体
+      geometry = new THREE.TetrahedronGeometry(40, 0)
+      this.objBox.tetrahedron = new THREE.Mesh(geometry, material)
+      this.objBox.tetrahedron.castShadow = true
+      this.objBox.tetrahedron.receiveShadow = true
+      this.objBox.tetrahedron.position.set(0, 50, 100)
+      this.scene.add(this.objBox.tetrahedron)
     },
     // 初始辅助
     initHelper () {
@@ -153,11 +152,17 @@ export default {
       this.orbitControls.autoRotate = true
     },
     // 动画
-    animation () {
+    animation (delta) {
+      this.objBox.dodecahedron.rotation.x += delta
+      this.objBox.icosahedron.rotation.y += delta
+      this.objBox.tetrahedron.rotation.z += delta
+      this.objBox.octahedron.rotation.x += delta
     },
     // 加载场景
     updateRenderer () {
-      this.orbitControls.update(this.clock.getDelta())
+      let delta = this.clock.getDelta()
+      this.orbitControls.update(delta)
+      this.animation(delta)
       this.renderer.render(this.scene, this.camera)
       this.stats.update()
       this.animationFrame = requestAnimationFrame(this.updateRenderer)
@@ -173,15 +178,16 @@ export default {
       this.renderer.dispose()
       this.renderer.forceContextLoss()
       this.renderer.clear(true, true, true)
+      this.renderer.context = null
       this.renderer.domElement = null
       // 场景缓存
       this.scene.dispose()
       // 几何体缓存
       this.clearObjCache(this.objBox.stage)
-      this.clearObjCache(this.objBox.box)
-      this.clearObjCache(this.objBox.cone)
-      this.clearObjCache(this.objBox.cylinder)
-      this.clearObjCache(this.objBox.sphere)
+      this.clearObjCache(this.objBox.dodecahedron)
+      this.clearObjCache(this.objBox.icosahedron)
+      this.clearObjCache(this.objBox.octahedron)
+      this.clearObjCache(this.objBox.tetrahedron)
     },
     ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
   },
@@ -193,7 +199,7 @@ export default {
     移动相机：鼠标右键 `
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('/simpleGeometry.vue')
+    this.resetThreeLinkFun('geometry/complexGeometry.vue')
   },
   // 所有事件绑在此钩子
   beforeMount () {

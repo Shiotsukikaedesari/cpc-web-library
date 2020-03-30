@@ -6,8 +6,8 @@
 
 <script>
 import {mapActions} from 'vuex'
-import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
-import {OrbitControls} from '../../../node_modules/three/examples/jsm/controls/OrbitControls'
+import Stats from '../../../../node_modules/three/examples/jsm/libs/stats.module'
+import {OrbitControls} from '../../../../node_modules/three/examples/jsm/controls/OrbitControls'
 export default {
   data () {
     return {
@@ -20,7 +20,7 @@ export default {
       lightBox: '',
       objBox: {
         stage: '',
-        shape: ''
+        text: ''
       },
       clock: '', // 世界时钟
       orbitControls: '', // 相机控件
@@ -45,7 +45,7 @@ export default {
     initRender () {
       this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器
       this.renderer.setSize(window.innerWidth, window.innerHeight)
-      this.renderer.shadowMapEnabled = true // 渲染器阴影渲染
+      this.renderer.shadowMap.enabled = true // 渲染器阴影渲染
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap // 阴影类型
       this.$refs['three-canvas'].appendChild(this.renderer.domElement)
       this.renderer.setClearColor('rgb(15, 1, 25)')
@@ -73,9 +73,9 @@ export default {
     // 初始相机
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
-      this.camera.position.x = 25
-      this.camera.position.y = 40
-      this.camera.position.z = 50
+      this.camera.position.x = 50
+      this.camera.position.y = 50
+      this.camera.position.z = 100
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
@@ -83,33 +83,33 @@ export default {
     },
     // 初始物体
     initObj () {
-      let geometry = new THREE.BoxGeometry(50, 5, 50, 4, 4)
+      let geometry = new THREE.BoxGeometry(200, 5, 50, 4, 4)
       let material = new THREE.MeshLambertMaterial({color: 'rgb(45, 0, 50)'})
       this.objBox.stage = new THREE.Mesh(geometry, material)
       this.objBox.stage.castShadow = true
       this.objBox.stage.receiveShadow = true
       this.objBox.stage.position.set(0, 0, 0)
       this.scene.add(this.objBox.stage)
-      // 形状几何
-      let x = 0
-      let y = 0
-      let heartShape = new THREE.Shape()
-      heartShape.moveTo(x + 5, y + 5)
-      heartShape.bezierCurveTo(x + 5, y + 5, x + 4, y, x, y)
-      heartShape.bezierCurveTo(x - 6, y, x - 6, y + 7, x - 6, y + 7)
-      heartShape.bezierCurveTo(x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19)
-      heartShape.bezierCurveTo(x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7)
-      heartShape.bezierCurveTo(x + 16, y + 7, x + 16, y, x + 10, y)
-      heartShape.bezierCurveTo(x + 7, y, x + 5, y + 5, x + 5, y + 5)
-
-      geometry = new THREE.ShapeGeometry(heartShape)
-      material = new THREE.MeshNormalMaterial()
-      material.emissiveIntensity = 10
-      this.objBox.shape = new THREE.Mesh(geometry, material)
-      this.objBox.shape.castShadow = true
-      this.objBox.shape.receiveShadow = true
-      this.objBox.shape.position.set(-5, 5, 0)
-      this.scene.add(this.objBox.shape)
+      // 文本几何
+      new THREE.FontLoader().load(`/static/plugins/helvetiker_regular.typeface.json`, font => {
+        geometry = new THREE.TextGeometry('cpc-comic', {
+          font,
+          size: 10,
+          height: 3,
+          curveSegments: 20,
+          bevelEnabled: true,
+          bevelThickness: 0,
+          bevelSize: 0,
+          bevelSegments: 0
+        })
+        material = new THREE.MeshLambertMaterial()
+        material.emissiveIntensity = 10
+        this.objBox.text = new THREE.Mesh(geometry, material)
+        this.objBox.text.castShadow = true
+        this.objBox.text.receiveShadow = true
+        this.objBox.text.position.set(-30, 5, 0)
+        this.scene.add(this.objBox.text)
+      })
     },
     // 初始辅助
     initHelper () {
@@ -120,7 +120,7 @@ export default {
 
       }
       // this.scene.add(this.helperBox.spotLightHelper.helper)
-      this.scene.add(this.helperBox.axesHelper.helper)
+      // this.scene.add(this.helperBox.axesHelper.helper)
     //   this.scene.add(this.helperBox.gridHelper.helper)
     },
     // 初始监视器
@@ -161,13 +161,12 @@ export default {
       this.renderer.dispose()
       this.renderer.forceContextLoss()
       this.renderer.clear(true, true, true)
-      this.renderer.context = null
       this.renderer.domElement = null
       // 场景缓存
       this.scene.dispose()
       // 几何体缓存
       this.clearObjCache(this.objBox.stage)
-      this.clearObjCache(this.objBox.shape)
+      this.clearObjCache(this.objBox.text)
     },
     ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
   },
@@ -179,7 +178,7 @@ export default {
     移动相机：鼠标右键 `
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('/shapeGeometry.vue')
+    this.resetThreeLinkFun('geometry/textGeometry.vue')
   },
   // 所有事件绑在此钩子
   beforeMount () {

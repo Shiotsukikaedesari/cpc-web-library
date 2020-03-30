@@ -6,9 +6,9 @@
 
 <script>
 import {mapActions} from 'vuex'
-import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
-import {OrbitControls} from '../../../node_modules/three/examples/jsm/controls/OrbitControls'
-import {GUI} from '../../../node_modules/three/examples/jsm/libs/dat.gui.module'
+import Stats from '../../../../node_modules/three/examples/jsm/libs/stats.module'
+import {OrbitControls} from '../../../../node_modules/three/examples/jsm/controls/OrbitControls'
+import {GUI} from '../../../../node_modules/three/examples/jsm/libs/dat.gui.module'
 export default {
   data () {
     return {
@@ -47,7 +47,7 @@ export default {
     initRender () {
       this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器
       this.renderer.setSize(window.innerWidth, window.innerHeight)
-      this.renderer.shadowMapEnabled = true // 渲染器阴影渲染
+      this.renderer.shadowMap.enabled = true // 渲染器阴影渲染
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap // 阴影类型
       this.$refs['three-canvas'].appendChild(this.renderer.domElement)
       this.renderer.setClearColor('rgb(15, 1, 25)')
@@ -63,17 +63,18 @@ export default {
     // 光源
     initLight () {
       this.lightBox = {
-        pointLight: new THREE.PointLight('rgb(255, 255, 255)', 3, 400, 0.5) // 半球光
+        spotLight: new THREE.SpotLight('rgb(255, 255, 255)', 1.5, 800, Math.PI / 180 * 30, 0.3, 0) // 半球光
       }
-      this.lightBox.pointLight.castShadow = false
-      this.scene.add(this.lightBox.pointLight)
+      this.lightBox.spotLight.position.set(400, 400, 400)
+      this.lightBox.spotLight.castShadow = false
+      this.scene.add(this.lightBox.spotLight)
     },
     // 初始相机
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
-      this.camera.position.x = 700
-      this.camera.position.y = 0
-      this.camera.position.z = 700
+      this.camera.position.x = 400
+      this.camera.position.y = -600
+      this.camera.position.z = 400
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
@@ -113,11 +114,11 @@ export default {
       this.helperBox = {
         axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
         gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')}, // 网格
-        pointLightHelper: {helper: new THREE.PointLightHelper(this.lightBox.pointLight, 200)} // 半球
+        spotLightHelper: {helper: new THREE.SpotLightHelper(this.lightBox.spotLight)} // 聚光
       }
       // this.scene.add(this.helperBox.axesHelper.helper)
       // this.scene.add(this.helperBox.gridHelper.helper)
-      this.scene.add(this.helperBox.pointLightHelper.helper)
+      // this.scene.add(this.helperBox.spotLightHelper.helper)
     },
     // 初始监视器
     initStats () {
@@ -138,70 +139,84 @@ export default {
     // 初始控制台
     initGui () {
       this.gui = new GUI({
-        name: 'pointLight Controller'
+        name: 'spotLight Controller'
       }) // 控制台
       this.guiParam = { // 控制参数
-        castShadow: this.lightBox.pointLight.castShadow,
-        color: this.lightBox.pointLight.color.getHex(),
-        intensity: this.lightBox.pointLight.intensity,
-        distance: this.lightBox.pointLight.distance,
-        decay: this.lightBox.pointLight.decay,
-        positionX: this.lightBox.pointLight.position.x,
-        positionY: this.lightBox.pointLight.position.y,
-        positionZ: this.lightBox.pointLight.position.z
+        showHelper: false,
+        castShadow: this.lightBox.spotLight.castShadow,
+        color: this.lightBox.spotLight.color.getHex(),
+        intensity: this.lightBox.spotLight.intensity,
+        distance: this.lightBox.spotLight.distance,
+        angle: this.lightBox.spotLight.angle * 180 / Math.PI,
+        penumbra: this.lightBox.spotLight.penumbra,
+        decay: this.lightBox.spotLight.decay,
+        positionY: this.lightBox.spotLight.position.y
       }
-      this.gui
-        .add(this.guiParam, 'castShadow')
+      let lightSetting = this.gui.addFolder('Light setting')
+      lightSetting.add(this.guiParam, 'showHelper')
         .onChange(data => {
-          this.lightBox.pointLight.castShadow = data
+          if (data) {
+            this.scene.add(this.helperBox.spotLightHelper.helper)
+          } else {
+            this.scene.remove(this.helperBox.spotLightHelper.helper)
+          }
         })
-      this.gui
-        .addColor(this.guiParam, 'color', -500, 500)
+      lightSetting.add(this.guiParam, 'castShadow')
         .onChange(data => {
-          this.lightBox.pointLight.color.setHex(data)
-          this.helperBox.pointLight.helper.update()
+          this.lightBox.spotLight.castShadow = data
         })
-      this.gui
-        .add(this.guiParam, 'intensity', 0, 10)
+      lightSetting.addColor(this.guiParam, 'color', -500, 500)
         .onChange(data => {
-          this.lightBox.pointLight.intensity = data
-          this.helperBox.pointLight.helper.update()
+          this.lightBox.spotLight.color.setHex(data)
+          this.helperBox.spotLightHelper.helper.update()
         })
-      this.gui
-        .add(this.guiParam, 'distance', 0, 600)
+      lightSetting.add(this.guiParam, 'intensity', 0, 10)
         .onChange(data => {
-          this.lightBox.pointLight.distance = data
-          this.helperBox.pointLight.helper.update()
+          this.lightBox.spotLight.intensity = data
+          this.helperBox.spotLightHelper.helper.update()
         })
-      this.gui
-        .add(this.guiParam, 'decay', 0, 5)
+      lightSetting.add(this.guiParam, 'distance', 0, 1000, 1)
         .onChange(data => {
-          this.lightBox.pointLight.decay = data
-          this.helperBox.pointLight.helper.update()
+          this.lightBox.spotLight.distance = data
+          this.helperBox.spotLightHelper.helper.update()
         })
-      this.gui
-        .add(this.guiParam, 'positionX', -500, 500)
+      lightSetting.add(this.guiParam, 'angle', 0, 60, 1)
         .onChange(data => {
-          this.lightBox.pointLight.position.x = data
+          this.lightBox.spotLight.angle = Math.PI / 180 * data
+          this.helperBox.spotLightHelper.helper.update()
         })
-      this.gui
-        .add(this.guiParam, 'positionY', -500, 500)
+      lightSetting.add(this.guiParam, 'penumbra', 0, 1, 0.1)
         .onChange(data => {
-          this.lightBox.pointLight.position.y = data
+          this.lightBox.spotLight.penumbra = data
+          this.helperBox.spotLightHelper.helper.update()
         })
-      this.gui
-        .add(this.guiParam, 'positionZ', -500, 500)
+      lightSetting.add(this.guiParam, 'decay', 0, 5, 0.1)
         .onChange(data => {
-          this.lightBox.pointLight.position.x = data
+          this.lightBox.spotLight.decay = data
+          this.helperBox.spotLightHelper.helper.update()
         })
+      lightSetting.open()
+      let lightPosition = this.gui.addFolder('Light position')
+      lightPosition.add(this.guiParam, 'positionY', -500, 500, 1)
+        .onChange(data => {
+          this.lightBox.spotLight.position.y = data
+          this.helperBox.spotLightHelper.helper.update()
+        })
+      lightPosition.open()
     },
     // 动画
     animation () {
+      let r = 400
+      let deg = Date.now() * 0.001
+      this.lightBox.spotLight.position.x = -Math.cos(deg) * r
+      this.lightBox.spotLight.position.z = Math.sin(deg) * r
+      this.helperBox.spotLightHelper.helper.update()
     },
     // 加载场景
     updateRenderer () {
       let delta = this.clock.getDelta()
       this.orbitControls.update(delta)
+      this.animation()
       this.renderer.render(this.scene, this.camera)
       this.stats.update()
 
@@ -225,6 +240,8 @@ export default {
       })
       // 场景缓存
       this.scene.dispose()
+      // 辅助对象缓存
+      this.helperBox.spotLightHelper.helper.dispose()
       // gui
       this.gui.destroy()
     },
@@ -238,7 +255,7 @@ export default {
     移动相机：鼠标右键 `
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('pointLight.vue')
+    this.resetThreeLinkFun('light/spotLight.vue')
   },
   mounted () {
     this.init()

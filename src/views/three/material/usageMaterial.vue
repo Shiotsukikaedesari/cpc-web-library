@@ -6,10 +6,9 @@
 
 <script>
 import {mapActions} from 'vuex'
-import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
-import {OrbitControls} from '../../../node_modules/three/examples/jsm/controls/OrbitControls'
-import {GUI} from '../../../node_modules/three/examples/jsm/libs/dat.gui.module'
-import {RectAreaLightUniformsLib} from '../../../node_modules/three/examples/jsm/lights/RectAreaLightUniformsLib'
+import Stats from '../../../../node_modules/three/examples/jsm/libs/stats.module'
+import {OrbitControls} from '../../../../node_modules/three/examples/jsm/controls/OrbitControls'
+import {GUI} from '../../../../node_modules/three/examples/jsm/libs/dat.gui.module'
 export default {
   data () {
     return {
@@ -20,9 +19,8 @@ export default {
       lightBox: '',
       helperBox: '',
       objBox: {
-        group: '',
-        rectLightMesh: '',
-        rectLightMeshBack: ''
+        stage: '',
+        box: ''
       },
       clock: '', // 世界时钟
       orbitControls: '', // 相机控件
@@ -38,8 +36,8 @@ export default {
       this.initScene()
       this.initClock()
       this.initCamera()
-      this.initLight()
       this.initObj()
+      this.initLight()
       this.initHelper()
       this.initStats()
       this.initOrbitControls()
@@ -52,7 +50,6 @@ export default {
       this.renderer.setSize(window.innerWidth, window.innerHeight)
       this.renderer.shadowMap.enabled = true // 渲染器阴影渲染
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap // 阴影类型
-      this.renderer.outputEncoding = THREE.sRGBEncoding
       this.$refs['three-canvas'].appendChild(this.renderer.domElement)
       this.renderer.setClearColor('rgb(15, 1, 25)')
     },
@@ -66,22 +63,19 @@ export default {
     },
     // 光源
     initLight () {
-      // 这个方法应该会影响材质的漫反射roughness计算，具体不得而知，漫反射为0的效果并不会对这个生效
-      RectAreaLightUniformsLib.init()
       this.lightBox = {
-        rectAreaLight: new THREE.RectAreaLight('rgb(255, 255, 255)', 2, 100, 300) // 平面光
-
+        spotLight: new THREE.SpotLight('rgb(255, 255, 255)', 1.5, 450, Math.PI / 180 * 60, 0.2, 0) // 半球光
       }
-      this.lightBox.rectAreaLight.position.set(300, 100, 300)
-      this.lightBox.rectAreaLight.lookAt(0, 0, 0)
-      this.scene.add(this.lightBox.rectAreaLight)
+      this.lightBox.spotLight.position.set(100, 300, 100)
+      this.lightBox.spotLight.castShadow = true
+      this.scene.add(this.lightBox.spotLight)
     },
     // 初始相机
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
-      this.camera.position.x = 700
-      this.camera.position.y = 500
-      this.camera.position.z = 700
+      this.camera.position.x = 200
+      this.camera.position.y = 100
+      this.camera.position.z = 200
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
@@ -89,51 +83,37 @@ export default {
     },
     // 初始物体
     initObj () {
-      // 设置组合
-      this.objBox.group = new THREE.Group()
-      let geometry = new THREE.BoxBufferGeometry(50, 50, 50)
-      // 颜色
-      let colorRange = [0, 64, 128, 192, 255]
-      // 空间位置
-      let positionRange = [-200, -100, 0, 100, 200]
-
-      for (let x = 0; x < positionRange.length; x += 1) {
-        for (let y = 0; y < positionRange.length; y += 1) {
-          for (let z = 0; z < positionRange.length; z += 1) {
-            let material = new THREE.MeshStandardMaterial({
-              color: `rgb(${colorRange[x]}, ${colorRange[y]}, ${colorRange[z]})`,
-              roughness: 0,
-              metalness: 0
-            })
-            let box = new THREE.Mesh(geometry, material)
-            box.castShadow = true
-            box.receiveShadow = true
-            box.position.set(positionRange[x], positionRange[y], positionRange[z])
-            this.objBox.group.add(box)
-          }
-        }
-      }
-      this.scene.add(this.objBox.group)
-      // 平面光辅助
-      this.objBox.rectLightMesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(), new THREE.MeshBasicMaterial({
-        side: THREE.BackSide,
-        color: 'rgb(255, 255, 255)'
-      }))
-      this.objBox.rectLightMesh.scale.x = this.lightBox.rectAreaLight.width
-      this.objBox.rectLightMesh.scale.y = this.lightBox.rectAreaLight.height
-      this.lightBox.rectAreaLight.add(this.objBox.rectLightMesh)
-
-      this.objBox.rectLightMeshBack = new THREE.Mesh(new THREE.PlaneBufferGeometry(), new THREE.MeshBasicMaterial({ color: 0x080808 }))
-      this.objBox.rectLightMesh.add(this.objBox.rectLightMeshBack)
+      let geometry = new THREE.BoxGeometry(500, 10, 500, 4, 4)
+      let material = new THREE.MeshStandardMaterial({
+        color: `rgb(45, 0, 50)`,
+        roughness: 0,
+        metalness: 0
+      })
+      this.objBox.stage = new THREE.Mesh(geometry, material)
+      this.objBox.stage.castShadow = true
+      this.objBox.stage.receiveShadow = true
+      this.objBox.stage.position.set(0, 5, 0)
+      this.scene.add(this.objBox.stage)
+      // 方体
+      geometry = new THREE.BoxGeometry(50, 50, 50, 4, 4)
+      material = new THREE.MeshLambertMaterial({color: 'rgb(230, 230, 230)'})
+      material.emissiveIntensity = 10
+      this.objBox.box = new THREE.Mesh(geometry, material)
+      this.objBox.box.castShadow = true
+      this.objBox.box.receiveShadow = true
+      this.objBox.box.position.set(0, 30, 0)
+      this.scene.add(this.objBox.box)
     },
     // 初始辅助
     initHelper () {
       this.helperBox = {
         axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
-        gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')} // 网格
+        gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')}, // 网格
+        spotLightHelper: {helper: new THREE.SpotLightHelper(this.lightBox.spotLight)} // 聚光
       }
       // this.scene.add(this.helperBox.axesHelper.helper)
       // this.scene.add(this.helperBox.gridHelper.helper)
+      this.scene.add(this.helperBox.spotLightHelper.helper)
     },
     // 初始监视器
     initStats () {
@@ -154,53 +134,67 @@ export default {
     // 初始控制台
     initGui () {
       this.gui = new GUI({
-        name: 'rectAreaLight Controller'
+        name: 'usageMeterial Controller'
       }) // 控制台
       this.guiParam = { // 控制参数
-        color: this.lightBox.rectAreaLight.color.getHex(),
-        intensity: this.lightBox.rectAreaLight.intensity,
-        width: this.lightBox.rectAreaLight.width,
-        height: this.lightBox.rectAreaLight.height,
-        positionY: this.lightBox.rectAreaLight.position.y
+        castShadow: this.lightBox.spotLight.castShadow,
+        color: this.lightBox.spotLight.color.getHex(),
+        intensity: this.lightBox.spotLight.intensity,
+        distance: this.lightBox.spotLight.distance,
+        angle: this.lightBox.spotLight.angle * 180 / Math.PI,
+        penumbra: this.lightBox.spotLight.penumbra,
+        decay: this.lightBox.spotLight.decay,
+        positionY: this.lightBox.spotLight.position.y
       }
-      this.gui
-        .addColor(this.guiParam, 'color', -500, 500, 1)
+      let lightSetting = this.gui.addFolder('Light setting')
+      lightSetting.add(this.guiParam, 'castShadow')
         .onChange(data => {
-          this.lightBox.rectAreaLight.color.setHex(data)
-          this.objBox.rectLightMesh.material.color.copy(this.lightBox.rectAreaLight.color).multiplyScalar(this.lightBox.rectAreaLight.intensity)
+          this.lightBox.spotLight.castShadow = data
         })
-      this.gui
-        .add(this.guiParam, 'intensity', 0, 10, 0.1)
+      lightSetting.addColor(this.guiParam, 'color', -500, 500)
         .onChange(data => {
-          this.lightBox.rectAreaLight.intensity = data
-          this.objBox.rectLightMesh.material.color.copy(this.lightBox.rectAreaLight.color).multiplyScalar(this.lightBox.rectAreaLight.intensity)
+          this.lightBox.spotLight.color.setHex(data)
+          this.helperBox.spotLightHelper.helper.update()
         })
-      this.gui
-        .add(this.guiParam, 'width', 10, 600, 1)
+      lightSetting.add(this.guiParam, 'intensity', 0, 10)
         .onChange(data => {
-          this.lightBox.rectAreaLight.width = data
-          this.objBox.rectLightMesh.scale.x = data
+          this.lightBox.spotLight.intensity = data
+          this.helperBox.spotLightHelper.helper.update()
         })
-      this.gui
-        .add(this.guiParam, 'height', 10, 600, 1)
+      lightSetting.add(this.guiParam, 'distance', 0, 1000, 1)
         .onChange(data => {
-          this.lightBox.rectAreaLight.height = data
-          this.objBox.rectLightMesh.scale.y = data
+          this.lightBox.spotLight.distance = data
+          this.helperBox.spotLightHelper.helper.update()
         })
-      this.gui
-        .add(this.guiParam, 'positionY', -500, 500, 1)
+      lightSetting.add(this.guiParam, 'angle', 0, 60, 1)
         .onChange(data => {
-          this.lightBox.rectAreaLight.position.y = data
-          this.lightBox.rectAreaLight.lookAt(0, 0, 0)
+          this.lightBox.spotLight.angle = Math.PI / 180 * data
+          this.helperBox.spotLightHelper.helper.update()
         })
+      lightSetting.add(this.guiParam, 'penumbra', 0, 1, 0.1)
+        .onChange(data => {
+          this.lightBox.spotLight.penumbra = data
+          this.helperBox.spotLightHelper.helper.update()
+        })
+      lightSetting.add(this.guiParam, 'decay', 0, 5, 0.1)
+        .onChange(data => {
+          this.lightBox.spotLight.decay = data
+          this.helperBox.spotLightHelper.helper.update()
+        })
+      lightSetting.add(this.guiParam, 'positionY', -500, 500, 1)
+        .onChange(data => {
+          this.lightBox.spotLight.position.y = data
+          this.helperBox.spotLightHelper.helper.update()
+        })
+      lightSetting.open()
     },
     // 动画
-    animation (delta) {
-      let r = 400
+    animation () {
+      let r = 300
       let deg = Date.now() * 0.001
-      this.lightBox.rectAreaLight.position.x = -Math.cos(deg) * r
-      this.lightBox.rectAreaLight.position.z = -Math.sin(deg) * r
-      this.lightBox.rectAreaLight.lookAt(0, 0, 0)
+      this.lightBox.spotLight.position.x = -Math.cos(deg) * r
+      this.lightBox.spotLight.position.z = Math.sin(deg) * r
+      this.helperBox.spotLightHelper.helper.update()
     },
     // 加载场景
     updateRenderer () {
@@ -225,13 +219,12 @@ export default {
       this.renderer.forceContextLoss()
       this.renderer.domElement = null
       // 清空物体
-      this.clearObjCache(this.objBox.rectLightMesh)
-      this.clearObjCache(this.objBox.rectLightMeshBack)
-      this.objBox.group.children.forEach(elem => {
-        this.clearObjCache(elem)
-      })
+      this.clearObjCache(this.objBox.stage)
+      this.clearObjCache(this.objBox.box)
       // 场景缓存
       this.scene.dispose()
+      // 辅助对象缓存
+      this.helperBox.spotLightHelper.helper.dispose()
       // gui
       this.gui.destroy()
     },
@@ -245,7 +238,7 @@ export default {
     移动相机：鼠标右键 `
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('rectAreaLight.vue')
+    this.resetThreeLinkFun('material/usageMaterial.vue')
   },
   mounted () {
     this.init()

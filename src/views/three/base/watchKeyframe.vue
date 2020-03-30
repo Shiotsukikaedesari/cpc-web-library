@@ -6,20 +6,16 @@
 
 <script>
 import {mapActions} from 'vuex'
-import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
-import {OrbitControls} from '../../../node_modules/three/examples/jsm/controls/OrbitControls'
+import Stats from '../../../../node_modules/three/examples/jsm/libs/stats.module'
 export default {
+  name: 'three-init',
   data () {
     return {
-      tips: '', // 页面提示
       renderer: '', // 渲染器
       scene: '', // 场景
       camera: '', // 相机
       stats: '', // 资源监视器
-      helperBox: '',
-      clock: '', // 世界时钟
-      orbitControls: '', // 相机控件
-      animationFrame: '' // 动画
+      helperBox: ''
     }
   },
   methods: {
@@ -31,7 +27,6 @@ export default {
       this.initLight()
       this.initHelper()
       this.initStats()
-      this.initOrbitControls()
       this.updateRenderer()
     },
     // 初始渲染器
@@ -71,19 +66,12 @@ export default {
       this.stats.domElement.style.top = '0px'
       document.body.appendChild(this.stats.domElement)
     },
-    // 加载相机插件
-    initOrbitControls () {
-      this.orbitControls = new OrbitControls(this.camera, this.renderer.domElement)
-    },
     // 动画
-    animation () {
+    initAnimation () {
     },
     // 加载场景
     updateRenderer () {
-      this.orbitControls.update(this.clock.getDelta())
       this.renderer.render(this.scene, this.camera)
-      this.stats.update()
-      this.animationFrame = requestAnimationFrame(this.updateRenderer)
     },
     // 清空物体缓存
     clearObjCache (obj) {
@@ -93,26 +81,25 @@ export default {
     // 清空缓存
     clearCache () {
       // 渲染器缓存
+      this.renderer.clear(true, true, true)
       this.renderer.dispose()
       this.renderer.forceContextLoss()
-      this.renderer.context = null
       this.renderer.domElement = null
       // 场景缓存
       this.scene.dispose()
+      // 物体缓存
+      this.clearObjCache(this.objBox.obj1)
     },
     ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
   },
-  // 初始计算
+  // 初始计算,信息
   created () {
     // 展示的备注
-    let tips = `    旋转相机：鼠标左键
-    缩放场景：鼠标滚轮
-    移动相机：鼠标右键 `
+    let tips = ``
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('/dragCamera.vue')
+    this.resetThreeLinkFun('base/watchKeyframe.vue')
   },
-  // 所有事件绑在此钩子
   beforeMount () {
     this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器
     this.scene = new THREE.Scene() // 场景
@@ -122,7 +109,6 @@ export default {
       axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
       gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')} // 网格
     }
-    this.clock = new THREE.Clock() // 世界时钟
   },
   mounted () {
     this.init()
@@ -136,9 +122,6 @@ export default {
     this.camera = null
     this.stats = null
     this.helperBox = null
-    this.clock = null
-    this.orbitControls = null
-    cancelAnimationFrame(this.animationFrame)
   }
 }
 </script>

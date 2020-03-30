@@ -6,8 +6,8 @@
 
 <script>
 import {mapActions} from 'vuex'
-import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
-import {OrbitControls} from '../../../node_modules/three/examples/jsm/controls/OrbitControls'
+import Stats from '../../../../node_modules/three/examples/jsm/libs/stats.module'
+import {OrbitControls} from '../../../../node_modules/three/examples/jsm/controls/OrbitControls'
 export default {
   data () {
     return {
@@ -22,7 +22,7 @@ export default {
         stage: '',
         box: '',
         boxLine: '',
-        wireframeLine: ''
+        edgesBox: ''
       },
       clock: '', // 世界时钟
       orbitControls: '', // 相机控件
@@ -47,7 +47,7 @@ export default {
     initRender () {
       this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器
       this.renderer.setSize(window.innerWidth, window.innerHeight)
-      this.renderer.shadowMapEnabled = true // 渲染器阴影渲染
+      this.renderer.shadowMap.enabled = true // 渲染器阴影渲染
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap // 阴影类型
       this.$refs['three-canvas'].appendChild(this.renderer.domElement)
       this.renderer.setClearColor('rgb(15, 1, 25)')
@@ -75,9 +75,9 @@ export default {
     // 初始相机
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
-      this.camera.position.x = 200
-      this.camera.position.y = 150
-      this.camera.position.z = 400
+      this.camera.position.x = 300
+      this.camera.position.y = 200
+      this.camera.position.z = 500
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
@@ -101,21 +101,19 @@ export default {
       this.objBox.box.receiveShadow = true
       this.objBox.box.position.set(0, 36, 100)
       this.scene.add(this.objBox.box)
-      // 网格几何
-      let wireframe = new THREE.WireframeGeometry(geometry)
-      this.objBox.wireframeLine = new THREE.LineSegments(wireframe, new THREE.LineBasicMaterial({ color: 0xffffff }))
-      this.objBox.wireframeLine.material.opacity = 0.5
-      this.objBox.wireframeLine.material.transparent = true
-      this.objBox.wireframeLine.position.set(0, 36, 0)
-      this.scene.add(this.objBox.wireframeLine)
-      // 组合
-      let line = new THREE.LineSegments(wireframe, new THREE.LineBasicMaterial({ color: 0xffffff }))
-      this.objBox.boxLine = new THREE.Mesh(geometry, material)
-      this.objBox.boxLine.castShadow = true
-      this.objBox.boxLine.receiveShadow = true
-      this.objBox.boxLine.add(line)
-      this.objBox.boxLine.position.set(0, 36, -100)
+      // 边缘辅助
+      let edges = new THREE.EdgesGeometry(geometry)
+      this.objBox.boxLine = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff }))
+      this.objBox.boxLine.position.set(0, 36, 0)
       this.scene.add(this.objBox.boxLine)
+      // 辅助应用
+      this.objBox.edgesBox = new THREE.Mesh(geometry, material)
+      this.objBox.edgesBox.castShadow = true
+      this.objBox.edgesBox.receiveShadow = true
+      this.objBox.edgesBox.position.set(0, 36, -100)
+      let boxLine = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff }))
+      this.objBox.edgesBox.add(boxLine)
+      this.scene.add(this.objBox.edgesBox)
     },
     // 初始辅助
     initHelper () {
@@ -173,8 +171,8 @@ export default {
       // 几何体缓存
       this.clearObjCache(this.objBox.stage)
       this.clearObjCache(this.objBox.box)
-      this.clearObjCache(this.objBox.wireframeLine)
       this.clearObjCache(this.objBox.boxLine)
+      this.clearObjCache(this.objBox.edgesBox)
     },
     ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
   },
@@ -186,7 +184,7 @@ export default {
     移动相机：鼠标右键 `
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('/edgesGeometry.vue')
+    this.resetThreeLinkFun('geometry/edgesGeometry.vue')
   },
   // 所有事件绑在此钩子
   beforeMount () {

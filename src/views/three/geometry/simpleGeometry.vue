@@ -6,26 +6,28 @@
 
 <script>
 import {mapActions} from 'vuex'
-import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
-import {OrbitControls} from '../../../node_modules/three/examples/jsm/controls/OrbitControls'
-import {GUI} from '../../../node_modules/three/examples/jsm/libs/dat.gui.module'
+import Stats from '../../../../node_modules/three/examples/jsm/libs/stats.module'
+import {OrbitControls} from '../../../../node_modules/three/examples/jsm/controls/OrbitControls'
 export default {
   data () {
     return {
+      tips: '', // 页面提示
       renderer: '', // 渲染器
       scene: '', // 场景
       camera: '', // 相机
       stats: '', // 资源监视器
-      lightBox: '',
       helperBox: '',
+      lightBox: '',
       objBox: {
-        group: ''
+        stage: '',
+        box: '',
+        cone: '',
+        cylinder: '',
+        sphere: ''
       },
       clock: '', // 世界时钟
       orbitControls: '', // 相机控件
-      animationFrame: '', // 动画
-      gui: '', // 控制台
-      guiParam: '' // 控制台参数
+      animationFrame: '' // 动画
     }
   },
   methods: {
@@ -33,14 +35,13 @@ export default {
     init () {
       this.initRender()
       this.initScene()
-      this.initClock()
       this.initCamera()
+      this.initClock()
       this.initObj()
       this.initLight()
       this.initHelper()
       this.initStats()
       this.initOrbitControls()
-      this.initGui()
       this.updateRenderer()
     },
     // 初始渲染器
@@ -52,27 +53,32 @@ export default {
       this.$refs['three-canvas'].appendChild(this.renderer.domElement)
       this.renderer.setClearColor('rgb(15, 1, 25)')
     },
-    // 初始场景
+    // 渲染场景
     initScene () {
       this.scene = new THREE.Scene() // 场景
     },
-    // 初始世界时钟
+    // 渲染时钟
     initClock () {
       this.clock = new THREE.Clock() // 世界时钟
     },
     // 光源
     initLight () {
       this.lightBox = {
-        hemisphereLight: new THREE.HemisphereLight('rgb(255, 255, 255)', 'rgb(0, 0, 0)', 2.5) // 半球光
+        ambientLight: new THREE.AmbientLight('rgb(255, 255, 255)'), // 环境光
+        spotLight: new THREE.SpotLight('rgb(255, 255, 255)', 1.5)
       }
-      this.scene.add(this.lightBox.hemisphereLight)
+      this.lightBox.spotLight.position.set(220, 200, 200)
+      this.lightBox.spotLight.castShadow = true
+      this.lightBox.spotLight.angle = Math.PI / 3
+      this.scene.add(this.lightBox.spotLight)
+      // this.scene.add(this.lightBox.ambientLight)
     },
     // 初始相机
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
-      this.camera.position.x = 650
-      this.camera.position.y = 30
-      this.camera.position.z = 650
+      this.camera.position.x = 300
+      this.camera.position.y = 200
+      this.camera.position.z = 500
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
@@ -80,39 +86,55 @@ export default {
     },
     // 初始物体
     initObj () {
-      // 设置组合
-      this.objBox.group = new THREE.Group()
-
-      let geometry = new THREE.BoxBufferGeometry(50, 50, 50)
-      // 颜色
-      let colorRange = [0, 64, 128, 192, 255]
-      // 空间位置
-      let positionRange = [-200, -100, 0, 100, 200]
-
-      for (let x = 0; x < positionRange.length; x += 1) {
-        for (let y = 0; y < positionRange.length; y += 1) {
-          for (let z = 0; z < positionRange.length; z += 1) {
-            let material = new THREE.MeshPhongMaterial({color: `rgb(${colorRange[x]}, ${colorRange[y]}, ${colorRange[z]})`})
-            let box = new THREE.Mesh(geometry, material)
-            box.castShadow = true
-            box.receiveShadow = true
-            box.position.set(positionRange[x], positionRange[y], positionRange[z])
-            this.objBox.group.add(box)
-          }
-        }
-      }
-      this.scene.add(this.objBox.group)
+      let geometry = new THREE.BoxGeometry(200, 10, 600, 4, 4)
+      let material = new THREE.MeshLambertMaterial({color: 'rgb(45, 0, 50)'})
+      this.objBox.stage = new THREE.Mesh(geometry, material)
+      this.objBox.stage.castShadow = true
+      this.objBox.stage.receiveShadow = true
+      this.objBox.stage.position.set(0, 5, 0)
+      this.scene.add(this.objBox.stage)
+      // 方体
+      geometry = new THREE.BoxGeometry(50, 50, 50, 4, 4)
+      material = new THREE.MeshLambertMaterial({color: 'rgb(230, 230, 230)'})
+      material.emissiveIntensity = 10
+      this.objBox.box = new THREE.Mesh(geometry, material)
+      this.objBox.box.castShadow = true
+      this.objBox.box.receiveShadow = true
+      this.objBox.box.position.set(0, 30, -150)
+      this.scene.add(this.objBox.box)
+      // 椎体
+      geometry = new THREE.ConeGeometry(30, 80, 4)
+      this.objBox.cone = new THREE.Mesh(geometry, material)
+      this.objBox.cone.castShadow = true
+      this.objBox.cone.receiveShadow = true
+      this.objBox.cone.position.set(0, 50, -50)
+      this.scene.add(this.objBox.cone)
+      // 柱体
+      geometry = new THREE.CylinderGeometry(20, 20, 80, 8)
+      this.objBox.cylinder = new THREE.Mesh(geometry, material)
+      this.objBox.cylinder.castShadow = true
+      this.objBox.cylinder.receiveShadow = true
+      this.objBox.cylinder.position.set(0, 50, 50)
+      this.scene.add(this.objBox.cylinder)
+      // 球体
+      geometry = new THREE.SphereGeometry(20, 20, 80, 6)
+      this.objBox.sphere = new THREE.Mesh(geometry, material)
+      this.objBox.sphere.castShadow = true
+      this.objBox.sphere.receiveShadow = true
+      this.objBox.sphere.position.set(0, 30, 150)
+      this.scene.add(this.objBox.sphere)
     },
     // 初始辅助
     initHelper () {
       this.helperBox = {
         axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
         gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')}, // 网格
-        hemisphereLightHelper: {helper: new THREE.HemisphereLightHelper(this.lightBox.hemisphereLight, 200)} // 半球
+        spotLightHelper: {helper: new THREE.SpotLightHelper(this.lightBox.spotLight)} // 聚光灯
+
       }
-      // this.scene.add(this.helperBox.axesHelper.helper)
-      this.scene.add(this.helperBox.gridHelper.helper)
-      this.scene.add(this.helperBox.hemisphereLightHelper.helper)
+      // this.scene.add(this.helperBox.spotLightHelper.helper)
+      this.scene.add(this.helperBox.axesHelper.helper)
+      // this.scene.add(this.helperBox.gridHelper.helper)
     },
     // 初始监视器
     initStats () {
@@ -121,7 +143,7 @@ export default {
       this.stats.domElement.id = 'three-stats'
       this.stats.domElement.style.position = 'absolute'
       this.stats.domElement.style.left = 'unset'
-      this.stats.domElement.style.right = '300px'
+      this.stats.domElement.style.right = '0px'
       this.stats.domElement.style.top = '0px'
       document.body.appendChild(this.stats.domElement)
     },
@@ -130,45 +152,14 @@ export default {
       this.orbitControls = new OrbitControls(this.camera, this.renderer.domElement)
       this.orbitControls.autoRotate = true
     },
-    // 初始控制台
-    initGui () {
-      this.gui = new GUI({
-        name: 'AmbientLight Controller'
-      }) // 控制台
-      this.guiParam = { // 控制参数
-        skyColor: this.lightBox.hemisphereLight.color.getHex(),
-        groundColor: this.lightBox.hemisphereLight.groundColor.getHex(),
-        intensity: this.lightBox.hemisphereLight.intensity
-      }
-      this.gui
-        .addColor(this.guiParam, 'skyColor', -500, 500)
-        .onChange(data => {
-          this.lightBox.hemisphereLight.color.setHex(data)
-          this.helperBox.hemisphereLightHelper.helper.update()
-        })
-      this.gui
-        .addColor(this.guiParam, 'groundColor', -500, 500)
-        .onChange(data => {
-          this.lightBox.hemisphereLight.groundColor.setHex(data)
-          this.helperBox.hemisphereLightHelper.helper.update()
-        })
-      this.gui
-        .add(this.guiParam, 'intensity', 0, 10)
-        .onChange(data => {
-          this.lightBox.hemisphereLight.intensity = data
-          this.helperBox.hemisphereLightHelper.helper.update()
-        })
-    },
     // 动画
     animation () {
     },
     // 加载场景
     updateRenderer () {
-      let delta = this.clock.getDelta()
-      this.orbitControls.update(delta)
+      this.orbitControls.update(this.clock.getDelta())
       this.renderer.render(this.scene, this.camera)
       this.stats.update()
-
       this.animationFrame = requestAnimationFrame(this.updateRenderer)
     },
     // 清空物体缓存
@@ -179,22 +170,22 @@ export default {
     // 清空缓存
     clearCache () {
       // 渲染器缓存
-      this.renderer.clear(true, true, true)
       this.renderer.dispose()
       this.renderer.forceContextLoss()
+      this.renderer.clear(true, true, true)
       this.renderer.domElement = null
-      // 清空物体
-      this.objBox.group.children.forEach(elem => {
-        this.clearObjCache(elem)
-      })
       // 场景缓存
       this.scene.dispose()
-      // gui
-      this.gui.destroy()
+      // 几何体缓存
+      this.clearObjCache(this.objBox.stage)
+      this.clearObjCache(this.objBox.box)
+      this.clearObjCache(this.objBox.cone)
+      this.clearObjCache(this.objBox.cylinder)
+      this.clearObjCache(this.objBox.sphere)
     },
     ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
   },
-  // 初始计算,信息
+  // 初始计算
   created () {
     // 展示的备注
     let tips = `    旋转相机：鼠标左键
@@ -202,7 +193,10 @@ export default {
     移动相机：鼠标右键 `
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('hemisphereLight.vue')
+    this.resetThreeLinkFun('geometry/simpleGeometry.vue')
+  },
+  // 所有事件绑在此钩子
+  beforeMount () {
   },
   mounted () {
     this.init()
@@ -215,10 +209,10 @@ export default {
     this.scene = null
     this.camera = null
     this.stats = null
-    this.lightBox = null
     this.helperBox = null
+    this.objBox = null
     this.clock = null
-    this.gui = null
+    this.orbitControls = null
     cancelAnimationFrame(this.animationFrame)
   }
 }

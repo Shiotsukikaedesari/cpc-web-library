@@ -6,8 +6,8 @@
 
 <script>
 import {mapActions} from 'vuex'
-import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
-import {OrbitControls} from '../../../node_modules/three/examples/jsm/controls/OrbitControls'
+import Stats from '../../../../node_modules/three/examples/jsm/libs/stats.module'
+import {OrbitControls} from '../../../../node_modules/three/examples/jsm/controls/OrbitControls'
 export default {
   data () {
     return {
@@ -20,7 +20,7 @@ export default {
       lightBox: '',
       objBox: {
         stage: '',
-        text: ''
+        box: ''
       },
       clock: '', // 世界时钟
       orbitControls: '', // 相机控件
@@ -45,7 +45,7 @@ export default {
     initRender () {
       this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器
       this.renderer.setSize(window.innerWidth, window.innerHeight)
-      this.renderer.shadowMapEnabled = true // 渲染器阴影渲染
+      this.renderer.shadowMap.enabled = true // 渲染器阴影渲染
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap // 阴影类型
       this.$refs['three-canvas'].appendChild(this.renderer.domElement)
       this.renderer.setClearColor('rgb(15, 1, 25)')
@@ -68,14 +68,14 @@ export default {
       this.lightBox.spotLight.castShadow = true
       this.lightBox.spotLight.angle = Math.PI / 3
       this.scene.add(this.lightBox.spotLight)
-    //   this.scene.add(this.lightBox.ambientLight)
+      // this.scene.add(this.lightBox.ambientLight)
     },
     // 初始相机
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
-      this.camera.position.x = 50
-      this.camera.position.y = 50
-      this.camera.position.z = 100
+      this.camera.position.x = 300
+      this.camera.position.y = 200
+      this.camera.position.z = 500
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
@@ -83,33 +83,22 @@ export default {
     },
     // 初始物体
     initObj () {
-      let geometry = new THREE.BoxGeometry(200, 5, 50, 4, 4)
+      let geometry = new THREE.BoxGeometry(200, 10, 600, 4, 4)
       let material = new THREE.MeshLambertMaterial({color: 'rgb(45, 0, 50)'})
       this.objBox.stage = new THREE.Mesh(geometry, material)
       this.objBox.stage.castShadow = true
       this.objBox.stage.receiveShadow = true
-      this.objBox.stage.position.set(0, 0, 0)
+      this.objBox.stage.position.set(0, 5, 0)
       this.scene.add(this.objBox.stage)
-      // 文本几何
-      new THREE.FontLoader().load(`/static/plugins/helvetiker_regular.typeface.json`, font => {
-        geometry = new THREE.TextGeometry('cpc-comic', {
-          font,
-          size: 10,
-          height: 3,
-          curveSegments: 20,
-          bevelEnabled: true,
-          bevelThickness: 0,
-          bevelSize: 0,
-          bevelSegments: 0
-        })
-        material = new THREE.MeshLambertMaterial()
-        material.emissiveIntensity = 10
-        this.objBox.text = new THREE.Mesh(geometry, material)
-        this.objBox.text.castShadow = true
-        this.objBox.text.receiveShadow = true
-        this.objBox.text.position.set(-30, 5, 0)
-        this.scene.add(this.objBox.text)
-      })
+      // 方体
+      geometry = new THREE.BoxGeometry(50, 50, 50, 4, 4)
+      material = new THREE.MeshLambertMaterial({color: 'rgb(230, 230, 230)'})
+      material.emissiveIntensity = 10
+      this.objBox.box = new THREE.Mesh(geometry, material)
+      this.objBox.box.castShadow = true
+      this.objBox.box.receiveShadow = true
+      this.objBox.box.position.set(0, 30, -150)
+      this.scene.add(this.objBox.box)
     },
     // 初始辅助
     initHelper () {
@@ -120,8 +109,8 @@ export default {
 
       }
       // this.scene.add(this.helperBox.spotLightHelper.helper)
-      // this.scene.add(this.helperBox.axesHelper.helper)
-    //   this.scene.add(this.helperBox.gridHelper.helper)
+      this.scene.add(this.helperBox.axesHelper.helper)
+      // this.scene.add(this.helperBox.gridHelper.helper)
     },
     // 初始监视器
     initStats () {
@@ -140,12 +129,11 @@ export default {
       this.orbitControls.autoRotate = true
     },
     // 动画
-    animation (delta) {
+    animation () {
     },
     // 加载场景
     updateRenderer () {
-      let delta = this.clock.getDelta()
-      this.orbitControls.update(delta)
+      this.orbitControls.update(this.clock.getDelta())
       this.renderer.render(this.scene, this.camera)
       this.stats.update()
       this.animationFrame = requestAnimationFrame(this.updateRenderer)
@@ -166,7 +154,7 @@ export default {
       this.scene.dispose()
       // 几何体缓存
       this.clearObjCache(this.objBox.stage)
-      this.clearObjCache(this.objBox.text)
+      this.clearObjCache(this.objBox.box)
     },
     ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
   },
@@ -178,7 +166,7 @@ export default {
     移动相机：鼠标右键 `
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('/textGeometry.vue')
+    this.resetThreeLinkFun('loader/OBJLoader.vue')
   },
   // 所有事件绑在此钩子
   beforeMount () {

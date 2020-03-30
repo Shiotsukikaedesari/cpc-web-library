@@ -6,9 +6,9 @@
 
 <script>
 import {mapActions} from 'vuex'
-import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
-import {OrbitControls} from '../../../node_modules/three/examples/jsm/controls/OrbitControls'
-import {GUI} from '../../../node_modules/three/examples/jsm/libs/dat.gui.module'
+import Stats from '../../../../node_modules/three/examples/jsm/libs/stats.module'
+import {OrbitControls} from '../../../../node_modules/three/examples/jsm/controls/OrbitControls'
+import {GUI} from '../../../../node_modules/three/examples/jsm/libs/dat.gui.module'
 export default {
   data () {
     return {
@@ -63,18 +63,16 @@ export default {
     // 光源
     initLight () {
       this.lightBox = {
-        spotLight: new THREE.SpotLight('rgb(255, 255, 255)', 1.5, 800, Math.PI / 180 * 30, 0.3, 0) // 半球光
+        ambientLight: new THREE.AmbientLight('rgb(255, 255, 255)') // 环境光
       }
-      this.lightBox.spotLight.position.set(400, 400, 400)
-      this.lightBox.spotLight.castShadow = false
-      this.scene.add(this.lightBox.spotLight)
+      this.scene.add(this.lightBox.ambientLight)
     },
     // 初始相机
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
-      this.camera.position.x = 400
-      this.camera.position.y = -600
-      this.camera.position.z = 400
+      this.camera.position.x = 650
+      this.camera.position.y = 0
+      this.camera.position.z = 650
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
@@ -94,11 +92,7 @@ export default {
       for (let x = 0; x < positionRange.length; x += 1) {
         for (let y = 0; y < positionRange.length; y += 1) {
           for (let z = 0; z < positionRange.length; z += 1) {
-            let material = new THREE.MeshStandardMaterial({
-              color: `rgb(${colorRange[x]}, ${colorRange[y]}, ${colorRange[z]})`,
-              roughness: 0,
-              metalness: 0
-            })
+            let material = new THREE.MeshPhongMaterial({color: `rgb(${colorRange[x]}, ${colorRange[y]}, ${colorRange[z]})`})
             let box = new THREE.Mesh(geometry, material)
             box.castShadow = true
             box.receiveShadow = true
@@ -113,12 +107,10 @@ export default {
     initHelper () {
       this.helperBox = {
         axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
-        gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')}, // 网格
-        spotLightHelper: {helper: new THREE.SpotLightHelper(this.lightBox.spotLight)} // 聚光
+        gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')} // 网格
       }
       // this.scene.add(this.helperBox.axesHelper.helper)
       // this.scene.add(this.helperBox.gridHelper.helper)
-      // this.scene.add(this.helperBox.spotLightHelper.helper)
     },
     // 初始监视器
     initStats () {
@@ -139,84 +131,30 @@ export default {
     // 初始控制台
     initGui () {
       this.gui = new GUI({
-        name: 'spotLight Controller'
+        name: 'AmbientLight Controller'
       }) // 控制台
       this.guiParam = { // 控制参数
-        showHelper: false,
-        castShadow: this.lightBox.spotLight.castShadow,
-        color: this.lightBox.spotLight.color.getHex(),
-        intensity: this.lightBox.spotLight.intensity,
-        distance: this.lightBox.spotLight.distance,
-        angle: this.lightBox.spotLight.angle * 180 / Math.PI,
-        penumbra: this.lightBox.spotLight.penumbra,
-        decay: this.lightBox.spotLight.decay,
-        positionY: this.lightBox.spotLight.position.y
+        color: this.lightBox.ambientLight.color.getHex(),
+        intensity: 1
       }
-      let lightSetting = this.gui.addFolder('Light setting')
-      lightSetting.add(this.guiParam, 'showHelper')
+      this.gui
+        .addColor(this.guiParam, 'color', -500, 500)
         .onChange(data => {
-          if (data) {
-            this.scene.add(this.helperBox.spotLightHelper.helper)
-          } else {
-            this.scene.remove(this.helperBox.spotLightHelper.helper)
-          }
+          this.lightBox.ambientLight.color.setHex(data)
         })
-      lightSetting.add(this.guiParam, 'castShadow')
+      this.gui
+        .add(this.guiParam, 'intensity', 0, 10)
         .onChange(data => {
-          this.lightBox.spotLight.castShadow = data
+          this.lightBox.ambientLight.intensity = data
         })
-      lightSetting.addColor(this.guiParam, 'color', -500, 500)
-        .onChange(data => {
-          this.lightBox.spotLight.color.setHex(data)
-          this.helperBox.spotLightHelper.helper.update()
-        })
-      lightSetting.add(this.guiParam, 'intensity', 0, 10)
-        .onChange(data => {
-          this.lightBox.spotLight.intensity = data
-          this.helperBox.spotLightHelper.helper.update()
-        })
-      lightSetting.add(this.guiParam, 'distance', 0, 1000, 1)
-        .onChange(data => {
-          this.lightBox.spotLight.distance = data
-          this.helperBox.spotLightHelper.helper.update()
-        })
-      lightSetting.add(this.guiParam, 'angle', 0, 60, 1)
-        .onChange(data => {
-          this.lightBox.spotLight.angle = Math.PI / 180 * data
-          this.helperBox.spotLightHelper.helper.update()
-        })
-      lightSetting.add(this.guiParam, 'penumbra', 0, 1, 0.1)
-        .onChange(data => {
-          this.lightBox.spotLight.penumbra = data
-          this.helperBox.spotLightHelper.helper.update()
-        })
-      lightSetting.add(this.guiParam, 'decay', 0, 5, 0.1)
-        .onChange(data => {
-          this.lightBox.spotLight.decay = data
-          this.helperBox.spotLightHelper.helper.update()
-        })
-      lightSetting.open()
-      let lightPosition = this.gui.addFolder('Light position')
-      lightPosition.add(this.guiParam, 'positionY', -500, 500, 1)
-        .onChange(data => {
-          this.lightBox.spotLight.position.y = data
-          this.helperBox.spotLightHelper.helper.update()
-        })
-      lightPosition.open()
     },
     // 动画
     animation () {
-      let r = 400
-      let deg = Date.now() * 0.001
-      this.lightBox.spotLight.position.x = -Math.cos(deg) * r
-      this.lightBox.spotLight.position.z = Math.sin(deg) * r
-      this.helperBox.spotLightHelper.helper.update()
     },
     // 加载场景
     updateRenderer () {
       let delta = this.clock.getDelta()
       this.orbitControls.update(delta)
-      this.animation()
       this.renderer.render(this.scene, this.camera)
       this.stats.update()
 
@@ -240,8 +178,6 @@ export default {
       })
       // 场景缓存
       this.scene.dispose()
-      // 辅助对象缓存
-      this.helperBox.spotLightHelper.helper.dispose()
       // gui
       this.gui.destroy()
     },
@@ -255,7 +191,7 @@ export default {
     移动相机：鼠标右键 `
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('spotLight.vue')
+    this.resetThreeLinkFun('light/ambientLight.vue')
   },
   mounted () {
     this.init()

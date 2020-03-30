@@ -6,25 +6,26 @@
 
 <script>
 import {mapActions} from 'vuex'
-import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
-import {OrbitControls} from '../../../node_modules/three/examples/jsm/controls/OrbitControls'
+import Stats from '../../../../node_modules/three/examples/jsm/libs/stats.module'
+import {OrbitControls} from '../../../../node_modules/three/examples/jsm/controls/OrbitControls'
+import {GUI} from '../../../../node_modules/three/examples/jsm/libs/dat.gui.module'
 export default {
   data () {
     return {
-      tips: '', // 页面提示
       renderer: '', // 渲染器
       scene: '', // 场景
       camera: '', // 相机
       stats: '', // 资源监视器
-      helperBox: '',
       lightBox: '',
+      helperBox: '',
       objBox: {
-        stage: '',
-        lathe: ''
+        group: ''
       },
       clock: '', // 世界时钟
       orbitControls: '', // 相机控件
-      animationFrame: '' // 动画
+      animationFrame: '', // 动画
+      gui: '', // 控制台
+      guiParam: '' // 控制台参数
     }
   },
   methods: {
@@ -32,29 +33,30 @@ export default {
     init () {
       this.initRender()
       this.initScene()
-      this.initCamera()
       this.initClock()
+      this.initCamera()
       this.initObj()
       this.initLight()
       this.initHelper()
       this.initStats()
       this.initOrbitControls()
+      this.initGui()
       this.updateRenderer()
     },
     // 初始渲染器
     initRender () {
       this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器
       this.renderer.setSize(window.innerWidth, window.innerHeight)
-      this.renderer.shadowMapEnabled = true // 渲染器阴影渲染
+      this.renderer.shadowMap.enabled = true // 渲染器阴影渲染
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap // 阴影类型
       this.$refs['three-canvas'].appendChild(this.renderer.domElement)
       this.renderer.setClearColor('rgb(15, 1, 25)')
     },
-    // 渲染场景
+    // 初始场景
     initScene () {
       this.scene = new THREE.Scene() // 场景
     },
-    // 渲染时钟
+    // 初始世界时钟
     initClock () {
       this.clock = new THREE.Clock() // 世界时钟
     },
@@ -62,20 +64,19 @@ export default {
     initLight () {
       this.lightBox = {
         ambientLight: new THREE.AmbientLight('rgb(255, 255, 255)'), // 环境光
-        spotLight: new THREE.SpotLight('rgb(255, 255, 255)', 1.5)
+        directionalLight: new THREE.DirectionalLight('rgb(255, 255, 255)', 1) // 平行光
       }
-      this.lightBox.spotLight.position.set(220, 200, 200)
-      this.lightBox.spotLight.castShadow = true
-      this.lightBox.spotLight.angle = Math.PI / 3
-      //   this.scene.add(this.lightBox.spotLight)
-      this.scene.add(this.lightBox.ambientLight)
+      this.lightBox.directionalLight.position.set(0, 300, 0)
+      this.lightBox.directionalLight.castShadow = true
+      // this.scene.add(this.lightBox.ambientLight)
+      this.scene.add(this.lightBox.directionalLight)
     },
     // 初始相机
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
-      this.camera.position.x = 25
-      this.camera.position.y = 40
-      this.camera.position.z = 50
+      this.camera.position.x = 400
+      this.camera.position.y = 800
+      this.camera.position.z = 400
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
@@ -83,38 +84,39 @@ export default {
     },
     // 初始物体
     initObj () {
-      let geometry = new THREE.BoxGeometry(50, 100, 50, 4, 4)
-      let material = new THREE.MeshLambertMaterial({color: 'rgb(45, 0, 50)'})
-      this.objBox.stage = new THREE.Mesh(geometry, material)
-      this.objBox.stage.castShadow = true
-      this.objBox.stage.receiveShadow = true
-      this.objBox.stage.position.set(0, -50, 0)
-      //   this.scene.add(this.objBox.stage)
-      // 车削几何体
-      var points = []
-      for (let i = 0; i < 15; i += 1) {
-        points.push(new THREE.Vector2(Math.sin(i * 0.2) * 10 + 10, (i - 5) * 2))
+      // 设置组合
+      this.objBox.group = new THREE.Group()
+
+      let geometry = new THREE.BoxBufferGeometry(50, 50, 50)
+      // 颜色
+      let colorRange = [0, 64, 128, 192, 255]
+      // 空间位置
+      let positionRange = [-200, -100, 0, 100, 200]
+
+      for (let x = 0; x < positionRange.length; x += 1) {
+        for (let y = 0; y < positionRange.length; y += 1) {
+          for (let z = 0; z < positionRange.length; z += 1) {
+            let material = new THREE.MeshPhongMaterial({color: `rgb(${colorRange[x]}, ${colorRange[y]}, ${colorRange[z]})`, roughness: 0})
+            let box = new THREE.Mesh(geometry, material)
+            box.castShadow = true
+            box.receiveShadow = true
+            box.position.set(positionRange[x], positionRange[y], positionRange[z])
+            this.objBox.group.add(box)
+          }
+        }
       }
-      geometry = new THREE.LatheGeometry(points, 48)
-      material = new THREE.MeshNormalMaterial({side: THREE.DoubleSide})
-      material.emissiveIntensity = 10
-      this.objBox.lathe = new THREE.Mesh(geometry, material)
-      this.objBox.lathe.castShadow = true
-      this.objBox.lathe.receiveShadow = true
-      this.objBox.lathe.position.set(0, 0, 0)
-      this.scene.add(this.objBox.lathe)
+      this.scene.add(this.objBox.group)
     },
     // 初始辅助
     initHelper () {
       this.helperBox = {
         axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
         gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')}, // 网格
-        spotLightHelper: {helper: new THREE.SpotLightHelper(this.lightBox.spotLight)} // 聚光灯
-
+        DirectionalLightHelper: {helper: new THREE.DirectionalLightHelper(this.lightBox.directionalLight, 200)}
       }
-      // this.scene.add(this.helperBox.spotLightHelper.helper)
-    //   this.scene.add(this.helperBox.axesHelper.helper)
-    //   this.scene.add(this.helperBox.gridHelper.helper)
+      // this.scene.add(this.helperBox.axesHelper.helper)
+      // this.scene.add(this.helperBox.gridHelper.helper)
+      this.scene.add(this.helperBox.DirectionalLightHelper.helper)
     },
     // 初始监视器
     initStats () {
@@ -123,7 +125,7 @@ export default {
       this.stats.domElement.id = 'three-stats'
       this.stats.domElement.style.position = 'absolute'
       this.stats.domElement.style.left = 'unset'
-      this.stats.domElement.style.right = '0px'
+      this.stats.domElement.style.right = '300px'
       this.stats.domElement.style.top = '0px'
       document.body.appendChild(this.stats.domElement)
     },
@@ -132,17 +134,54 @@ export default {
       this.orbitControls = new OrbitControls(this.camera, this.renderer.domElement)
       this.orbitControls.autoRotate = true
     },
+    // 初始控制台
+    initGui () {
+      this.gui = new GUI({
+        name: 'AmbientLight Controller'
+      }) // 控制台
+      this.guiParam = { // 控制参数
+        color: this.lightBox.directionalLight.color.getHex(),
+        intensity: this.lightBox.directionalLight.intensity,
+        positionX: this.lightBox.directionalLight.position.x,
+        positionY: this.lightBox.directionalLight.position.y,
+        positionZ: this.lightBox.directionalLight.position.z
+      }
+      this.gui
+        .addColor(this.guiParam, 'color', -500, 500)
+        .onChange(data => {
+          this.lightBox.directionalLight.color.setHex(data)
+        })
+      this.gui
+        .add(this.guiParam, 'intensity', 0, 10)
+        .onChange(data => {
+          this.lightBox.directionalLight.intensity = data
+        })
+      this.gui
+        .add(this.guiParam, 'positionX', -400, 400)
+        .onChange(data => {
+          this.lightBox.directionalLight.position.x = data
+        })
+      this.gui
+        .add(this.guiParam, 'positionY', -400, 400)
+        .onChange(data => {
+          this.lightBox.directionalLight.position.y = data
+        })
+      this.gui
+        .add(this.guiParam, 'positionZ', -400, 400)
+        .onChange(data => {
+          this.lightBox.directionalLight.position.z = data
+        })
+    },
     // 动画
-    animation (delta) {
-      this.objBox.lathe.rotation.x += delta * 0.8
+    animation () {
     },
     // 加载场景
     updateRenderer () {
       let delta = this.clock.getDelta()
       this.orbitControls.update(delta)
-      this.animation(delta)
       this.renderer.render(this.scene, this.camera)
       this.stats.update()
+
       this.animationFrame = requestAnimationFrame(this.updateRenderer)
     },
     // 清空物体缓存
@@ -153,20 +192,22 @@ export default {
     // 清空缓存
     clearCache () {
       // 渲染器缓存
+      this.renderer.clear(true, true, true)
       this.renderer.dispose()
       this.renderer.forceContextLoss()
-      this.renderer.clear(true, true, true)
-      this.renderer.context = null
       this.renderer.domElement = null
+      // 清空物体
+      this.objBox.group.children.forEach(elem => {
+        this.clearObjCache(elem)
+      })
       // 场景缓存
       this.scene.dispose()
-      // 几何体缓存
-      this.clearObjCache(this.objBox.stage)
-      this.clearObjCache(this.objBox.lathe)
+      // gui
+      this.gui.destroy()
     },
     ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
   },
-  // 初始计算
+  // 初始计算,信息
   created () {
     // 展示的备注
     let tips = `    旋转相机：鼠标左键
@@ -174,10 +215,7 @@ export default {
     移动相机：鼠标右键 `
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('/latheGeometry.vue')
-  },
-  // 所有事件绑在此钩子
-  beforeMount () {
+    this.resetThreeLinkFun('light/ambientLight.vue')
   },
   mounted () {
     this.init()
@@ -190,10 +228,10 @@ export default {
     this.scene = null
     this.camera = null
     this.stats = null
+    this.lightBox = null
     this.helperBox = null
-    this.objBox = null
     this.clock = null
-    this.orbitControls = null
+    this.gui = null
     cancelAnimationFrame(this.animationFrame)
   }
 }

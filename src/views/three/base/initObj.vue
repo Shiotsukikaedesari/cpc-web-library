@@ -6,7 +6,7 @@
 
 <script>
 import {mapActions} from 'vuex'
-import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
+import Stats from '../../../../node_modules/three/examples/jsm/libs/stats.module'
 export default {
   name: 'three-init',
   data () {
@@ -15,8 +15,12 @@ export default {
       scene: '', // 场景
       camera: '', // 相机
       stats: '', // 资源监视器
+      lightBox: '',
       helperBox: '',
-      animationFrame: '' // 关键帧
+      objBox: {
+        obj1: '' // 物体对象
+      },
+      animationFrame: '' // 动画
     }
   },
   methods: {
@@ -38,6 +42,7 @@ export default {
     },
     // 光源
     initLight () {
+      this.scene.add(this.lightBox.ambientLight)
     },
     // 初始相机
     initCamera () {
@@ -51,6 +56,11 @@ export default {
     },
     // 初始物体
     initObj () {
+      let geometry = new THREE.BoxGeometry(100, 100, 150, 4, 4)
+      let material = new THREE.MeshLambertMaterial({color: 'rgb(115, 30, 150)'})
+      this.objBox.obj1 = new THREE.Mesh(geometry, material)
+      this.objBox.obj1.position.set(0, 50, 0)
+      this.scene.add(this.objBox.obj1)
     },
     // 初始辅助
     initHelper () {
@@ -93,10 +103,11 @@ export default {
       this.renderer.clear(true, true, true)
       this.renderer.dispose()
       this.renderer.forceContextLoss()
-      this.renderer.context = null
       this.renderer.domElement = null
       // 场景缓存
       this.scene.dispose()
+      // 物体缓存
+      this.clearObjCache(this.objBox.obj1)
     },
     ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
   },
@@ -106,7 +117,7 @@ export default {
     let tips = ``
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('/autoRotateCamera.vue')
+    this.resetThreeLinkFun('base/initObj.vue')
   },
   // 所有事件绑在此钩子
   beforeMount () {
@@ -114,6 +125,9 @@ export default {
     this.scene = new THREE.Scene() // 场景
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
     this.stats = new Stats() // 资源监视器
+    this.lightBox = {
+      ambientLight: new THREE.AmbientLight('rgb(255, 255, 255)') // 环境光
+    }
     this.helperBox = {
       axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
       gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')} // 网格
@@ -130,8 +144,9 @@ export default {
     this.renderer = null
     this.camera = null
     this.stats = null
+    this.lightBox = null
     this.helperBox = null
-    this.scene = null
+    this.objBox = null
     cancelAnimationFrame(this.animationFrame)
   }
 }

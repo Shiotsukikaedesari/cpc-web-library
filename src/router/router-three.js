@@ -1,33 +1,35 @@
-import InitThree from '@/views/three/initThree'
-import WatchKeyframe from '@/views/three/watchKeyframe'
-import InitObj from '@/views/three/initObj'
+import InitThree from '@/views/three/base/initThree'
+import WatchKeyframe from '@/views/three/base/watchKeyframe'
+import InitObj from '@/views/three/base/initObj'
+import Gui from '@/views/three/base/gui'
 
-import CameraFollowMouse from '@/views/three/cameraFollowMouse'
-import AutoRotateCamera from '@/views/three/autoRotateCamera'
-import DragCamera from '@/views/three/dragCamera'
-import Gui from '@/views/three/gui'
+import CameraFollowMouse from '@/views/three/camera/cameraFollowMouse'
+import AutoRotateCamera from '@/views/three/camera/autoRotateCamera'
+import DragCamera from '@/views/three/camera/dragCamera'
 
-import ControlObj from '@/views/three/controlObj'
-import SimpleGeometry from '@/views/three/simpleGeometry'
-import ComplexGeometry from '@/views/three/complexGeometry'
-import PlaneGeometry from '@/views/three/planeGeometry'
-import PipeGeometry from '@/views/three/pipeGeometry'
-import EdgesGeometry from '@/views/three/edgesGeometry'
-import ExtrudeGeometry from '@/views/three/extrudeGeometry'
-import LatheGeometry from '@/views/three/latheGeometry'
-import ShapeGeometry from '@/views/three/shapeGeometry'
-import TextGeometry from '@/views/three/textGeometry'
-import WireframeGeometry from '@/views/three/wireframeGeometry'
-import BufferGeometry from '@/views/three/bufferGeometry'
+import ControlObj from '@/views/three/geometry/controlObj'
+import SimpleGeometry from '@/views/three/geometry/simpleGeometry'
+import ComplexGeometry from '@/views/three/geometry/complexGeometry'
+import PlaneGeometry from '@/views/three/geometry/planeGeometry'
+import PipeGeometry from '@/views/three/geometry/pipeGeometry'
+import EdgesGeometry from '@/views/three/geometry/edgesGeometry'
+import ExtrudeGeometry from '@/views/three/geometry/extrudeGeometry'
+import LatheGeometry from '@/views/three/geometry/latheGeometry'
+import ShapeGeometry from '@/views/three/geometry/shapeGeometry'
+import TextGeometry from '@/views/three/geometry/textGeometry'
+import WireframeGeometry from '@/views/three/geometry/wireframeGeometry'
+import BufferGeometry from '@/views/three/geometry/bufferGeometry'
 
-import AmbientLight from '@/views/three/ambientLight'
-import DirectionalLight from '@/views/three/directionalLight'
-import HemisphereLight from '@/views/three/hemisphereLight'
-import PointLight from '@/views/three/pointLight'
-import RectAreaLight from '@/views/three/rectAreaLight'
-import SpotLight from '@/views/three/spotLight'
+import AmbientLight from '@/views/three/light/ambientLight'
+import DirectionalLight from '@/views/three/light/directionalLight'
+import HemisphereLight from '@/views/three/light/hemisphereLight'
+import PointLight from '@/views/three/light/pointLight'
+import RectAreaLight from '@/views/three/light/rectAreaLight'
+import SpotLight from '@/views/three/light/spotLight'
 
-import UsageMaterial from '@/views/three/usageMaterial'
+import UsageMaterial from '@/views/three/material/usageMaterial'
+
+import OBJLoader from '@/views/three/loader/OBJLoader'
 
 export default
 [
@@ -160,5 +162,10 @@ export default
     path: '/three/usageMaterial',
     name: 'usageMaterial',
     component: UsageMaterial
+  },
+  {
+    path: '/three/OBJLoader',
+    name: 'OBJLoader',
+    component: OBJLoader
   }
 ]

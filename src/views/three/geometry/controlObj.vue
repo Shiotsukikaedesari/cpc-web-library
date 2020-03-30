@@ -6,9 +6,10 @@
 
 <script>
 import {mapActions} from 'vuex'
-import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
+import Stats from '../../../../node_modules/three/examples/jsm/libs/stats.module'
+import {OrbitControls} from '../../../../node_modules/three/examples/jsm/controls/OrbitControls'
+import {TransformControls} from '../../../../node_modules/three/examples/jsm/controls/TransformControls'
 export default {
-  name: 'three-init',
   data () {
     return {
       renderer: '', // 渲染器
@@ -17,10 +18,11 @@ export default {
       stats: '', // 资源监视器
       lightBox: '',
       helperBox: '',
-      objBox: {
-        obj1: '' // 物体对象
-      },
-      animationFrame: '' // 动画
+      objBox: '',
+      clock: '', // 世界时钟
+      orbitControls: '', // 相机控件
+      transformControls: '', // 物体控件
+      animationFrame: '' // 动画帧
     }
   },
   methods: {
@@ -32,7 +34,9 @@ export default {
       this.initLight()
       this.initHelper()
       this.initStats()
-      this.renderer.render(this.scene, this.camera)
+      this.initOrbitControls()
+      this.initTranformControls()
+      this.updateRenderer()
     },
     // 初始渲染器
     initRender () {
@@ -56,7 +60,7 @@ export default {
     },
     // 初始物体
     initObj () {
-      let geometry = new THREE.BoxGeometry(100, 100, 150, 4, 4)
+      let geometry = new THREE.BoxGeometry(100, 100, 100, 4, 4)
       let material = new THREE.MeshLambertMaterial({color: 'rgb(115, 30, 150)'})
       this.objBox.obj1 = new THREE.Mesh(geometry, material)
       this.objBox.obj1.position.set(0, 50, 0)
@@ -77,17 +81,30 @@ export default {
       this.stats.domElement.style.top = '0px'
       document.body.appendChild(this.stats.domElement)
     },
+    // 加载相机插件
+    initOrbitControls () {
+      this.orbitControls = new OrbitControls(this.camera, this.renderer.domElement)
+      this.orbitControls.autoRotate = true
+      this.orbitControls.enablePan = false
+      this.orbitControls.mouseButtons = {
+        LEFT: THREE.MOUSE.PAN,
+        MIDDLE: THREE.MOUSE.DOLLY,
+        RIGHT: THREE.MOUSE.ROTATE
+      }
+    },
+    // 加载物体控件
+    initTranformControls () {
+      this.transformControls = new TransformControls(this.camera, this.renderer.domElement)
+      this.transformControls.attach(this.objBox.obj1)
+      this.scene.add(this.transformControls)
+    },
     // 动画
     animation () {
-      let deg = Date.now() * 0.0001
-      let r = 600
-      this.camera.position.x = Math.cos(deg) * r
-      this.camera.position.z = Math.sin(deg) * r
-      this.camera.lookAt(new THREE.Vector3(0, 0, 0))
     },
     // 加载场景
     updateRenderer () {
-      this.animation()
+      let delta = this.clock.getDelta()
+      this.orbitControls.update(delta)
       this.renderer.render(this.scene, this.camera)
       this.stats.update()
       this.animationFrame = requestAnimationFrame(this.updateRenderer)
@@ -104,22 +121,24 @@ export default {
       this.renderer.dispose()
       this.renderer.forceContextLoss()
       this.renderer.domElement = null
+      this.clearObjCache(this.objBox.obj1)
       // 场景缓存
       this.scene.dispose()
-      // 物体缓存
-      this.clearObjCache(this.objBox.obj1)
     },
     ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
   },
-  // 初始计算
+  // 初始计算,信息
   created () {
-    // 展示的备注
-    let tips = ``
+    let tips = `    相机旋转：鼠标左键键  相机移动：鼠标右键  相机缩放：鼠标滚轮
+    设置物体位移：W  设置物体旋转：E  设置物体缩放：R
+    控制X轴：X  控制Y轴：Y   控制Z轴：Z
+    变换固定位移100旋转15度缩放0.25：shift
+    设置控制器大小： +/-
+    禁用/启用控制器：空格 `
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('/initObj.vue')
+    this.resetThreeLinkFun('geometry/controlObj.vue')
   },
-  // 所有事件绑在此钩子
   beforeMount () {
     this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器
     this.scene = new THREE.Scene() // 场景
@@ -132,21 +151,78 @@ export default {
       axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
       gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')} // 网格
     }
+    this.objBox = {
+      obj1: '' // 物体对象
+    }
+    this.clock = new THREE.Clock() // 世界时钟
   },
   mounted () {
     this.init()
-    this.updateRenderer()
+    window.onkeydown = (event) => {
+      switch (event.keyCode) {
+        case 81: // Q
+          this.transformControls.setSpace(this.transformControls.space === 'local' ? 'world' : 'local')
+          break
+
+        case 16: // Shift
+          this.transformControls.setTranslationSnap(100)
+          this.transformControls.setRotationSnap(THREE.MathUtils.degToRad(15))
+          this.transformControls.setScaleSnap(0.25)
+          break
+
+        case 87: // W
+          this.transformControls.setMode('translate')
+          break
+
+        case 69: // E
+          this.transformControls.setMode('rotate')
+          break
+
+        case 82: // R
+          this.transformControls.setMode('scale')
+          break
+
+        case 187:
+        case 107: // +, =, num+
+          this.transformControls.setSize(this.transformControls.size + 0.1)
+          break
+
+        case 189:
+        case 109: // -, _, num-
+          this.transformControls.setSize(Math.max(this.transformControls.size - 0.1, 0.1))
+          break
+
+        case 88: // X
+          this.transformControls.showX = !this.transformControls.showX
+          break
+
+        case 89: // Y
+          this.transformControls.showY = !this.transformControls.showY
+          break
+
+        case 90: // Z
+          this.transformControls.showZ = !this.transformControls.showZ
+          break
+
+        case 32: // Spacebar
+          this.transformControls.enabled = !this.transformControls.enabled
+          break
+      }
+    }
   },
   // 清空所有绑定事件与清空画布
   beforeDestroy () {
     document.body.removeChild(document.getElementById('three-stats'))
-    this.clearCache()
+    window.onkeydown = null
     this.renderer = null
+    this.scene = null
     this.camera = null
-    this.stats = null
     this.lightBox = null
     this.helperBox = null
     this.objBox = null
+    this.clock = null
+    this.orbitControls = null
+    this.transformControls = null
     cancelAnimationFrame(this.animationFrame)
   }
 }

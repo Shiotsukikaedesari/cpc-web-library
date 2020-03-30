@@ -6,8 +6,8 @@
 
 <script>
 import {mapActions} from 'vuex'
-import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
-import {OrbitControls} from '../../../node_modules/three/examples/jsm/controls/OrbitControls'
+import Stats from '../../../../node_modules/three/examples/jsm/libs/stats.module'
+import {OrbitControls} from '../../../../node_modules/three/examples/jsm/controls/OrbitControls'
 export default {
   data () {
     return {
@@ -20,8 +20,7 @@ export default {
       lightBox: '',
       objBox: {
         stage: '',
-        plane: '',
-        extrude: ''
+        shape: ''
       },
       clock: '', // 世界时钟
       orbitControls: '', // 相机控件
@@ -46,7 +45,7 @@ export default {
     initRender () {
       this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器
       this.renderer.setSize(window.innerWidth, window.innerHeight)
-      this.renderer.shadowMapEnabled = true // 渲染器阴影渲染
+      this.renderer.shadowMap.enabled = true // 渲染器阴影渲染
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap // 阴影类型
       this.$refs['three-canvas'].appendChild(this.renderer.domElement)
       this.renderer.setClearColor('rgb(15, 1, 25)')
@@ -69,7 +68,7 @@ export default {
       this.lightBox.spotLight.castShadow = true
       this.lightBox.spotLight.angle = Math.PI / 3
       this.scene.add(this.lightBox.spotLight)
-      // this.scene.add(this.lightBox.ambientLight)
+    //   this.scene.add(this.lightBox.ambientLight)
     },
     // 初始相机
     initCamera () {
@@ -84,50 +83,33 @@ export default {
     },
     // 初始物体
     initObj () {
-      let geometry = new THREE.BoxGeometry(50, 100, 50, 4, 4)
+      let geometry = new THREE.BoxGeometry(50, 5, 50, 4, 4)
       let material = new THREE.MeshLambertMaterial({color: 'rgb(45, 0, 50)'})
       this.objBox.stage = new THREE.Mesh(geometry, material)
       this.objBox.stage.castShadow = true
       this.objBox.stage.receiveShadow = true
-      this.objBox.stage.position.set(0, -50, 0)
+      this.objBox.stage.position.set(0, 0, 0)
       this.scene.add(this.objBox.stage)
+      // 形状几何
+      let x = 0
+      let y = 0
+      let heartShape = new THREE.Shape()
+      heartShape.moveTo(x + 5, y + 5)
+      heartShape.bezierCurveTo(x + 5, y + 5, x + 4, y, x, y)
+      heartShape.bezierCurveTo(x - 6, y, x - 6, y + 7, x - 6, y + 7)
+      heartShape.bezierCurveTo(x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19)
+      heartShape.bezierCurveTo(x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7)
+      heartShape.bezierCurveTo(x + 16, y + 7, x + 16, y, x + 10, y)
+      heartShape.bezierCurveTo(x + 7, y, x + 5, y + 5, x + 5, y + 5)
 
-      let length = 12
-      let width = 8
-      // 方形平面几何
-      geometry = new THREE.PlaneGeometry(length, width)
-      material = new THREE.MeshLambertMaterial({
-        color: 'rgb(230, 230, 230)'
-      })
-      this.objBox.plane = new THREE.Mesh(geometry, material)
-      this.objBox.plane.castShadow = true
-      this.objBox.plane.receiveShadow = true
-      this.objBox.plane.position.set(0, 5, 10)
-      this.scene.add(this.objBox.plane)
-      // 挤压几何
-      let shape = new THREE.Shape()
-      shape.moveTo(0, 0)
-      shape.lineTo(0, width)
-      shape.lineTo(length, width)
-      shape.lineTo(length, 0)
-      shape.lineTo(0, 0)
-
-      let extrudeSettings = {
-        steps: 5,
-        depth: 8,
-        bevelEnabled: true,
-        bevelThickness: 1,
-        bevelSize: 1,
-        bevelOffset: 0,
-        bevelSegments: 1
-      }
-      geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings)
+      geometry = new THREE.ShapeGeometry(heartShape)
+      material = new THREE.MeshNormalMaterial()
       material.emissiveIntensity = 10
-      this.objBox.extrude = new THREE.Mesh(geometry, material)
-      this.objBox.extrude.castShadow = true
-      this.objBox.extrude.receiveShadow = true
-      this.objBox.extrude.position.set(-6, 1, -15)
-      this.scene.add(this.objBox.extrude)
+      this.objBox.shape = new THREE.Mesh(geometry, material)
+      this.objBox.shape.castShadow = true
+      this.objBox.shape.receiveShadow = true
+      this.objBox.shape.position.set(-5, 5, 0)
+      this.scene.add(this.objBox.shape)
     },
     // 初始辅助
     initHelper () {
@@ -139,7 +121,7 @@ export default {
       }
       // this.scene.add(this.helperBox.spotLightHelper.helper)
       this.scene.add(this.helperBox.axesHelper.helper)
-      // this.scene.add(this.helperBox.gridHelper.helper)
+    //   this.scene.add(this.helperBox.gridHelper.helper)
     },
     // 初始监视器
     initStats () {
@@ -158,11 +140,12 @@ export default {
       this.orbitControls.autoRotate = true
     },
     // 动画
-    animation () {
+    animation (delta) {
     },
     // 加载场景
     updateRenderer () {
-      this.orbitControls.update(this.clock.getDelta())
+      let delta = this.clock.getDelta()
+      this.orbitControls.update(delta)
       this.renderer.render(this.scene, this.camera)
       this.stats.update()
       this.animationFrame = requestAnimationFrame(this.updateRenderer)
@@ -184,8 +167,7 @@ export default {
       this.scene.dispose()
       // 几何体缓存
       this.clearObjCache(this.objBox.stage)
-      this.clearObjCache(this.objBox.plane)
-      this.clearObjCache(this.objBox.extrude)
+      this.clearObjCache(this.objBox.shape)
     },
     ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
   },
@@ -197,7 +179,7 @@ export default {
     移动相机：鼠标右键 `
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('/extrudeGeometry.vue')
+    this.resetThreeLinkFun('geometry/shapeGeometry.vue')
   },
   // 所有事件绑在此钩子
   beforeMount () {

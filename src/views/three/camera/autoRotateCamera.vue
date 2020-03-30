@@ -6,7 +6,7 @@
 
 <script>
 import {mapActions} from 'vuex'
-import Stats from '../../../node_modules/three/examples/jsm/libs/stats.module'
+import Stats from '../../../../node_modules/three/examples/jsm/libs/stats.module'
 export default {
   name: 'three-init',
   data () {
@@ -15,7 +15,8 @@ export default {
       scene: '', // 场景
       camera: '', // 相机
       stats: '', // 资源监视器
-      helperBox: ''
+      helperBox: '',
+      animationFrame: '' // 关键帧
     }
   },
   methods: {
@@ -27,7 +28,7 @@ export default {
       this.initLight()
       this.initHelper()
       this.initStats()
-      this.updateRenderer()
+      this.renderer.render(this.scene, this.camera)
     },
     // 初始渲染器
     initRender () {
@@ -67,11 +68,19 @@ export default {
       document.body.appendChild(this.stats.domElement)
     },
     // 动画
-    initAnimation () {
+    animation () {
+      let deg = Date.now() * 0.0001
+      let r = 600
+      this.camera.position.x = Math.cos(deg) * r
+      this.camera.position.z = Math.sin(deg) * r
+      this.camera.lookAt(new THREE.Vector3(0, 0, 0))
     },
     // 加载场景
     updateRenderer () {
+      this.animation()
       this.renderer.render(this.scene, this.camera)
+      this.stats.update()
+      this.animationFrame = requestAnimationFrame(this.updateRenderer)
     },
     // 清空物体缓存
     clearObjCache (obj) {
@@ -84,22 +93,22 @@ export default {
       this.renderer.clear(true, true, true)
       this.renderer.dispose()
       this.renderer.forceContextLoss()
+      this.renderer.context = null
       this.renderer.domElement = null
       // 场景缓存
       this.scene.dispose()
-      // 物体缓存
-      this.clearObjCache(this.objBox.obj1)
     },
     ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
   },
-  // 初始计算,信息
+  // 初始计算
   created () {
     // 展示的备注
     let tips = ``
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('/watchKeyframe.vue')
+    this.resetThreeLinkFun('camera/autoRotateCamera.vue')
   },
+  // 所有事件绑在此钩子
   beforeMount () {
     this.renderer = new THREE.WebGLRenderer({antialias: true}) // 渲染器
     this.scene = new THREE.Scene() // 场景
@@ -112,16 +121,18 @@ export default {
   },
   mounted () {
     this.init()
+    this.updateRenderer()
   },
   // 清空所有绑定事件与清空画布
   beforeDestroy () {
     document.body.removeChild(document.getElementById('three-stats'))
     this.clearCache()
     this.renderer = null
-    this.scene = null
     this.camera = null
     this.stats = null
     this.helperBox = null
+    this.scene = null
+    cancelAnimationFrame(this.animationFrame)
   }
 }
 </script>

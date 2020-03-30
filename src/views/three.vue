@@ -39,8 +39,8 @@
             <cpc-nav-side-elem elemKey="3-10" slot="child" :click="jump('textGeometry')">文本几何体（textGeometry）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="3-11" slot="child" :click="jump('wireframeGeometry')">网格几何体（wireframeGeometry）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
-          <cpc-nav-side-menu menuKey="4" slot="menu" open>
-            <cpc-nav-side-elem elemKey="4-0" slot="father" :father="true" isSignal arrowInit>
+          <cpc-nav-side-menu menuKey="4" slot="menu">
+            <cpc-nav-side-elem elemKey="4-0" slot="father" :father="true">
               <cpc-icon slot="side-ui" code="#icon-lightbulb-on"></cpc-icon>光源
             </cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="4-1" slot="child" :click="jump('ambientLight')">环境光（AmbientLight）</cpc-nav-side-elem>
@@ -48,7 +48,7 @@
             <cpc-nav-side-elem elemKey="4-3" slot="child" :click="jump('hemisphereLight')">半球光（HemisphereLight）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="4-4" slot="child" :click="jump('pointLight')">点光（PointLight）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="4-5" slot="child" :click="jump('rectAreaLight')">平面光（RectAreaLight）</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="4-6" slot="child" isSignal :click="jump('spotLight')">聚光灯（SpotLight）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="4-6" slot="child" :click="jump('spotLight')">聚光灯（SpotLight）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="5" slot="menu">
             <cpc-nav-side-elem elemKey="5-0" slot="father" :father="true">
@@ -65,11 +65,11 @@
             <cpc-nav-side-elem elemKey="6-3" slot="child" :click="jump('bufferGeometry')">线模型（line）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="6-4" slot="child" :click="jump('bufferGeometry')">点模型（point）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
-          <cpc-nav-side-menu menuKey="7" slot="menu">
-            <cpc-nav-side-elem elemKey="7-0" slot="father" :father="true">
+          <cpc-nav-side-menu menuKey="7" slot="menu" open>
+            <cpc-nav-side-elem elemKey="7-0" slot="father" :father="true" isSignal arrowInit>
               <cpc-icon slot="side-ui" code="#icon-vector-triangle"></cpc-icon>加载器（Loader）
             </cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="7-1" slot="child" :click="jump('lineBasicMaterial')">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="7-1" slot="child" isSignal :click="jump('OBJLoader')">OBJ格式加载器（OBJLoader）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="8" slot="menu">
             <cpc-nav-side-elem elemKey="8-0" slot="father" :father="true">
