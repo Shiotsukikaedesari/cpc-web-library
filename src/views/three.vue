@@ -69,7 +69,8 @@
             <cpc-nav-side-elem elemKey="7-0" slot="father" :father="true" isSignal arrowInit>
               <cpc-icon slot="side-ui" code="#icon-vector-triangle"></cpc-icon>加载器（Loader）
             </cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="7-1" slot="child" isSignal :click="jump('OBJLoader')">OBJ格式加载器（OBJLoader）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="7-1" slot="child" isSignal :click="jump('loadingManager')">加载管理器（LoadingManager）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="7-2" slot="child" :click="jump('OBJLoader')">OBJ格式加载器（OBJLoader）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="8" slot="menu">
             <cpc-nav-side-elem elemKey="8-0" slot="father" :father="true">

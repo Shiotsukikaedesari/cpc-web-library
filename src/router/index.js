@@ -19,7 +19,7 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index,
-      redirect: '/three/OBJLoader',
+      redirect: '/three/loadingManager',
       children: Three3D
     },
     {

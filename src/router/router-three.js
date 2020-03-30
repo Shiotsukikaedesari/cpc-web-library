@@ -29,6 +29,7 @@ import SpotLight from '@/views/three/light/spotLight'
 
 import UsageMaterial from '@/views/three/material/usageMaterial'
 
+import LoadingManager from '@/views/three/loader/loadingManager'
 import OBJLoader from '@/views/three/loader/OBJLoader'
 
 export default
@@ -167,5 +168,10 @@ export default
     path: '/three/OBJLoader',
     name: 'OBJLoader',
     component: OBJLoader
+  },
+  {
+    path: '/three/loadingManager',
+    name: 'loadingManager',
+    component: LoadingManager
   }
 ]
