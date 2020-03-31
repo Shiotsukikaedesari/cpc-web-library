@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/views/index'
-import Display from '@/views/display'
 
 import Three3D from './router-three'
 
@@ -10,6 +8,9 @@ import Guide from './router-guide'
 import Notes from './router-notes'
 import Effect from './router-effect'
 import Style from './router-style'
+
+const Index = () => import('@/views/index')
+const Display = () => import('@/views/display')
 
 Vue.use(Router)
 

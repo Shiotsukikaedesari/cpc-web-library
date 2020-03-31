@@ -1,7 +1,7 @@
-import Effect from '@/views/effect'
-import EffectIntro from '@/views/effect/intro/intro'
-import EffectLoading from '@/views/effect/loading/loading'
-import EffectCarousel from '@/views/effect/carousel/carousel'
+const Effect = () => import('@/views/effect')
+const EffectIntro = () => import('@/views/effect/intro/intro')
+const EffectLoading = () => import('@/views/effect/loading/loading')
+const EffectCarousel = () => import('@/views/effect/carousel/carousel')
 export default
 {
   path: '/effect',

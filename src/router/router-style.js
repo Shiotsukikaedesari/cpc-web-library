@@ -1,6 +1,6 @@
-import Style from '@/views/style'
-import StyleIntro from '@/views/style/intro/intro'
-import StyleRelief from '@/views/style/relief/relief'
+const Style = () => import('@/views/style')
+const StyleIntro = () => import('@/views/style/intro/intro')
+const StyleRelief = () => import('@/views/style/relief/relief')
 
 export default
 {

@@ -1,11 +1,11 @@
 
-import Components from '@/views/components'
-import UseExplain from '@/views/components/use-explain/use-explain'
-import ComponentsDemo from '@/views/components/demo/demo'
-import Intro from '@/views/components/intro/intro'
-import Icon from '@/views/components/icon/icon'
-import Button from '@/views/components/button/button'
-import MessageReminder from '@/views/components/message-reminder/message-reminder'
+const Components = () => import('@/views/components')
+const UseExplain = () => import('@/views/components/use-explain/use-explain')
+const ComponentsDemo = () => import('@/views/components/demo/demo')
+const Intro = () => import('@/views/components/intro/intro')
+const Icon = () => import('@/views/components/icon/icon')
+const Button = () => import('@/views/components/button/button')
+const MessageReminder = () => import('@/views/components/message-reminder/message-reminder')
 
 export default
 {
@@ -36,7 +36,7 @@ export default
     },
     {
       path: '/components/button',
-      name: 'components-button',
+      name: 'components-buttonconst',
       component: Button
     },
     {

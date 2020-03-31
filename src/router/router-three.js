@@ -1,36 +1,36 @@
-import InitThree from '@/views/three/base/initThree'
-import WatchKeyframe from '@/views/three/base/watchKeyframe'
-import InitObj from '@/views/three/base/initObj'
-import Gui from '@/views/three/base/gui'
+const InitThree = () => import('@/views/three/base/initThree')
+const WatchKeyframe = () => import('@/views/three/base/watchKeyframe')
+const InitObj = () => import('@/views/three/base/initObj')
+const Gui = () => import('@/views/three/base/gui')
 
-import CameraFollowMouse from '@/views/three/camera/cameraFollowMouse'
-import AutoRotateCamera from '@/views/three/camera/autoRotateCamera'
-import DragCamera from '@/views/three/camera/dragCamera'
+const CameraFollowMouse = () => import('@/views/three/camera/cameraFollowMouse')
+const AutoRotateCamera = () => import('@/views/three/camera/autoRotateCamera')
+const DragCamera = () => import('@/views/three/camera/dragCamera')
 
-import ControlObj from '@/views/three/geometry/controlObj'
-import SimpleGeometry from '@/views/three/geometry/simpleGeometry'
-import ComplexGeometry from '@/views/three/geometry/complexGeometry'
-import PlaneGeometry from '@/views/three/geometry/planeGeometry'
-import PipeGeometry from '@/views/three/geometry/pipeGeometry'
-import EdgesGeometry from '@/views/three/geometry/edgesGeometry'
-import ExtrudeGeometry from '@/views/three/geometry/extrudeGeometry'
-import LatheGeometry from '@/views/three/geometry/latheGeometry'
-import ShapeGeometry from '@/views/three/geometry/shapeGeometry'
-import TextGeometry from '@/views/three/geometry/textGeometry'
-import WireframeGeometry from '@/views/three/geometry/wireframeGeometry'
-import BufferGeometry from '@/views/three/geometry/bufferGeometry'
+const ControlObj = () => import('@/views/three/geometry/controlObj')
+const SimpleGeometry = () => import('@/views/three/geometry/simpleGeometry')
+const ComplexGeometry = () => import('@/views/three/geometry/complexGeometry')
+const PlaneGeometry = () => import('@/views/three/geometry/planeGeometry')
+const PipeGeometry = () => import('@/views/three/geometry/pipeGeometry')
+const EdgesGeometry = () => import('@/views/three/geometry/edgesGeometry')
+const ExtrudeGeometry = () => import('@/views/three/geometry/extrudeGeometry')
+const LatheGeometry = () => import('@/views/three/geometry/latheGeometry')
+const ShapeGeometry = () => import('@/views/three/geometry/shapeGeometry')
+const TextGeometry = () => import('@/views/three/geometry/textGeometry')
+const WireframeGeometry = () => import('@/views/three/geometry/wireframeGeometry')
+const BufferGeometry = () => import('@/views/three/geometry/bufferGeometry')
 
-import AmbientLight from '@/views/three/light/ambientLight'
-import DirectionalLight from '@/views/three/light/directionalLight'
-import HemisphereLight from '@/views/three/light/hemisphereLight'
-import PointLight from '@/views/three/light/pointLight'
-import RectAreaLight from '@/views/three/light/rectAreaLight'
-import SpotLight from '@/views/three/light/spotLight'
+const AmbientLight = () => import('@/views/three/light/ambientLight')
+const DirectionalLight = () => import('@/views/three/light/directionalLight')
+const HemisphereLight = () => import('@/views/three/light/hemisphereLight')
+const PointLight = () => import('@/views/three/light/pointLight')
+const RectAreaLight = () => import('@/views/three/light/rectAreaLight')
+const SpotLight = () => import('@/views/three/light/spotLight')
 
-import UsageMaterial from '@/views/three/material/usageMaterial'
+const UsageMaterial = () => import('@/views/three/material/usageMaterial')
 
-import LoadingManager from '@/views/three/loader/loadingManager'
-import OBJLoader from '@/views/three/loader/OBJLoader'
+const LoadingManager = () => import('@/views/three/loader/loadingManager')
+const OBJLoader = () => import('@/views/three/loader/OBJLoader')
 
 export default
 [

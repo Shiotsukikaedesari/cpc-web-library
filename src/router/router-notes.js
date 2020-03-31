@@ -1,7 +1,7 @@
-import Notes from '@/views/notes'
-import NotesIntro from '@/views/notes/intro/intro'
-import HtmlBase from '@/views/notes/html/html-base/html-base'
-import HtmlTreasure from '@/views/notes/html/html-treasure/html-treasure'
+const Notes = () => import('@/views/notes')
+const NotesIntro = () => import('@/views/notes/intro/intro')
+const HtmlBase = () => import('@/views/notes/html/html-base/html-base')
+const HtmlTreasure = () => import('@/views/notes/html/html-treasure/html-treasure')
 export default
 {
   path: '/notes',
