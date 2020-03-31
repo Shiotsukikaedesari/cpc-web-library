@@ -67,20 +67,20 @@
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="7" slot="menu" open>
             <cpc-nav-side-elem elemKey="7-0" slot="father" :father="true" isSignal arrowInit>
-              <cpc-icon slot="side-ui" code="#icon-vector-triangle"></cpc-icon>加载器（Loader）
+              <cpc-icon slot="side-ui" code="#icon-file-import"></cpc-icon>加载器（Loader）
             </cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="7-1" slot="child" isSignal :click="jump('loadingManager')">加载管理器（LoadingManager）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="7-2" slot="child" :click="jump('OBJLoader')">OBJ格式加载器（OBJLoader）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="8" slot="menu">
             <cpc-nav-side-elem elemKey="8-0" slot="father" :father="true">
-              <cpc-icon slot="side-ui" code="#icon-vector-triangle"></cpc-icon>后期处理（EffectComposer）
+              <cpc-icon slot="side-ui" code="#icon-soundcloud"></cpc-icon>后期处理（EffectComposer）
             </cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="8-1" slot="child" :click="jump('lineBasicMaterial')">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="9" slot="menu">
             <cpc-nav-side-elem elemKey="9-0" slot="father" :father="true">
-              <cpc-icon slot="side-ui" code="#icon-vector-triangle"></cpc-icon>应用
+              <cpc-icon slot="side-ui" code="#icon-gamepad"></cpc-icon>应用
             </cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="9-1" slot="child" :click="jump('lineBasicMaterial')">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
