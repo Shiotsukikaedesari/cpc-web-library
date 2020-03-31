@@ -3,3 +3,4 @@
 /dist/
 /*.js
 /src/assets/icon/
+static/*
