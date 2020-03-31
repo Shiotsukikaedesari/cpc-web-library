@@ -7,7 +7,10 @@
                      <cpc-icon slot="side-ui" code="#icon-file-document-box"></cpc-icon>介绍
                   </cpc-nav-side-elem>
                   <cpc-nav-side-elem elemKey="1" slot="child" :click="jump('relief')">
-                     <cpc-icon slot="side-ui" code="#icon-file-document-box"></cpc-icon>浮雕
+                     <cpc-icon slot="side-ui" code="#icon-image-multiple"></cpc-icon>浮雕
+                  </cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="2" slot="child" :click="jump('groove')">
+                     <cpc-icon slot="side-ui" code="#icon-watermark"></cpc-icon>刻槽
                   </cpc-nav-side-elem>
               </template>
           </cpc-nav-side>
