@@ -1,7 +1,7 @@
 const Style = () => import('@/views/style')
 const StyleIntro = () => import('@/views/style/intro/intro')
 const StyleRelief = () => import('@/views/style/relief/relief')
-const StyleGroove = () => import('@/views/style/relief/groove')
+const StyleGroove = () => import('@/views/style/groove/groove')
 
 export default
 {
