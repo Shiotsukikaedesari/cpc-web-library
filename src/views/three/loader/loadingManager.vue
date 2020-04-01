@@ -197,7 +197,7 @@ export default {
       this.stats.domElement.id = 'three-stats'
       this.stats.domElement.style.position = 'absolute'
       this.stats.domElement.style.left = 'unset'
-      this.stats.domElement.style.right = '0px'
+      this.stats.domElement.style.right = '300px'
       this.stats.domElement.style.top = '0px'
       document.body.appendChild(this.stats.domElement)
     },
@@ -305,9 +305,11 @@ export default {
       this.scene.dispose()
       // 几何体缓存
       this.clearObjCache(this.objBox.stage)
-      this.objBox.knife.children.forEach(elem => {
-        this.clearObjCache(elem)
-      })
+      if (this.objBox.knife) {
+        this.objBox.knife.children.forEach(elem => {
+          this.clearObjCache(elem)
+        })
+      }
       // gui
       this.gui.destroy()
     },
