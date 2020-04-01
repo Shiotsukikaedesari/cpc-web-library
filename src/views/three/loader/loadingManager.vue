@@ -21,6 +21,7 @@ export default {
       helperBox: '',
       lightBox: '',
       managerBox: '', // 加载器
+      pageDestory: false, // 页面是否要销毁
       objBox: {
         stage: '',
         box: ''
@@ -91,7 +92,7 @@ export default {
     initManager () {
       let component = this
       // 加载器配置
-      let long = 300
+      let long = 600
       let y = 0
       // 加载器公共事件
       let managerEvent = (name, manager) => {
@@ -124,7 +125,10 @@ export default {
 
         }
         manager.onError = url => {
-          component.objBox[name + 'BoxLine'].material.color.setHex('rgb(255, 0, 0)')
+          // 兼容未加载完进行路由跳转
+          if (component.objBox) {
+            component.objBox[name + 'BoxLine'].material.color.setHex('rgb(255, 0, 0)')
+          }
         }
       }
       // 初始加载器
@@ -159,12 +163,20 @@ export default {
               this.scene.add(this.objBox.knife)
             },
             xhr => {
-              component.objBox.OBJManager.scale.x = xhr.loaded / xhr.total
+              if (component.pageDestory) {
+                xhr.target.abort()
+              } else {
+                component.objBox.OBJManager.scale.x = xhr.loaded / xhr.total
+              }
             }
           )
         },
         xhr => {
-          component.objBox.MTLManager.scale.x = xhr.loaded / xhr.total
+          if (component.pageDestory) {
+            xhr.target.abort()
+          } else {
+            component.objBox.MTLManager.scale.x = xhr.loaded / xhr.total
+          }
         }
       )
     },
@@ -310,6 +322,8 @@ export default {
           this.clearObjCache(elem)
         })
       }
+      // 清空xhr对象缓存
+      this.pageDestory = true
       // gui
       this.gui.destroy()
     },
