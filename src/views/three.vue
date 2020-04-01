@@ -54,7 +54,7 @@
             <cpc-nav-side-elem elemKey="5-0" slot="father" :father="true">
               <cpc-icon slot="side-ui" code="#icon-vector-triangle"></cpc-icon>材质
             </cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="5-1" slot="child" :click="jump('usageMaterial')">常用材质</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="5-1" slot="child" :click="jump('LineBasicMaterial')">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="6" slot="menu">
             <cpc-nav-side-elem elemKey="6-0" slot="father" :father="true">
