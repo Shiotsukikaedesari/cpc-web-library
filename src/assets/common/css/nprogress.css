@@ -5,6 +5,7 @@
 
 #nprogress .bar {
   background: rgb(221, 34, 196);
+  box-shadow: 0 0 10px rgb(255, 213, 249);
 
   position: fixed;
   z-index: 1031;
@@ -22,7 +23,7 @@
   right: 0px;
   width: 100px;
   height: 100%;
-  box-shadow: 0 0 15px rgb(253, 228, 255), 0 0 5px rgb(221, 34, 196);
+  box-shadow: 0 0 5px rgb(253, 228, 255), 0 0 5px rgb(221, 34, 196);
   opacity: 1.0;
 
   -webkit-transform: rotate(3deg) translate(0px, -4px);
