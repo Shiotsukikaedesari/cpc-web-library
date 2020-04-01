@@ -124,7 +124,7 @@ export default {
 
         }
         manager.onError = url => {
-          this.objBox.degesBox.material.color.setHex('rgb(255, 0, 0)')
+          component.objBox[name + 'BoxLine'].material.color.setHex('rgb(255, 0, 0)')
         }
       }
       // 初始加载器
