@@ -27,7 +27,7 @@ const PointLight = () => import('@/views/three/light/pointLight')
 const RectAreaLight = () => import('@/views/three/light/rectAreaLight')
 const SpotLight = () => import('@/views/three/light/spotLight')
 
-const UsageMaterial = () => import('@/views/three/material/usageMaterial')
+const LineBasicMaterial = () => import('@/views/three/material/lineBasicMaterial')
 
 const LoadingManager = () => import('@/views/three/loader/loadingManager')
 const OBJLoader = () => import('@/views/three/loader/OBJLoader')
@@ -160,9 +160,9 @@ export default
     component: SpotLight
   },
   {
-    path: '/three/usageMaterial',
-    name: 'usageMaterial',
-    component: UsageMaterial
+    path: '/three/lineBasicMaterial',
+    name: 'lineBasicMaterial',
+    component: LineBasicMaterial
   },
   {
     path: '/three/OBJLoader',

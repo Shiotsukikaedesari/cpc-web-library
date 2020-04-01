@@ -20,7 +20,8 @@ export default {
       helperBox: '',
       objBox: {
         stage: '',
-        box: ''
+        box: '',
+        sphere: ''
       },
       clock: '', // 世界时钟
       orbitControls: '', // 相机控件
@@ -64,11 +65,10 @@ export default {
     // 光源
     initLight () {
       this.lightBox = {
-        spotLight: new THREE.SpotLight('rgb(255, 255, 255)', 1.5, 450, Math.PI / 180 * 60, 0.2, 0) // 半球光
+        pointLight: new THREE.PointLight('rgb(255, 255, 255)', 3, 400, 0.5) // 半球光
       }
-      this.lightBox.spotLight.position.set(100, 300, 100)
-      this.lightBox.spotLight.castShadow = true
-      this.scene.add(this.lightBox.spotLight)
+      this.lightBox.pointLight.castShadow = false
+      this.scene.add(this.lightBox.pointLight)
     },
     // 初始相机
     initCamera () {
@@ -94,10 +94,14 @@ export default {
       this.objBox.stage.receiveShadow = true
       this.objBox.stage.position.set(0, 5, 0)
       this.scene.add(this.objBox.stage)
+      // 光球
+      geometry = new THREE.SphereGeometry(20, 20, 80, 6)
+      material = new THREE.MeshBasicMaterial({color: this.lightBox.spotLight.color.getHex()})
+      this.objBox.sphere = new THREE.Mesh(geometry, material)
+      this.lightBox.spotLight.add(this.objBox.sphere)
       // 方体
       geometry = new THREE.BoxGeometry(50, 50, 50, 4, 4)
-      material = new THREE.MeshLambertMaterial({color: 'rgb(230, 230, 230)'})
-      material.emissiveIntensity = 10
+      material = new THREE.LineBasicMaterial({color: 'rgb(230, 230, 230)'})
       this.objBox.box = new THREE.Mesh(geometry, material)
       this.objBox.box.castShadow = true
       this.objBox.box.receiveShadow = true
@@ -109,11 +113,11 @@ export default {
       this.helperBox = {
         axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
         gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')}, // 网格
-        spotLightHelper: {helper: new THREE.SpotLightHelper(this.lightBox.spotLight)} // 聚光
+        pointLightHelper: {helper: new THREE.PointLightHelper(this.lightBox.pointLight, 200)} // 半球
       }
       // this.scene.add(this.helperBox.axesHelper.helper)
       // this.scene.add(this.helperBox.gridHelper.helper)
-      this.scene.add(this.helperBox.spotLightHelper.helper)
+      this.scene.add(this.helperBox.pointLightHelper.helper)
     },
     // 初始监视器
     initStats () {
@@ -133,60 +137,67 @@ export default {
     },
     // 初始控制台
     initGui () {
-      this.gui = new GUI({
-        name: 'usageMeterial Controller'
-      }) // 控制台
+      this.gui = new GUI() // 控制台
       this.guiParam = { // 控制参数
-        castShadow: this.lightBox.spotLight.castShadow,
-        color: this.lightBox.spotLight.color.getHex(),
-        intensity: this.lightBox.spotLight.intensity,
-        distance: this.lightBox.spotLight.distance,
-        angle: this.lightBox.spotLight.angle * 180 / Math.PI,
-        penumbra: this.lightBox.spotLight.penumbra,
-        decay: this.lightBox.spotLight.decay,
-        positionY: this.lightBox.spotLight.position.y
+        autoCamera: this.orbitControls.autoRotate,
+        castShadow: this.lightBox.pointLight.castShadow,
+        color: this.lightBox.pointLight.color.getHex(),
+        intensity: this.lightBox.pointLight.intensity,
+        distance: this.lightBox.pointLight.distance,
+        decay: this.lightBox.pointLight.decay,
+        positionX: this.lightBox.pointLight.position.x,
+        positionY: this.lightBox.pointLight.position.y,
+        positionZ: this.lightBox.pointLight.position.z
+
       }
+      let cameraSetting = this.gui.addFolder('Camera setting')
+      cameraSetting.add(this.guiParam, 'autoCamera')
+        .onChange(data => {
+          this.orbitControls.autoRotate = data
+        })
+      cameraSetting.open()
+
       let lightSetting = this.gui.addFolder('Light setting')
       lightSetting.add(this.guiParam, 'castShadow')
         .onChange(data => {
-          this.lightBox.spotLight.castShadow = data
+          this.lightBox.pointLight.castShadow = data
         })
       lightSetting.addColor(this.guiParam, 'color', -500, 500)
         .onChange(data => {
-          this.lightBox.spotLight.color.setHex(data)
-          this.helperBox.spotLightHelper.helper.update()
+          this.lightBox.pointLight.color.setHex(data)
+          this.helperBox.pointLight.helper.update()
         })
       lightSetting.add(this.guiParam, 'intensity', 0, 10)
         .onChange(data => {
-          this.lightBox.spotLight.intensity = data
-          this.helperBox.spotLightHelper.helper.update()
+          this.lightBox.pointLight.intensity = data
+          this.helperBox.pointLight.helper.update()
         })
-      lightSetting.add(this.guiParam, 'distance', 0, 1000, 1)
+      lightSetting.add(this.guiParam, 'distance', 0, 600)
         .onChange(data => {
-          this.lightBox.spotLight.distance = data
-          this.helperBox.spotLightHelper.helper.update()
+          this.lightBox.pointLight.distance = data
+          this.helperBox.pointLight.helper.update()
         })
-      lightSetting.add(this.guiParam, 'angle', 0, 60, 1)
+      lightSetting.add(this.guiParam, 'decay', 0, 5)
         .onChange(data => {
-          this.lightBox.spotLight.angle = Math.PI / 180 * data
-          this.helperBox.spotLightHelper.helper.update()
+          this.lightBox.pointLight.decay = data
+          this.helperBox.pointLight.helper.update()
         })
-      lightSetting.add(this.guiParam, 'penumbra', 0, 1, 0.1)
+      lightSetting.add(this.guiParam, 'positionX', -500, 500)
         .onChange(data => {
-          this.lightBox.spotLight.penumbra = data
-          this.helperBox.spotLightHelper.helper.update()
+          this.lightBox.pointLight.position.x = data
         })
-      lightSetting.add(this.guiParam, 'decay', 0, 5, 0.1)
+      lightSetting.add(this.guiParam, 'positionY', -500, 500)
         .onChange(data => {
-          this.lightBox.spotLight.decay = data
-          this.helperBox.spotLightHelper.helper.update()
+          this.lightBox.pointLight.position.y = data
         })
-      lightSetting.add(this.guiParam, 'positionY', -500, 500, 1)
+      lightSetting.add(this.guiParam, 'positionZ', -500, 500)
         .onChange(data => {
-          this.lightBox.spotLight.position.y = data
-          this.helperBox.spotLightHelper.helper.update()
+          this.lightBox.pointLight.position.x = data
         })
       lightSetting.open()
+
+      let materialSetting = this.gui.addFolder('Material setting')
+
     },
     // 动画
     animation () {
