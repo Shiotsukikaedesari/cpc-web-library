@@ -195,9 +195,6 @@ export default {
           this.lightBox.pointLight.position.x = data
         })
       lightSetting.open()
-
-      let materialSetting = this.gui.addFolder('Material setting')
-
     },
     // 动画
     animation () {
