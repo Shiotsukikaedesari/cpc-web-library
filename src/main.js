@@ -3,11 +3,8 @@
 // 引入全局less
 import './assets/common/less/base.less'
 import './assets/common/css/cpc-highlight.css'
-import './assets/common/css/nprogress.css'
 // 引入风格UI
 import './assets/common/less/relief.less'
-// 引入路由懒加载进度条
-import NProgress from 'nprogress'
 
 import Vue from 'vue'
 import App from './App'

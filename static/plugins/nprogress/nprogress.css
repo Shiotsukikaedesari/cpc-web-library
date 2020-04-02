@@ -37,18 +37,25 @@
   position: fixed;
   z-index: 1031;
   top: 15px;
-  right: 15px;
+  right: 50%;
+  margin-left: -14px;
 }
 
 #nprogress .spinner-icon {
-  width: 18px;
-  height: 18px;
+  width: 28px;
+  height: 28px;
   box-sizing: border-box;
 
-  border: solid 2px transparent;
+  border: solid 4px transparent;
   border-top-color: rgb(221, 34, 196);
   border-left-color: rgb(221, 34, 196);
   border-radius: 50%;
+  box-shadow: 
+  0 0 10px rgb(255, 255, 255),
+  0,
+  0,
+  0 0 10px rgb(255, 255, 255),
+  ;
 
   -webkit-animation: nprogress-spinner 400ms linear infinite;
           animation: nprogress-spinner 400ms linear infinite;

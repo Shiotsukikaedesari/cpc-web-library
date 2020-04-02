@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import NProgress from 'nprogress'
 import {mapActions} from 'vuex'
 export default {
   name: 'App',
@@ -15,6 +16,7 @@ export default {
     ])
   },
   mounted () {
+    NProgress.done()
     // 监听页面刷新重置路由
     window.onload = () => {
       this.$router.replace({path: '/'})
