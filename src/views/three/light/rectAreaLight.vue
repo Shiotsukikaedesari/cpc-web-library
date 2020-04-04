@@ -153,16 +153,20 @@ export default {
     },
     // 初始控制台
     initGui () {
-      this.gui = new GUI({
-        name: 'rectAreaLight Controller'
-      }) // 控制台
+      this.gui = new GUI() // 控制台
       this.guiParam = { // 控制参数
+        autoCamera: this.orbitControls.autoRotate,
         color: this.lightBox.rectAreaLight.color.getHex(),
         intensity: this.lightBox.rectAreaLight.intensity,
         width: this.lightBox.rectAreaLight.width,
         height: this.lightBox.rectAreaLight.height,
         positionY: this.lightBox.rectAreaLight.position.y
       }
+      this.gui
+        .add(this.guiParam, 'autoCamera')
+        .onChange(data => {
+          this.orbitControls.autoRotate = data
+        })
       this.gui
         .addColor(this.guiParam, 'color', -500, 500, 1)
         .onChange(data => {

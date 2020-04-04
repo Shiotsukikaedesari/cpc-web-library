@@ -130,13 +130,17 @@ export default {
     },
     // 初始控制台
     initGui () {
-      this.gui = new GUI({
-        name: 'AmbientLight Controller'
-      }) // 控制台
+      this.gui = new GUI() // 控制台
       this.guiParam = { // 控制参数
+        autoCamera: this.orbitControls.autoRotate,
         color: this.lightBox.ambientLight.color.getHex(),
         intensity: 1
       }
+      this.gui
+        .add(this.guiParam, 'autoCamera')
+        .onChange(data => {
+          this.orbitControls.autoRotate = data
+        })
       this.gui
         .addColor(this.guiParam, 'color', -500, 500)
         .onChange(data => {

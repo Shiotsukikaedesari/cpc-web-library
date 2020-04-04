@@ -141,6 +141,7 @@ export default {
         name: 'pointLight Controller'
       }) // 控制台
       this.guiParam = { // 控制参数
+        autoCamera: this.orbitControls.autoRotate,
         castShadow: this.lightBox.pointLight.castShadow,
         color: this.lightBox.pointLight.color.getHex(),
         intensity: this.lightBox.pointLight.intensity,
@@ -150,6 +151,11 @@ export default {
         positionY: this.lightBox.pointLight.position.y,
         positionZ: this.lightBox.pointLight.position.z
       }
+      this.gui
+        .add(this.guiParam, 'autoCamera')
+        .onChange(data => {
+          this.orbitControls.autoRotate = data
+        })
       this.gui
         .add(this.guiParam, 'castShadow')
         .onChange(data => {

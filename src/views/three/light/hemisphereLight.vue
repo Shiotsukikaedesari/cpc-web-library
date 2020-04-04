@@ -132,14 +132,18 @@ export default {
     },
     // 初始控制台
     initGui () {
-      this.gui = new GUI({
-        name: 'AmbientLight Controller'
-      }) // 控制台
+      this.gui = new GUI() // 控制台
       this.guiParam = { // 控制参数
+        autoCamera: this.orbitControls.autoRotate,
         skyColor: this.lightBox.hemisphereLight.color.getHex(),
         groundColor: this.lightBox.hemisphereLight.groundColor.getHex(),
         intensity: this.lightBox.hemisphereLight.intensity
       }
+      this.gui
+        .add(this.guiParam, 'autoCamera')
+        .onChange(data => {
+          this.orbitControls.autoRotate = data
+        })
       this.gui
         .addColor(this.guiParam, 'skyColor', -500, 500)
         .onChange(data => {
