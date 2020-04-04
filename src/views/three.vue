@@ -17,7 +17,7 @@
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="2" slot="menu">
             <cpc-nav-side-elem elemKey="2-0" slot="father" :father="true">
-              <cpc-icon slot="side-ui" code="#icon-camera"></cpc-icon>相机
+              <cpc-icon slot="side-ui" code="#icon-camera"></cpc-icon>相机（Camera）
             </cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="2-1" slot="child" :click="jump('cameraFollowMouse')">相机跟随鼠标</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="2-2" slot="child" :click="jump('autoRotateCamera')">相机自动旋转</cpc-nav-side-elem>
@@ -25,7 +25,7 @@
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="3" slot="menu">
             <cpc-nav-side-elem elemKey="3-0" slot="father" :father="true">
-              <cpc-icon slot="side-ui" code="#icon-hexagon"></cpc-icon>物体
+              <cpc-icon slot="side-ui" code="#icon-hexagon"></cpc-icon>几何（Geometry）
             </cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="3-1" slot="child" :click="jump('controlObj')">物体交互控件（TransformControls）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="3-2" slot="child" :click="jump('simpleGeometry')">简单几何体</cpc-nav-side-elem>
@@ -41,7 +41,7 @@
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="4" slot="menu">
             <cpc-nav-side-elem elemKey="4-0" slot="father" :father="true">
-              <cpc-icon slot="side-ui" code="#icon-lightbulb-on"></cpc-icon>光源
+              <cpc-icon slot="side-ui" code="#icon-lightbulb-on"></cpc-icon>光源（Light）
             </cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="4-1" slot="child" :click="jump('ambientLight')">环境光（AmbientLight）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="4-2" slot="child" :click="jump('directionalLight')">平行光（DirectionalLight）</cpc-nav-side-elem>
@@ -52,7 +52,7 @@
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="5" slot="menu">
             <cpc-nav-side-elem elemKey="5-0" slot="father" :father="true">
-              <cpc-icon slot="side-ui" code="#icon-vector-triangle"></cpc-icon>材质
+              <cpc-icon slot="side-ui" code="#icon-vector-triangle"></cpc-icon>材质（material）
             </cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="5-1" slot="child" :click="jump('LineBasicMaterial')">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
