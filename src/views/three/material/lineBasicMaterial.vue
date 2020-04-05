@@ -21,7 +21,9 @@ export default {
       objBox: {
         stage: '',
         box: '',
-        sphere: ''
+        sphere: '',
+        torusKnot: '',
+        icosahedron: ''
       },
       clock: '', // 世界时钟
       orbitControls: '', // 相机控件
@@ -37,8 +39,8 @@ export default {
       this.initScene()
       this.initClock()
       this.initCamera()
-      this.initObj()
       this.initLight()
+      this.initObj()
       this.initHelper()
       this.initStats()
       this.initOrbitControls()
@@ -57,6 +59,10 @@ export default {
     // 初始场景
     initScene () {
       this.scene = new THREE.Scene() // 场景
+      this.scene.fog = new THREE.Fog()
+      this.scene.fog.color.setHex('rgb(55, 55, 55)')
+      this.scene.fog.near = 1
+      this.scene.fog.far = 400
     },
     // 初始世界时钟
     initClock () {
@@ -65,16 +71,17 @@ export default {
     // 光源
     initLight () {
       this.lightBox = {
-        pointLight: new THREE.PointLight('rgb(255, 255, 255)', 3, 400, 0.5) // 半球光
+        pointLight: new THREE.PointLight('rgb(255, 150, 255)', 2, 300, 0.5) // 点光
       }
-      this.lightBox.pointLight.castShadow = false
+      this.lightBox.pointLight.castShadow = true
+      this.lightBox.pointLight.position.set(0, 50, 0)
       this.scene.add(this.lightBox.pointLight)
     },
     // 初始相机
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
       this.camera.position.x = 200
-      this.camera.position.y = 100
+      this.camera.position.y = 50
       this.camera.position.z = 200
       this.camera.up.x = 0
       this.camera.up.y = 1
@@ -83,10 +90,10 @@ export default {
     },
     // 初始物体
     initObj () {
-      let geometry = new THREE.BoxGeometry(500, 10, 500, 4, 4)
+      let geometry = new THREE.BoxGeometry(1500, 10, 1500, 4, 4)
       let material = new THREE.MeshStandardMaterial({
-        color: `rgb(45, 0, 50)`,
-        roughness: 0,
+        color: `rgb(200, 200, 200)`,
+        roughness: 0.7,
         metalness: 0
       })
       this.objBox.stage = new THREE.Mesh(geometry, material)
@@ -95,25 +102,43 @@ export default {
       this.objBox.stage.position.set(0, 5, 0)
       this.scene.add(this.objBox.stage)
       // 光球
-      geometry = new THREE.SphereGeometry(20, 20, 80, 6)
-      material = new THREE.MeshBasicMaterial({color: this.lightBox.spotLight.color.getHex()})
-      this.objBox.sphere = new THREE.Mesh(geometry, material)
-      this.lightBox.spotLight.add(this.objBox.sphere)
-      // 方体
-      geometry = new THREE.BoxGeometry(50, 50, 50, 4, 4)
+      geometry = new THREE.SphereGeometry(25, 16, 40, 12)
       material = new THREE.LineBasicMaterial({color: 'rgb(230, 230, 230)'})
-      this.objBox.box = new THREE.Mesh(geometry, material)
+      material.transparent = true // 开启透明度
+      this.objBox.sphere = new THREE.Line(geometry, material)
+      this.objBox.sphere.castShadow = true
+      this.objBox.sphere.receiveShadow = true
+      this.objBox.sphere.position.set(0, 35, 150)
+      this.scene.add(this.objBox.sphere)
+
+      // 方体
+      geometry = new THREE.BoxGeometry(50, 50, 50, 16, 16)
+      this.objBox.box = new THREE.Line(geometry, material)
       this.objBox.box.castShadow = true
       this.objBox.box.receiveShadow = true
-      this.objBox.box.position.set(0, 30, 0)
+      this.objBox.box.position.set(150, 35, 0)
       this.scene.add(this.objBox.box)
+      // 圆环扭曲几何
+      geometry = new THREE.TorusKnotGeometry(16, 4, 128, 16, 3, 2)
+      this.objBox.torusKnot = new THREE.Line(geometry, material)
+      this.objBox.torusKnot.castShadow = true
+      this.objBox.torusKnot.receiveShadow = true
+      this.objBox.torusKnot.position.set(-150, 35, 0)
+      this.scene.add(this.objBox.torusKnot)
+      // 三边形十二面体
+      geometry = new THREE.IcosahedronGeometry(25, 4)
+      this.objBox.icosahedron = new THREE.Line(geometry, material)
+      this.objBox.icosahedron.castShadow = true
+      this.objBox.icosahedron.receiveShadow = true
+      this.objBox.icosahedron.position.set(0, 35, -150)
+      this.scene.add(this.objBox.icosahedron)
     },
     // 初始辅助
     initHelper () {
       this.helperBox = {
         axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
         gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')}, // 网格
-        pointLightHelper: {helper: new THREE.PointLightHelper(this.lightBox.pointLight, 200)} // 半球
+        pointLightHelper: {helper: new THREE.PointLightHelper(this.lightBox.pointLight, 20)} // 半球
       }
       // this.scene.add(this.helperBox.axesHelper.helper)
       // this.scene.add(this.helperBox.gridHelper.helper)
@@ -139,70 +164,102 @@ export default {
     initGui () {
       this.gui = new GUI() // 控制台
       this.guiParam = { // 控制参数
-        autoCamera: this.orbitControls.autoRotate,
+        showFog: true,
+        fogColor: this.scene.fog.color.getHex(),
+        fogNear: this.scene.fog.near,
+        fogFar: this.scene.fog.far,
         castShadow: this.lightBox.pointLight.castShadow,
-        color: this.lightBox.pointLight.color.getHex(),
+        lightColor: this.lightBox.pointLight.color.getHex(),
         intensity: this.lightBox.pointLight.intensity,
         distance: this.lightBox.pointLight.distance,
         decay: this.lightBox.pointLight.decay,
         positionX: this.lightBox.pointLight.position.x,
-        positionY: this.lightBox.pointLight.position.y,
-        positionZ: this.lightBox.pointLight.position.z
+        // positionY: this.lightBox.pointLight.position.y,
+        positionZ: this.lightBox.pointLight.position.z,
+        materialColor: this.objBox.box.material.color.getHex(),
+        opacity: this.objBox.box.material.opacity
 
       }
-      let cameraSetting = this.gui.addFolder('Camera setting')
-      cameraSetting.add(this.guiParam, 'autoCamera')
+      let fogSetting = this.gui.addFolder('fog setting')
+      fogSetting.add(this.guiParam, 'showFog')
         .onChange(data => {
-          this.orbitControls.autoRotate = data
+          if (data) {
+            this.scene.fog = new THREE.Fog()
+            this.scene.fog.color.setHex('rgb(55, 55, 55)')
+            this.scene.fog.near = 1
+            this.scene.fog.far = 400
+          } else {
+            this.scene.fog = null
+          }
         })
-      cameraSetting.open()
+      fogSetting.addColor(this.guiParam, 'fogColor')
+        .onChange(data => {
+          this.scene.fog.color.setHex(data)
+        })
+      fogSetting.add(this.guiParam, 'fogNear', 1, 500, 1)
+        .onChange(data => {
+          this.scene.fog.near = data
+        })
+      fogSetting.add(this.guiParam, 'fogFar', 300, 1500, 1)
+        .onChange(data => {
+          this.scene.fog.far = data
+        })
+      fogSetting.open()
 
       let lightSetting = this.gui.addFolder('Light setting')
       lightSetting.add(this.guiParam, 'castShadow')
         .onChange(data => {
           this.lightBox.pointLight.castShadow = data
         })
-      lightSetting.addColor(this.guiParam, 'color', -500, 500)
+      lightSetting.addColor(this.guiParam, 'lightColor', -500, 500, 1)
         .onChange(data => {
           this.lightBox.pointLight.color.setHex(data)
-          this.helperBox.pointLight.helper.update()
+          this.helperBox.pointLightHelper.helper.update()
         })
-      lightSetting.add(this.guiParam, 'intensity', 0, 10)
+      lightSetting.add(this.guiParam, 'intensity', 0, 10, 0.1)
         .onChange(data => {
           this.lightBox.pointLight.intensity = data
-          this.helperBox.pointLight.helper.update()
+          this.helperBox.pointLightHelper.helper.update()
         })
-      lightSetting.add(this.guiParam, 'distance', 0, 600)
+      lightSetting.add(this.guiParam, 'distance', 0, 600, 1)
         .onChange(data => {
           this.lightBox.pointLight.distance = data
-          this.helperBox.pointLight.helper.update()
+          this.helperBox.pointLightHelper.helper.update()
         })
       lightSetting.add(this.guiParam, 'decay', 0, 5)
         .onChange(data => {
           this.lightBox.pointLight.decay = data
-          this.helperBox.pointLight.helper.update()
+          this.helperBox.pointLightHelper.helper.update()
         })
-      lightSetting.add(this.guiParam, 'positionX', -500, 500)
+      lightSetting.add(this.guiParam, 'positionX', -500, 500, 1)
         .onChange(data => {
           this.lightBox.pointLight.position.x = data
         })
-      lightSetting.add(this.guiParam, 'positionY', -500, 500)
-        .onChange(data => {
-          this.lightBox.pointLight.position.y = data
-        })
-      lightSetting.add(this.guiParam, 'positionZ', -500, 500)
+      // lightSetting.add(this.guiParam, 'positionY', -500, 500, 1)
+      //   .onChange(data => {
+      //     this.lightBox.pointLight.position.y = data
+      //   })
+      lightSetting.add(this.guiParam, 'positionZ', -500, 500, 1)
         .onChange(data => {
           this.lightBox.pointLight.position.x = data
         })
       lightSetting.open()
+
+      let materialSetting = this.gui.addFolder('material Setting')
+      materialSetting.addColor(this.guiParam, 'materialColor')
+        .onChange(data => {
+          this.objBox.box.material.color.setHex(data)
+        })
+      materialSetting.add(this.guiParam, 'opacity', 0, 1, 0.1)
+        .onChange(data => {
+          this.objBox.box.material.opacity = data
+        })
+      materialSetting.open()
     },
     // 动画
     animation () {
-      let r = 300
-      let deg = Date.now() * 0.001
-      this.lightBox.spotLight.position.x = -Math.cos(deg) * r
-      this.lightBox.spotLight.position.z = Math.sin(deg) * r
-      this.helperBox.spotLightHelper.helper.update()
+      let deg = new Date() * 0.001
+      this.lightBox.pointLight.position.y = Math.sin(deg) * 30 + 60
     },
     // 加载场景
     updateRenderer () {
@@ -229,10 +286,10 @@ export default {
       // 清空物体
       this.clearObjCache(this.objBox.stage)
       this.clearObjCache(this.objBox.box)
+      this.clearObjCache(this.objBox.sphere)
+      this.clearObjCache(this.objBox.icosahedron)
       // 场景缓存
       this.scene.dispose()
-      // 辅助对象缓存
-      this.helperBox.spotLightHelper.helper.dispose()
       // gui
       this.gui.destroy()
     },

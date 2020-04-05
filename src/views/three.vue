@@ -50,11 +50,11 @@
             <cpc-nav-side-elem elemKey="4-5" slot="child" :click="jump('rectAreaLight')">平面光（RectAreaLight）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="4-6" slot="child" :click="jump('spotLight')">聚光灯（SpotLight）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
-          <cpc-nav-side-menu menuKey="5" slot="menu">
-            <cpc-nav-side-elem elemKey="5-0" slot="father" :father="true">
+          <cpc-nav-side-menu menuKey="5" slot="menu" open>
+            <cpc-nav-side-elem elemKey="5-0" slot="father" :father="true" isSignal arrowInit>
               <cpc-icon slot="side-ui" code="#icon-vector-triangle"></cpc-icon>材质（material）
             </cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="5-1" slot="child" :click="jump('LineBasicMaterial')">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="5-1" slot="child" isSignal :click="jump('LineBasicMaterial')">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="6" slot="menu">
             <cpc-nav-side-elem elemKey="6-0" slot="father" :father="true">
@@ -65,11 +65,11 @@
             <cpc-nav-side-elem elemKey="6-3" slot="child" :click="jump('bufferGeometry')">线模型（line）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="6-4" slot="child" :click="jump('bufferGeometry')">点模型（point）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
-          <cpc-nav-side-menu menuKey="7" slot="menu" open>
-            <cpc-nav-side-elem elemKey="7-0" slot="father" :father="true" isSignal arrowInit>
+          <cpc-nav-side-menu menuKey="7" slot="menu">
+            <cpc-nav-side-elem elemKey="7-0" slot="father" :father="true">
               <cpc-icon slot="side-ui" code="#icon-file-import"></cpc-icon>加载器（Loader）
             </cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="7-1" slot="child" isSignal :click="jump('loadingManager')">加载管理器（LoadingManager）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="7-1" slot="child" :click="jump('loadingManager')">加载管理器（LoadingManager）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="7-2" slot="child" :click="jump('OBJLoader')">OBJ格式加载器（OBJLoader）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="8" slot="menu">
