@@ -303,7 +303,7 @@ export default {
     移动相机：鼠标右键 `
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('material/usageMaterial.vue')
+    this.resetThreeLinkFun('material/lineBasicMaterial.vue')
   },
   mounted () {
     this.init()
