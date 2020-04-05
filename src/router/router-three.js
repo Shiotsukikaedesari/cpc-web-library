@@ -28,6 +28,8 @@ const RectAreaLight = () => import('@/views/three/light/rectAreaLight')
 const SpotLight = () => import('@/views/three/light/spotLight')
 
 const LineBasicMaterial = () => import('@/views/three/material/lineBasicMaterial')
+const LineDashedMaterial = () => import('@/views/three/material/lineDashedMaterial')
+const MeshBasicMaterial = () => import('@/views/three/material/meshBasicMaterial')
 
 const LoadingManager = () => import('@/views/three/loader/loadingManager')
 const OBJLoader = () => import('@/views/three/loader/OBJLoader')
@@ -163,6 +165,16 @@ export default
     path: '/three/lineBasicMaterial',
     name: 'lineBasicMaterial',
     component: LineBasicMaterial
+  },
+  {
+    path: '/three/lineDashedMaterial',
+    name: 'lineDashedMaterial',
+    component: LineDashedMaterial
+  },
+  {
+    path: '/three/meshBasicMaterial',
+    name: 'meshBasicMaterial',
+    component: MeshBasicMaterial
   },
   {
     path: '/three/OBJLoader',
