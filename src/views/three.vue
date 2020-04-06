@@ -56,7 +56,8 @@
             </cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="5-1" slot="child" :click="jump('lineBasicMaterial')">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="5-2" slot="child" :click="jump('lineDashedMaterial')">虚线材质（LineDashedMaterial）</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="5-3" slot="child" isSignal :click="jump('meshBasicMaterial')">基础网格材质（MeshBasicMaterial）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="5-3" slot="child" :click="jump('meshBasicMaterial')">基础网格材质（MeshBasicMaterial）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="5-4" slot="child" isSignal :click="jump('meshDepthMaterial')">深度网格材质（MeshDepthMaterial）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="6" slot="menu">
             <cpc-nav-side-elem elemKey="6-0" slot="father" :father="true">
