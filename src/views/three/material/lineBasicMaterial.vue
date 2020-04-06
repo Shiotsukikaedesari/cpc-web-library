@@ -79,7 +79,7 @@ export default {
     },
     // 初始相机
     initCamera () {
-      this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
+      this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1500) // 相机
       this.camera.position.x = 200
       this.camera.position.y = 50
       this.camera.position.z = 200

@@ -66,7 +66,7 @@ export default {
       this.scene.fog = new THREE.Fog()
       this.scene.fog.color.setHex('rgb(55, 55, 55)')
       this.scene.fog.near = 1
-      this.scene.fog.far = 600
+      this.scene.fog.far = 450
     },
     // 初始世界时钟
     initClock () {
@@ -83,7 +83,7 @@ export default {
     },
     // 初始相机
     initCamera () {
-      this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
+      this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1500) // 相机
       this.camera.position.x = 200
       this.camera.position.y = 50
       this.camera.position.z = 200
@@ -178,7 +178,7 @@ export default {
     },
     // 初始物体
     initObj () {
-      let geometry = new THREE.BoxGeometry(1500, 10, 1500, 4, 4)
+      let geometry = new THREE.BoxGeometry(1000, 10, 1000, 4, 4)
       let material = new THREE.MeshStandardMaterial({
         color: `rgb(200, 200, 200)`,
         roughness: 0.5,
@@ -191,7 +191,7 @@ export default {
       this.objBox.stage.position.set(0, 5, 0)
       this.scene.add(this.objBox.stage)
       // 光球
-      geometry = new THREE.SphereGeometry(25, 16, 40, 12)
+      geometry = new THREE.SphereGeometry(25, 12, 12, 8)
       material = new THREE.MeshBasicMaterial({
         color: 'rgb(230, 230, 230)',
         envMap: this.mapBox.envMap,
@@ -206,21 +206,21 @@ export default {
       this.scene.add(this.objBox.sphere)
 
       // 方体
-      geometry = new THREE.BoxGeometry(50, 50, 50, 16, 16)
+      geometry = new THREE.BoxGeometry(50, 50, 50, 1, 1)
       this.objBox.box = new THREE.Mesh(geometry, material)
       this.objBox.box.castShadow = true
       this.objBox.box.receiveShadow = true
       this.objBox.box.position.set(150, 35, 0)
       this.scene.add(this.objBox.box)
       // 圆环扭曲几何
-      geometry = new THREE.TorusKnotGeometry(16, 4, 128, 16, 3, 2)
+      geometry = new THREE.TorusKnotGeometry(16, 4, 70, 12, 2, 3)
       this.objBox.torusKnot = new THREE.Mesh(geometry, material)
       this.objBox.torusKnot.castShadow = true
       this.objBox.torusKnot.receiveShadow = true
       this.objBox.torusKnot.position.set(-150, 35, 0)
       this.scene.add(this.objBox.torusKnot)
       // 三边形十二面体
-      geometry = new THREE.IcosahedronGeometry(25, 4)
+      geometry = new THREE.IcosahedronGeometry(30)
       this.objBox.icosahedron = new THREE.Mesh(geometry, material)
       this.objBox.icosahedron.castShadow = true
       this.objBox.icosahedron.receiveShadow = true
@@ -274,7 +274,8 @@ export default {
         opacity: this.objBox.box.material.opacity,
         showEnvMap: true,
         reflectivity: this.objBox.box.material.reflectivity,
-        showMap: true
+        showMap: true,
+        wireframe: this.objBox.box.material.wireframe
       }
       let fogSetting = this.gui.addFolder('fog setting')
       fogSetting.add(this.guiParam, 'showFog')
@@ -373,6 +374,10 @@ export default {
             this.objBox.box.material.map = null
             this.objBox.box.material.needsUpdate = true
           }
+        })
+      materialSetting.add(this.guiParam, 'wireframe')
+        .onChange(data => {
+          this.objBox.box.material.wireframe = data
         })
       materialSetting.open()
     },
