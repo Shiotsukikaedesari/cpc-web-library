@@ -149,6 +149,7 @@ export default {
             height: 100%;
             cursor: pointer;
             > .left-box {
+              width: 100%;
                 > .ui {
                     margin: 0 5px;
                 }
