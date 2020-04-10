@@ -20,7 +20,7 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index,
-      redirect: '/three/meshDepthMaterial',
+      redirect: '/three/meshDistanceMaterial',
       children: Three3D
     },
     {
