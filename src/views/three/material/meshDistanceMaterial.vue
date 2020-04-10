@@ -77,7 +77,7 @@ export default {
     // 光源
     initLight () {
       this.lightBox = {
-        pointLight: new THREE.PointLight('rgb(10, 220, 255)', 5, 300, 0.5) // 点光
+        pointLight: new THREE.PointLight('rgb(205, 190, 255)', 5, 300, 0.5) // 点光
       }
       this.lightBox.pointLight.castShadow = true
       this.lightBox.pointLight.position.set(0, 50, 0)
@@ -86,9 +86,9 @@ export default {
     // 初始相机
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000) // 相机
-      this.camera.position.x = 200
-      this.camera.position.y = 50
-      this.camera.position.z = 200
+      this.camera.position.x = 180
+      this.camera.position.y = 80
+      this.camera.position.z = 180
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
@@ -180,8 +180,7 @@ export default {
           component.mapBox.alphaMap = texture
           texture.wrapS = THREE.RepeatWrapping
           texture.wrapT = THREE.RepeatWrapping
-          texture.repeat.set(5, 5)
-          component.objBox.lightSphereOut.material.map = texture
+          texture.repeat.set(2, 2)
           component.objBox.lightSphereOut.material.alphaMap = texture
           component.objBox.lightSphereOut.material.needsUpdate = true
           component.objBox.lightSphereOut.customDistanceMaterial = new THREE.MeshDistanceMaterial({
@@ -219,7 +218,7 @@ export default {
       this.objBox.lightSphere = new THREE.Mesh(geometry, material)
       this.lightBox.pointLight.add(this.objBox.lightSphere)
       // 光球外围
-      geometry = new THREE.SphereBufferGeometry(20, 12, 12, 8)
+      geometry = new THREE.SphereBufferGeometry(20, 32, 32, 8)
       material = new THREE.MeshPhongMaterial({
         side: THREE.DoubleSide,
         alphaTest: 0.5
@@ -241,7 +240,7 @@ export default {
       this.objBox.sphere = new THREE.Mesh(geometry, material)
       this.objBox.sphere.castShadow = true
       this.objBox.sphere.receiveShadow = true
-      this.objBox.sphere.position.set(0, 35, 150)
+      this.objBox.sphere.position.set(0, 35, 100)
       this.scene.add(this.objBox.sphere)
 
       // 方体
@@ -249,7 +248,7 @@ export default {
       this.objBox.box = new THREE.Mesh(geometry, material)
       this.objBox.box.castShadow = true
       this.objBox.box.receiveShadow = true
-      this.objBox.box.position.set(150, 35, 0)
+      this.objBox.box.position.set(100, 35, 0)
       this.scene.add(this.objBox.box)
 
       // 圆环扭曲几何
@@ -257,14 +256,14 @@ export default {
       this.objBox.torusKnot = new THREE.Mesh(geometry, material)
       this.objBox.torusKnot.castShadow = true
       this.objBox.torusKnot.receiveShadow = true
-      this.objBox.torusKnot.position.set(-150, 35, 0)
+      this.objBox.torusKnot.position.set(-100, 35, 0)
       this.scene.add(this.objBox.torusKnot)
       // 三边形十二面体
       geometry = new THREE.IcosahedronBufferGeometry(30)
       this.objBox.icosahedron = new THREE.Mesh(geometry, material)
       this.objBox.icosahedron.castShadow = true
       this.objBox.icosahedron.receiveShadow = true
-      this.objBox.icosahedron.position.set(0, 35, -150)
+      this.objBox.icosahedron.position.set(0, 35, -100)
       this.scene.add(this.objBox.icosahedron)
     },
     // 初始辅助
@@ -307,9 +306,6 @@ export default {
         intensity: this.lightBox.pointLight.intensity,
         distance: this.lightBox.pointLight.distance,
         decay: this.lightBox.pointLight.decay,
-        positionX: this.lightBox.pointLight.position.x,
-        // positionY: this.lightBox.pointLight.position.y,
-        positionZ: this.lightBox.pointLight.position.z,
         materialColor: this.objBox.box.material.color.getHex(),
         opacity: this.objBox.box.material.opacity,
         showEnvMap: true,
@@ -368,18 +364,6 @@ export default {
           this.lightBox.pointLight.decay = data
           this.objBox.lightSphere.material.color.copy(this.lightBox.pointLight.color).multiplyScalar(this.lightBox.pointLight.intensity)
         })
-      lightSetting.add(this.guiParam, 'positionX', -500, 500, 1)
-        .onChange(data => {
-          this.lightBox.pointLight.position.x = data
-        })
-      // lightSetting.add(this.guiParam, 'positionY', -500, 500, 1)
-      //   .onChange(data => {
-      //     this.lightBox.pointLight.position.y = data
-      //   })
-      lightSetting.add(this.guiParam, 'positionZ', -500, 500, 1)
-        .onChange(data => {
-          this.lightBox.pointLight.position.x = data
-        })
       lightSetting.open()
 
       let materialSetting = this.gui.addFolder('material Setting')
@@ -424,7 +408,13 @@ export default {
     // 动画
     animation () {
       let deg = new Date() * 0.001
+      let r = 150
       this.lightBox.pointLight.position.y = Math.sin(deg) * 30 + 60
+      this.lightBox.pointLight.position.x = Math.sin(deg) * r
+      this.lightBox.pointLight.position.z = Math.cos(deg) * r
+      this.lightBox.pointLight.rotation.x += 0.02
+      this.lightBox.pointLight.rotation.y += 0.01
+      this.lightBox.pointLight.rotation.z += 0.01
     },
     // 加载场景
     updateRenderer () {
