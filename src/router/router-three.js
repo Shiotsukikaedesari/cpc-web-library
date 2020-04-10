@@ -32,6 +32,7 @@ const LineDashedMaterial = () => import('@/views/three/material/lineDashedMateri
 const MeshBasicMaterial = () => import('@/views/three/material/meshBasicMaterial')
 const MeshDepthMaterial = () => import('@/views/three/material/meshDepthMaterial')
 const MeshDistanceMaterial = () => import('@/views/three/material/meshDistanceMaterial')
+const MeshLambertMaterial = () => import('@/views/three/material/meshLambertMaterial')
 
 const LoadingManager = () => import('@/views/three/loader/loadingManager')
 const OBJLoader = () => import('@/views/three/loader/OBJLoader')
@@ -187,6 +188,11 @@ export default
     path: '/three/meshDistanceMaterial',
     name: 'meshDistanceMaterial',
     component: MeshDistanceMaterial
+  },
+  {
+    path: '/three/meshLambertMaterial',
+    name: 'meshLambertMaterial',
+    component: MeshLambertMaterial
   },
   {
     path: '/three/OBJLoader',

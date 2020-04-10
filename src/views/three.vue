@@ -59,6 +59,7 @@
             <cpc-nav-side-elem elemKey="5-3" slot="child" :click="jump('meshBasicMaterial')">基础网格材质（MeshBasicMaterial）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="5-4" slot="child" :click="jump('meshDepthMaterial')">深度网格材质（MeshDepthMaterial）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="5-5" slot="child" isSignal :click="jump('meshDistanceMaterial')">距离网格材质（MeshDistanceMaterial）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="5-6" slot="child"  :click="jump('meshLambertMaterial')">Lambert网格材质（MeshLambertMaterial）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="6" slot="menu">
             <cpc-nav-side-elem elemKey="6-0" slot="father" :father="true">
@@ -216,6 +217,9 @@ export default {
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
+              &:hover {
+                white-space: pre-wrap;
+              }
               }
           }
           > .right-box {
