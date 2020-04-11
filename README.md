@@ -13,6 +13,7 @@
 * 组件库编辑插件：markdown-it、hightlight.js
 * 3D库：Three.js、ammo.js
 * webpack优化：compression-webpack-plugin
+* 进度条插件：nprogress
 
 ### 项目主要模块
 * 3D模块：`src/views/three`
