@@ -112,11 +112,11 @@ export default {
       this.helperBox = {
         axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
         gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')}, // 网格
-        DirectionalLightHelper: {helper: new THREE.DirectionalLightHelper(this.lightBox.directionalLight, 200)}
+        directionalLightHelper: {helper: new THREE.DirectionalLightHelper(this.lightBox.directionalLight, 200)}
       }
       // this.scene.add(this.helperBox.axesHelper.helper)
       // this.scene.add(this.helperBox.gridHelper.helper)
-      this.scene.add(this.helperBox.DirectionalLightHelper.helper)
+      this.scene.add(this.helperBox.directionalLightHelper.helper)
     },
     // 初始监视器
     initStats () {
@@ -156,26 +156,31 @@ export default {
         .addColor(this.guiParam, 'color', -500, 500)
         .onChange(data => {
           this.lightBox.directionalLight.color.setHex(data)
+          this.helperBox.directionalLightHelper.helper.update()
         })
       this.gui
         .add(this.guiParam, 'intensity', 0, 10)
         .onChange(data => {
           this.lightBox.directionalLight.intensity = data
+          this.helperBox.directionalLightHelper.helper.update()
         })
       this.gui
         .add(this.guiParam, 'positionX', -400, 400)
         .onChange(data => {
           this.lightBox.directionalLight.position.x = data
+          this.helperBox.directionalLightHelper.helper.update()
         })
       this.gui
         .add(this.guiParam, 'positionY', -400, 400)
         .onChange(data => {
           this.lightBox.directionalLight.position.y = data
+          this.helperBox.directionalLightHelper.helper.update()
         })
       this.gui
         .add(this.guiParam, 'positionZ', -400, 400)
         .onChange(data => {
           this.lightBox.directionalLight.position.z = data
+          this.helperBox.directionalLightHelper.helper.update()
         })
     },
     // 动画
