@@ -218,7 +218,7 @@ export default {
               overflow: hidden;
               text-overflow: ellipsis;
               &:hover {
-                white-space: pre-wrap;
+                white-space: normal;
               }
               }
           }
