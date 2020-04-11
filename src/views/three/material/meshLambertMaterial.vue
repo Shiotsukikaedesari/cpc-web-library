@@ -85,7 +85,7 @@ export default {
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000) // 相机
       this.camera.position.x = 150
-      this.camera.position.y = 80
+      this.camera.position.y = 50
       this.camera.position.z = 150
       this.camera.up.x = 0
       this.camera.up.y = 1
@@ -190,13 +190,14 @@ export default {
       this.objBox.stage.receiveShadow = true
       this.objBox.stage.position.set(0, 5, 0)
       this.scene.add(this.objBox.stage)
-      // 光球
+      // 球
       geometry = new THREE.SphereGeometry(25, 18, 18, 8)
       material = new THREE.MeshLambertMaterial({
         color: 'rgb(230, 230, 230)',
         envMap: this.mapBox.envMap,
         map: this.mapBox.map,
-        reflectivity: 0.7
+        reflectivity: 0.7,
+        emissive: 'rgb(50, 50, 50)'
       })
       material.transparent = true // 开启透明度
       this.objBox.sphere = new THREE.Mesh(geometry, material)
@@ -269,14 +270,15 @@ export default {
         distance: this.lightBox.pointLight.distance,
         decay: this.lightBox.pointLight.decay,
         positionX: this.lightBox.pointLight.position.x,
-        // positionY: this.lightBox.pointLight.position.y,
         positionZ: this.lightBox.pointLight.position.z,
         materialColor: this.objBox.box.material.color.getHex(),
         opacity: this.objBox.box.material.opacity,
         showEnvMap: true,
         reflectivity: this.objBox.box.material.reflectivity,
         showMap: true,
-        wireframe: this.objBox.box.material.wireframe
+        wireframe: this.objBox.box.material.wireframe,
+        emissive: this.objBox.box.material.emissive.getHex(),
+        emissiveIntensity: this.objBox.box.material.emissiveIntensity
       }
       let fogSetting = this.gui.addFolder('fog setting')
       fogSetting.add(this.guiParam, 'showFog')
@@ -333,10 +335,6 @@ export default {
         .onChange(data => {
           this.lightBox.pointLight.position.x = data
         })
-      // lightSetting.add(this.guiParam, 'positionY', -500, 500, 1)
-      //   .onChange(data => {
-      //     this.lightBox.pointLight.position.y = data
-      //   })
       lightSetting.add(this.guiParam, 'positionZ', -500, 500, 1)
         .onChange(data => {
           this.lightBox.pointLight.position.x = data
@@ -380,15 +378,20 @@ export default {
         .onChange(data => {
           this.objBox.box.material.wireframe = data
         })
+      materialSetting.addColor(this.guiParam, 'emissive')
+        .onChange(data => {
+          this.objBox.box.material.emissive.setHex(data)
+        })
+      materialSetting.add(this.guiParam, 'emissiveIntensity', 0, 2, 0.01)
+        .onChange(data => {
+          this.objBox.box.material.emissiveIntensity = data
+        })
       materialSetting.open()
     },
     // 动画
     animation () {
       let deg = new Date() * 0.001
-      let r = 150
       this.lightBox.pointLight.position.y = Math.sin(deg) * 30 + 60
-      this.lightBox.pointLight.position.x = Math.sin(deg) * r
-      this.lightBox.pointLight.position.z = Math.cos(deg) * r
     },
     // 加载场景
     updateRenderer () {
