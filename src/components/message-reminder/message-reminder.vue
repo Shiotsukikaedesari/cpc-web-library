@@ -5,16 +5,22 @@
         class="cpc-message-reminder-container"
         :data-index="index"
         :id="item.id"
+        :style="{boxShadow: `0 0 6px ${item.color}`}"
         v-for="(item, index) in messageList"
         :key="item.id">
         <div class="cpc-message-reminder-header">
           <div class="cpc-message-reminder-header-box flex-row">
-            <cpc-icon :code="item.icon" :color="item.color"></cpc-icon>
+            <cpc-icon
+              :aniDuration="item.iconDur"
+              :animation="item.iconAni"
+              :code="item.icon"
+              :color="item.color">
+            </cpc-icon>
             <div class="cpc-message-reminder-header-title" v-text="item.message"></div>
           </div>
         </div>
         <div class="cpc-message-reminder-close-icon animation" @click="closeTips(item.id)">
-          <cpc-icon code="#icon-close" size="14px" color="grey"></cpc-icon>
+          <cpc-icon  code="#icon-close" size="14px" color="grey"></cpc-icon>
         </div>
       </div>
     </transition-group>
@@ -29,18 +35,18 @@ export default {
       icon: '#icon-apple-mobileme', // 图标
       color: 'rgb(195, 43, 209)',
       message: '这里是弹窗提示信息',
-      type: 'default', // 弹窗类型
       duration: 2000, // 暂时时长
       manual: false, // 是否手动控制
-
+      iconAni: '', // 图标动画
+      iconDur: '500ms', // 图标动画时长
       messageList: [
         // id // 自动生成
         // message // 消息
         // icon //图标
         // color // 图标颜色
         // duration // 单个时长
-        // type // 弹窗类型
         // manua // 是否手动控制
+        // iconAni // 图标动画
       ] // 消息队列
     }
   },
@@ -51,16 +57,18 @@ export default {
      * @param {icon} [图标code，不传读取默认值]
      * @param {color} [图标颜色，不传读取默认值]
      * @param {duration} [弹窗持续时间，不传读取默认值]
-     * @param {type} [弹窗类型，不传读取默认值]
      * @param {manual} [是否为手动关闭模式，不传读取默认值]
+     * @param {iconAni} [图标动画，不传读取默认值]
+     * @param {iconDur} [图标动画时长，不传读取默认值]
      */
     showTips ({
       message = this.message,
       icon = this.icon,
       color = this.color,
       duration = this.duration,
-      type = this.type,
-      manual = this.manual
+      manual = this.manual,
+      iconAni = this.iconAni,
+      iconDur = this.iconDur
     } = {}) {
       let temp = {
         id: new Date().getTime(),
@@ -68,15 +76,19 @@ export default {
         icon,
         color,
         duration,
-        type,
-        manual
+        manual,
+        iconAni,
+        iconDur
       }
       this.messageList.push(temp)
       // 判断是否为手动模式，手动模式不自动删除
       if (!temp.manual) {
         setTimeout(() => { this.closeTips(temp.id) }, temp.duration)
       }
+      // 返回id值以便手动关闭弹窗
+      return temp.id
     },
+    // 关闭弹窗
     closeTips (id) {
       this.messageList.some((elem, i, arr) => {
         if (elem.id === id) {
@@ -88,6 +100,78 @@ export default {
           this.messageList.splice(i, 1)
           return true
         }
+      })
+    },
+    // 成功弹窗
+    successTips ({
+      message = this.message,
+      duration = this.duration,
+      manual = this.manual,
+      iconAni = this.iconAni,
+      iconDur = this.iconDur
+    } = {}) {
+      return this.showTips({
+        icon: '#icon-check-circle',
+        color: 'rgb(0, 204, 102)',
+        message,
+        duration,
+        manual,
+        iconAni,
+        iconDur
+      })
+    },
+    // 错误弹窗
+    errorTips ({
+      message = this.message,
+      duration = this.duration,
+      manual = this.manual,
+      iconAni = this.iconAni,
+      iconDur = this.iconDur
+    } = {}) {
+      return this.showTips({
+        icon: '#icon-close-circle',
+        color: 'rgb(255, 51, 0)',
+        message,
+        duration,
+        manual,
+        iconAni,
+        iconDur
+      })
+    },
+    // 警告弹窗
+    warnTips ({
+      message = this.message,
+      duration = this.duration,
+      manual = this.manual,
+      iconAni = this.iconAni,
+      iconDur = this.iconDur
+    } = {}) {
+      return this.showTips({
+        icon: '#icon-alert-circle',
+        color: 'rgb(255, 153, 0)',
+        message,
+        duration,
+        manual,
+        iconAni,
+        iconDur
+      })
+    },
+    // 提示弹窗
+    infoTips ({
+      message = this.message,
+      duration = this.duration,
+      manual = this.manual,
+      iconAni = this.iconAni,
+      iconDur = this.iconDur
+    } = {}) {
+      this.showTips({
+        icon: ' #icon-message-processing',
+        color: 'rgb(45, 183, 245)',
+        message,
+        duration,
+        manual,
+        iconAni,
+        iconDur
       })
     }
   },
@@ -126,15 +210,12 @@ export default {
     align-items: center;
     height: 0;
     > .cpc-message-reminder-container {
-      box-shadow: 0 0 6px rgb(85, 7, 90);
+      box-shadow: 0 0 6px @themeColor;
       border-radius: 5px;
       background: white;
       padding: 5px 10px;
       margin: 5px 0;
       display: inline-block;
-      &:hover {
-        box-shadow: 0 0 10px rgb(134, 12, 145);
-      }
       > .cpc-message-reminder-close-icon {
         height: 100%;
         vertical-align: top;
@@ -152,7 +233,7 @@ export default {
       > .cpc-message-reminder-header {
         display: inline-block;
         > .cpc-message-reminder-header-box {
-          color: #666;
+          color: rgb(102, 102, 102);
           > .icon-container {
 
           }
