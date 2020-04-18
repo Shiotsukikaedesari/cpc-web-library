@@ -98,13 +98,13 @@ export default {
     initManager () {
       let component = this
       // 加载器配置
-      let long = 200
+      let long = 150
       let y = 0
       // 加载器公共事件
       let managerEvent = (name, manager) => {
         manager.onStart = (url, itemsLoaded, itemsTotal) => {
           y += 25
-          let geometry = new THREE.BoxBufferGeometry(long, 20, 20, 4, 4)
+          let geometry = new THREE.BoxBufferGeometry(long, 15, 15, 4, 4)
           let material = new THREE.MeshNormalMaterial()
           component.objBox[name] = new THREE.Mesh(geometry, material)
           component.objBox[name].position.set(0, y, 0)
