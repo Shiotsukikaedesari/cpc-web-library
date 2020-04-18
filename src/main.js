@@ -31,7 +31,9 @@ Vue.config.productionTip = false
 
 Vue.prototype.$tools = Tools
 // 消息弹窗
-Vue.prototype.$Tips = MessageReminder.config()
+Vue.prototype.$Tips = MessageReminder.config({
+  message: '消息提醒'
+})
 
 /* eslint-disable no-new */
 new Vue({
