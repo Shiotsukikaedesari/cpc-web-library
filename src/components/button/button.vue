@@ -47,7 +47,8 @@
   :style="{
     'width': dataWidth,
     'height': dataHeight,
-    'border-radius': dataRadius
+    'border-radius': dataRadius,
+    'background-color': color
   }"
   @click="_click"
   >
@@ -65,6 +66,10 @@ export default {
     },
     // 按钮高度
     height: {
+      type: String
+    },
+    // 按钮颜色
+    color: {
       type: String
     },
     // 按钮样式类型 fill, outLine, dashed, text
