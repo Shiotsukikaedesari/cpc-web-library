@@ -29,10 +29,11 @@ Vue.use(lazyLoad, {
 
 Vue.config.productionTip = false
 
-Vue.prototype.$tools = Tools
+Vue.prototype.$Tools = Tools
 // 消息弹窗
 Vue.prototype.$Tips = MessageReminder.config({
-  message: '消息提醒'
+  message: '消息提醒',
+  duration: 3000
 })
 
 /* eslint-disable no-new */

@@ -25,7 +25,7 @@ export default {
   },
   mounted () {
     // 先进行空格清理
-    this.$tools.cleanWhitespace(this.$refs.buttonGroup)
+    this.$Tools.cleanWhitespace(this.$refs.buttonGroup)
   }
 }
 </script>
