@@ -142,7 +142,7 @@ export default {
           this.orbitControls.autoRotate = data
         })
       this.gui
-        .addColor(this.guiParam, 'color', -500, 500)
+        .addColor(this.guiParam, 'color')
         .onChange(data => {
           this.lightBox.ambientLight.color.setHex(data)
         })
