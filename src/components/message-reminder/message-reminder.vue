@@ -102,6 +102,28 @@ export default {
         }
       })
     },
+    // 设置弹窗配置
+    setTips (id, {
+      message,
+      icon,
+      color,
+      duration,
+      iconAni,
+      iconDur
+    } = {}) {
+      this.messageList.some((elem, i, arr) => {
+        if (elem.id === id) {
+          elem.message = message || elem.message
+          elem.icon = icon || elem.icon
+          elem.color = color || elem.color
+          elem.duration = duration || elem.duration
+          elem.iconAni = iconAni || elem.iconAni
+          elem.iconDur = iconDur || elem.iconDur
+          return true
+        }
+      })
+      return id
+    },
     // 成功弹窗
     successTips ({
       message = this.message,
@@ -216,6 +238,7 @@ export default {
       padding: 5px 10px;
       margin: 5px 0;
       display: inline-block;
+      height: 40px;
       > .cpc-message-reminder-close-icon {
         height: 100%;
         vertical-align: top;
@@ -259,10 +282,10 @@ export default {
   transform:translateY(0px);
 }
 .cpc-message-reminder-enter-active, .cpc-message-reminder-leave-active {
-  transition: all 1s ease;
+  transition: all 800ms ease;
 }
 .cpc-message-reminder-leave-active {
-  transition: all 1s ease;
+  transition: all 800ms ease;
   //开启过渡动画需要用定位脱离文档流
   position: absolute;
 }

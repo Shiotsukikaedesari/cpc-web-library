@@ -218,6 +218,44 @@ export default {
 </script>
 ```
 :::
+### 弹窗实时配置
+::: demo `manual`设置为`true`后可通过`$Tips.setTips(id)`来进行该条消息的设置。
+``` html
+<template>
+    <cpc-button @click="tips()">进度加载</cpc-button>
+    <cpc-button @click="changeTips()">加载完成</cpc-button>
+</template>
+
+<script>
+export default {
+    data () {
+        return {
+            id: ''
+        }
+    },
+    methods: {
+        tips() {
+            this.id = this.$Tips.showTips({
+                message: `正在加载中...`,
+                icon: '#icon-rotate-right',
+                iconAni: 'rotation2D-Ani',
+                manual: true
+            })
+        },
+        changeTips () {
+            this.$Tips.setTips(this.id, {
+                message: `加载完成`,
+                icon: '#icon-check-circle',
+                color: 'rgb(0, 204, 102)',
+                iconAni: 'none'
+            })
+            setTimeout(() => { this.$Tips.closeTips(this.id) }, 3000)
+        }
+    },
+}
+</script>
+```
+:::
 ### 多条消息弹窗
 ::: demo 支持同时存在多条提醒，与长短文案。
 ``` html
@@ -281,6 +319,35 @@ Vue.prototype.$Tips = MessageReminder.config({
     ...
 })
 ```
+### 更改默认配置
+::: demo 已经全局绑定弹窗，通过调用`this.$Tips.配置项`方法可以实时更改全局弹窗的默认配置项。
+``` html
+<template>
+    <cpc-button @click="changeTips">更改配置</cpc-button>    
+    <cpc-button @click="tips">默认提醒</cpc-button>
+</template>
+
+<script>
+export default {
+    data () {
+        return {
+        }
+    },
+    methods: {
+        changeTips() {
+            this.$Tips.message = `时间：${new Date().toLocaleTimeString()}`
+            this.$Tips.showTips({
+                message: `更改成功！`
+            })
+        },
+        tips() {
+            this.$Tips.showTips()
+        }
+    },
+}
+</script>
+```
+:::
 ## API
 
 ### 属性
@@ -299,6 +366,7 @@ iconDur|图标在场动画的运动速度（ms, s）|String|'2s'
 :---|:---|:---
 MessageReminder.config(obj)|全局消息提醒的基础配置，在main.js中初始，`Vue.prototype.$Tips = MessageReminder.config()`, obj为默认配置对象|-
 showTips(obj)|调用弹窗方法，obj为调用时的配置项，会覆盖默认配置，并在调用完后会返回该弹窗id|id
+setTips(id, obj)|改变弹窗方法，id为所要改变弹窗的id，obj为更改的配置项（不包括manual），调用完成后会返回该弹窗id|id
 closeTips(id)|弹窗关闭方法，id为需要关闭弹窗的id可以通过showTips()方法获取id|-
 successTips(obj)|成功场景的弹窗方法，`icon`,`color`已经配置好，obj对象为其他配置项，会覆盖默认配置，并在调用完后会返回该弹窗id|id
 errorTips(obj)|错误场景的弹窗方法，`icon`,`color`已经配置好，obj对象为其他配置项，会覆盖默认配置，并在调用完后会返回该弹窗id|id
@@ -306,6 +374,6 @@ warnTips(obj)|警告场景的弹窗方法，`icon`,`color`已经配置好，obj�
 infoTips(obj)|提示场景的弹窗方法，`icon`,`color`已经配置好，obj对象为其他配置项，会覆盖默认配置，并在调用完后会返回该弹窗id|id
 
 ## TODO
-* positioin: absolute的时候x浮动需要看看
+\-
 ## 备注
 \-

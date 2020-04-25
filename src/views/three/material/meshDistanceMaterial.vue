@@ -122,6 +122,7 @@ export default {
           component.clearObjCache(component.objBox[name + 'BoxLine'])
         }
         manager.onProgress = (url, itemsLoaded, itemsTotal) => {
+          component.$Tips.showTips({ message: `正在下载资源：${url}` })
           component.objBox[name].scale.x = itemsLoaded / itemsTotal
         }
         manager.onError = url => {
