@@ -29,6 +29,9 @@
                   <cpc-nav-side-elem elemKey="2-3" slot="child" :click="jump('message-reminder')">
                     <cpc-icon slot="side-ui" code="#icon-checkbox-multiple-blank"></cpc-icon>消息弹窗
                   </cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="2-4" slot="child" :click="jump('drag-plane')">
+                    <cpc-icon slot="side-ui" code="#icon-checkbox-multiple-blank"></cpc-icon>拖拉面板
+                  </cpc-nav-side-elem>
               </cpc-nav-side-menu>
               <cpc-nav-side-menu menuKey="3" slot="menu">
                 <cpc-nav-side-elem elemKey="3-0" slot="father" :father="true">

@@ -6,6 +6,7 @@ const Intro = () => import('@/views/components/intro/intro')
 const Icon = () => import('@/views/components/icon/icon')
 const Button = () => import('@/views/components/button/button')
 const MessageReminder = () => import('@/views/components/message-reminder/message-reminder')
+const DragPlane = () => import('@/views/components/drag-plane/drag-plane')
 
 export default
 {
@@ -43,6 +44,11 @@ export default
       path: '/components/message-reminder',
       name: 'components-message-reminder',
       component: MessageReminder
+    },
+    {
+      path: '/components/drag-plane',
+      name: 'components-drag-plane',
+      component: DragPlane
     }
   ]
 }

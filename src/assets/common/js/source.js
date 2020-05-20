@@ -18,6 +18,8 @@ import ButtonGroup from '@/components/button-group'
 
 import MessagePopup from '@/components/message-reminder'
 
+import DragPlane from '@/components/drag-plane'
+
 import ThreeTips from '@/components/three-tips'
 
 Vue.use(DisplayBox)
@@ -37,5 +39,7 @@ Vue.use(Button)
 Vue.use(ButtonGroup)
 
 Vue.use(MessagePopup)
+
+Vue.use(DragPlane)
 
 Vue.use(ThreeTips)
