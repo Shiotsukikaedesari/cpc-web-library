@@ -2,6 +2,8 @@ const Notes = () => import('@/views/notes')
 const NotesIntro = () => import('@/views/notes/intro/intro')
 const HtmlBase = () => import('@/views/notes/html/html-base/html-base')
 const HtmlTreasure = () => import('@/views/notes/html/html-treasure/html-treasure')
+const WebpackBase = () => import('@/views/notes/webpack/webpack-base/webpack-base')
+const WebpackSenior = () => import('@/views/notes/webpack/webpack-senior/webpack-senior')
 export default
 {
   path: '/notes',
@@ -23,6 +25,16 @@ export default
       path: '/notes/html-treasure',
       name: 'html-teasure',
       component: HtmlTreasure
+    },
+    {
+      path: '/notes/webpack-base',
+      name: 'webpack-base',
+      component: WebpackBase
+    },
+    {
+      path: '/notes/webpack-senior',
+      name: 'webpack-senior',
+      component: WebpackSenior
     }
   ]
 }
