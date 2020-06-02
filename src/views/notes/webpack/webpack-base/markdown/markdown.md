@@ -54,7 +54,8 @@ module.exports = {
   // 打包模式
   mode: 'development',//mode: 'production'
   // 其他配置项
-  DevServer: {} // 开发服务器devServer
+  devServer: {}, // 开发服务器devServer
+  devtool: 'source-map' // 构建代码源码映射
 }
 ```
 
@@ -166,6 +167,7 @@ module: {
       test: /\.js$/,
       exclude: /node_modules/, // 排除不需要检查的文件
       // npm i eslint-loader -D
+      enforce: 'pre', // 优先执行loader
       loader: 'eslint-loader',
       options: { // loader的一般配置
       fix: true // 自动修复eslint错误
@@ -353,6 +355,7 @@ devServer: {
   contentBase: resolve(__dirname, 'dist'), // 运行目录，打包后的目录
   comporess: true, // 是否启动Gzip压缩
   port: 3000, // 端口号
-  open: true // 自动打开本地默认浏览器
+  open: true, // 自动打开本地默认浏览器
+  hot: true // 开启HMR功能 只更行修模块改部分的代码
 }
 ```
