@@ -2,8 +2,10 @@
 
 ## 学习地址
 
-[B站-https://www.bilibili.com/video/BV1e7411j7T5](https://www.bilibili.com/video/BV1e7411j7T5)
+[https://www.bilibili.com/video/BV1e7411j7T5](https://www.bilibili.com/video/BV1e7411j7T5)
 
+## 官方文档
+[https://webpack.docschina.org/](https://webpack.docschina.org/)
 ## 依赖环境
 * Node 10
 * Webpack 4.26以上
@@ -265,7 +267,8 @@ module: {
               ie: '9',
               firefox: '60'
               ...
-            }
+            },
+            cacheDirectory: true // 开启babel缓存，第二次构建时，读取缓存 
           }
           ]
       }
