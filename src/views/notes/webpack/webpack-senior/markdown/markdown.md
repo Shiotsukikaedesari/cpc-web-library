@@ -1,6 +1,6 @@
 ## webpack构建工具-高级
 
-### sourceMap源代码到构建代码的映射技术
+## sourceMap源代码到构建代码的映射技术
 * `source-map` 外部map文件，提示错误信息精确到源码行列
 * `inline-source-map` 内联map文件在每个构建文件尾部生成map，提示错误信息精确到源码行列
 * `eval-source-map` 内联map文件，在构建文件的每个eval的构建函数中，提示错误信息精确到源码行列
@@ -18,7 +18,7 @@
 * `cheap-module-souce-map`
 * `cheap-souce-map`
 
-### oneOf文件匹配单一loader
+## oneOf文件匹配单一loader
 
 * 注意oneOf中不允许多项配置配置同类文件
 
@@ -38,12 +38,12 @@ module: {
 }
 ```
 
-### hash值
+## hash值
 * hash： webpack打包时候生成的hash
 * chunkhash：根据chunk生成hash值，如果打包来源同一个chunk（入口文件），hash值就一样
 * contenthash：根据文件内容生成hash,不同文件hash不一样
 
-### tree shaking去除无用代码
+## tree shaking去除无用代码
 * 打包会自动去除没有使用的代码
 * 必须使用ES6模块化
 * 开启production环境
@@ -54,7 +54,7 @@ module: {
 "sideEffects": ["*.css"] // 屏蔽css文件不进行tree shaking
 ```
 
-### code split代码分割
+## code split代码分割
 * 多入口
 ``` js
 entry: {
@@ -79,7 +79,7 @@ optimization: {
 import(/* webpackChunkName: 'test', webpackPrefetch: true */'./test').then().catch()
 ```
 
-### PWA渐进式网络开发应用程序（离线可访问）
+## PWA渐进式网络开发应用程序（离线可访问）
 * work-webpack-plugin
 * 需要注册serviceworker
 * 存在兼容性问题
@@ -101,7 +101,7 @@ if ('serviceWorker' in navigator) {
 }
 ```
 
-###  thread-loader多进程打包
+##  thread-loader多进程打包
 * 将此loader放置于其他loader解析后，开启多进程打包
 * 进程开启需要时间
 * 进程通信需要时间
@@ -158,14 +158,14 @@ module: {
 }
 ```
 
-### externals忽略npm包
+## externals忽略npm包
 ``` js
 externals: {
   jquery: 'jQuery'
 }
 ```
 
-### dll动态链接库
+## dll动态链接库
 * 将三方库打包成另外的chunk
 * 需新建另外一个js配置-webpack.dll.js
 * webpack --config webpack.dll.js

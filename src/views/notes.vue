@@ -24,10 +24,17 @@
               </cpc-nav-side-menu>
               <cpc-nav-side-menu menuKey="4" slot="menu">
                   <cpc-nav-side-elem elemKey="4-0" slot="father" :father="true">
-                    <cpc-icon slot="side-ui" code="#icon-language-html"></cpc-icon>webpack
+                    <cpc-icon slot="side-ui" code="#icon-webpack"></cpc-icon>webpack
                   </cpc-nav-side-elem>
                   <cpc-nav-side-elem elemKey="4-1" slot="child" :click="jump('webpack-base')">webpack基础</cpc-nav-side-elem>
                   <cpc-nav-side-elem elemKey="4-2" slot="child" :click="jump('webpack-senior')">webpack高级</cpc-nav-side-elem>
+              </cpc-nav-side-menu>
+              <cpc-nav-side-menu menuKey="5" slot="menu">
+                  <cpc-nav-side-elem elemKey="5-0" slot="father" :father="true">
+                    <cpc-icon slot="side-ui" code="#icon-gulpwhitetext"></cpc-icon>gulp
+                  </cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="5-1" slot="child" :click="jump('gulp-base')">gulp基础</cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="5-2" slot="child" :click="jump('gulp-senior')">gulp高级</cpc-nav-side-elem>
               </cpc-nav-side-menu>
           </cpc-nav-side>
         </div>
