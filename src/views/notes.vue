@@ -36,6 +36,13 @@
                   <cpc-nav-side-elem elemKey="5-1" slot="child" :click="jump('gulp-base')">gulp基础</cpc-nav-side-elem>
                   <cpc-nav-side-elem elemKey="5-2" slot="child" :click="jump('gulp-senior')">gulp高级</cpc-nav-side-elem>
               </cpc-nav-side-menu>
+              <cpc-nav-side-menu menuKey="6" slot="menu">
+                  <cpc-nav-side-elem elemKey="6-0" slot="father" :father="true">
+                    <cpc-icon slot="side-ui" code="#icon-nodejs"></cpc-icon>NodeJS
+                  </cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="6-1" slot="child" :click="jump('nodeJS-base')">NodeJS基础</cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="6-2" slot="child" :click="jump('nodeJS-senior')">NodeJS高级</cpc-nav-side-elem>
+              </cpc-nav-side-menu>
           </cpc-nav-side>
         </div>
         <div class="display-main" :style="{width: mainWidth}">

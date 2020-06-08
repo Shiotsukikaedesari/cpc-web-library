@@ -6,6 +6,8 @@ const WebpackBase = () => import('@/views/notes/webpack/webpack-base/webpack-bas
 const WebpackSenior = () => import('@/views/notes/webpack/webpack-senior/webpack-senior')
 const GulpBase = () => import('@/views/notes/gulp/gulp-base/gulp-base')
 const GulpSenior = () => import('@/views/notes/gulp/gulp-senior/gulp-senior')
+const NodeJSBase = () => import('@/views/notes/nodeJS/nodeJS-base/nodeJS-base')
+const NodeJSSenior = () => import('@/views/notes/nodeJS/nodeJS-senior/nodeJS-senior')
 export default
 {
   path: '/notes',
@@ -47,6 +49,16 @@ export default
       path: '/notes/gulp-senior',
       name: 'gulp-senior',
       component: GulpSenior
+    },
+    {
+      path: '/notes/nodeJS-base',
+      name: 'nodeJS-base',
+      component: NodeJSBase
+    },
+    {
+      path: '/notes/nodeJS-senior',
+      name: 'nodeJS-senior',
+      component: NodeJSSenior
     }
   ]
 }
