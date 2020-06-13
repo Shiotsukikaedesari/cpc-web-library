@@ -42,6 +42,7 @@
                   </cpc-nav-side-elem>
                   <cpc-nav-side-elem elemKey="6-1" slot="child" :click="jump('nodeJS-base')">NodeJS基础</cpc-nav-side-elem>
                   <cpc-nav-side-elem elemKey="6-2" slot="child" :click="jump('nodeJS-senior')">NodeJS高级</cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="6-3" slot="child" :click="jump('nodeJS-plugins')">NodeJS插件</cpc-nav-side-elem>
               </cpc-nav-side-menu>
           </cpc-nav-side>
         </div>
