@@ -1,5 +1,5 @@
 ## 关于
-CPC组件库是一套基于 Vue.js 的开源 UI 组件库，主要服务于 PC 端页面各种产品。
+CPC组件前端库是一套基于 Vue.js 的开源 UI 前端库，主要服务于 PC 端页面各种产品。
 
 
 ## 特性
@@ -17,8 +17,6 @@ CPC组件库是一套基于 Vue.js 的开源 UI 组件库，主要服务于 PC �
 
 
 ## 兼容
-Vue1.x
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Vue2.x
 
 
