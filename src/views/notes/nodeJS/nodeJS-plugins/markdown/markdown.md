@@ -1,8 +1,99 @@
 ## NodeJS-插件
 
+## yargs命令行规范工具
+用于node命令行参数解析
+
+### 下载与文档地址
+[https://www.npmjs.com/package/yargs](https://www.npmjs.com/package/yargs)
+
+### 基本用法
+
+* 以Object形式储存命令信息
+* args['$0']为运行的脚本
+* 命令的变量由空格区分，一个空格后跟随一个变量
+* 以`--xx`、`-xx`为作为key后面用`=`、` `连接值为value
+* key后面不接值，默认为布尔值true
+* key不需要`--`、`-`直接写参数，此参数保存在argv._
+
+``` js
+// node
+// node ./watch/index.js --watch=./test --output ./write/write.js -b -x 4 helloWorld
+
+const yargs = require('yargs')
+console.log(yargs.argv)
+
+// console.log
+yargs.argv = {
+  _: [ 'helloWorld' ],
+  watch: './test',
+  output: './write/write.js',
+  b: true,
+  x: 4,
+  '$0': 'watch\\index.js'
+}
+```
+
+## inquirer命令互的工具
+实现与命令行进行数据交互
+
+### 下载与文档地址
+[https://www.npmjs.com/package/inquirer](https://www.npmjs.com/package/inquirer)
+
+### 基本用法
+``` js
+const inquirer = require('inquirer')
+let options = [
+  // 配置项
+]
+inquirer.prompt(options).then(res => {
+
+}).catch(err => {
+
+})
+```
+.prompt(options)
+
+参数|类型|描述|默认值
+:---:|:--:|:---|:---:
+type|String|表示提问的类型|-
+name|String|存储当前问题回答的变量key|-
+message|String|交互描述|-
+default|*|交互的默认值|-
+choices|列表选项，在某些type下可用，并且包含一个分隔符|-
+validate|Function|对用户的回答进行校验|-
+filter|Function|对用户的回答进行过滤处理，返回处理后的值|-
+transformer|Function|对用户回答的显示效果进行处理(如：修改回答的字体或背景颜色)，但不会影响最终的答案的内容|-
+when|Function(answers/交互过的内容)|根据前面问题的回答，判断当前问题是否需要被答|-
+pageSize|Number|修改某些type类型下的渲染展示行数|-
+prefix|String|修改message默认前缀|
+suffix|String|修改message默认后缀|
+askAnswered|Boolean|如果答案已经存在，则强制提示问题|-
+
+options.type
+
+参数|值|描述
+:---:|:--:|:---
+type|"input"|输入框
+type|"confirm"|确认框
+type|"list"|无序列表选择
+type|"rawlist"|有序列表选择
+type|"expand"|模糊选择
+type|"checkbox"|多选按钮
+type|"password"|密文输入
+type|"editor"|代码输入
+
+options.choices
+参数|值类型|描述
+:---|:---:|:---
+name|String|名字，列表形式为name
+checked|Boolean|是否预先选中
+
+
+new inquirer.Separator()
+
 ## ora进度转轮
 用于node的控制台进度美化
-
+ 
 ### 下载与文档地址
 [https://www.npmjs.com/package/ora](https://www.npmjs.com/package/ora)
 
@@ -154,3 +245,4 @@ hsv|hsv色值|chalk.hsv(32, 100, 100)|返回当前实例
 hwb|hwb色值|chalk.hwb(32, 0, 50)|返回当前实例
 ansi|ansi色值| chalk.ansi(31).bgAnsi(93)|返回当前实例
 ansi256|ansi256色值|chalk.ansi256(194)|返回当前实例
+
