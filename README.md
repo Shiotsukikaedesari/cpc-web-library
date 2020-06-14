@@ -14,6 +14,7 @@
 * 3D库：Three.js、ammo.js
 * webpack优化：compression-webpack-plugin
 * 进度条插件：nprogress
+* NodeJS脚本插件：ora、chalk、yargs、inquirer、node-watch
 
 ### 项目主要模块
 * 3D模块：`src/views/three`
