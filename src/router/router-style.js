@@ -3,7 +3,7 @@ const StyleIntro = () => import('@/views/style/intro/intro')
 const StyleRelief = () => import('@/views/style/relief/relief')
 const StyleGroove = () => import('@/views/style/groove/groove')
 
-export default
+export default  
 {
   path: '/style',
   name: 'style',
