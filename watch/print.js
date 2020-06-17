@@ -1,7 +1,7 @@
 const ora = require('ora')
 const chalk = require('chalk')
 
-const spinner = ora()
+const spinner = ora({interval: 300})
 
 let info = text => {
   spinner.info(chalk.blueBright(text))

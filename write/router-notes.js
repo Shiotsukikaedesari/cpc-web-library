@@ -1,71 +1,71 @@
-const Notes = () => import('@/views/notes.vue')
-const gulpBase = () => import('@/views/notes/gulp/gulp-base/gulp-base.vue')
-const gulpSenior = () => import('@/views/notes/gulp/gulp-senior/gulp-senior.vue')
-const htmlBase = () => import('@/views/notes/html/html-base/html-base.vue')
-const htmlTreasure = () => import('@/views/notes/html/html-treasure/html-treasure.vue')
-const Intro = () => import('@/views/notes/intro/intro.vue')
-const nodeJSBase = () => import('@/views/notes/nodeJS/nodeJS-base/nodeJS-base.vue')
-const nodeJSPlugins = () => import('@/views/notes/nodeJS/nodeJS-plugins/nodeJS-plugins.vue')
-const nodeJSSenior = () => import('@/views/notes/nodeJS/nodeJS-senior/nodeJS-senior.vue')
-const webpackBase = () => import('@/views/notes/webpack/webpack-base/webpack-base.vue')
-const webpackSenior = () => import('@/views/notes/webpack/webpack-senior/webpack-senior.vue')
+const Notes = () => import('@/views/notes')
+const GulpBase = () => import('@/views/notes/gulp/gulp-base/gulp-base')
+const GulpSenior = () => import('@/views/notes/gulp/gulp-senior/gulp-senior')
+const HtmlBase = () => import('@/views/notes/html/html-base/html-base')
+const HtmlTreasure = () => import('@/views/notes/html/html-treasure/html-treasure')
+const Intro = () => import('@/views/notes/intro/intro')
+const NodeJSBase = () => import('@/views/notes/nodeJS/nodeJS-base/nodeJS-base')
+const NodeJSPlugins = () => import('@/views/notes/nodeJS/nodeJS-plugins/nodeJS-plugins')
+const NodeJSSenior = () => import('@/views/notes/nodeJS/nodeJS-senior/nodeJS-senior')
+const WebpackBase = () => import('@/views/notes/webpack/webpack-base/webpack-base')
+const WebpackSenior = () => import('@/views/notes/webpack/webpack-senior/webpack-senior')
 
 export default
 {
-  path: 'notes',
+  path: '/notes',
   name: 'notes',
   component: Notes,
   redirect: '/notes/intro',
   children: [
     {
-      path: '/notes/gulp/gulp-base/gulp-base.vue',
+      path: '/notes/gulp-base',
       name: 'gulp-base',
-      component: gulpBase
+      component: GulpBase
     },
     {
-      path: '/notes/gulp/gulp-senior/gulp-senior.vue',
+      path: '/notes/gulp-senior',
       name: 'gulp-senior',
-      component: gulpSenior
+      component: GulpSenior
     },
     {
-      path: '/notes/html/html-base/html-base.vue',
+      path: '/notes/html-base',
       name: 'html-base',
-      component: htmlBase
+      component: HtmlBase
     },
     {
-      path: '/notes/html/html-treasure/html-treasure.vue',
+      path: '/notes/html-treasure',
       name: 'html-treasure',
-      component: htmlTreasure
+      component: HtmlTreasure
     },
     {
-      path: '/notes/intro/intro.vue',
+      path: '/notes/intro',
       name: 'intro',
       component: Intro
     },
     {
-      path: '/notes/nodeJS/nodeJS-base/nodeJS-base.vue',
+      path: '/notes/nodeJS-base',
       name: 'nodeJS-base',
-      component: nodeJSBase
+      component: NodeJSBase
     },
     {
-      path: '/notes/nodeJS/nodeJS-plugins/nodeJS-plugins.vue',
+      path: '/notes/nodeJS-plugins',
       name: 'nodeJS-plugins',
-      component: nodeJSPlugins
+      component: NodeJSPlugins
     },
     {
-      path: '/notes/nodeJS/nodeJS-senior/nodeJS-senior.vue',
+      path: '/notes/nodeJS-senior',
       name: 'nodeJS-senior',
-      component: nodeJSSenior
+      component: NodeJSSenior
     },
     {
-      path: '/notes/webpack/webpack-base/webpack-base.vue',
+      path: '/notes/webpack-base',
       name: 'webpack-base',
-      component: webpackBase
+      component: WebpackBase
     },
     {
-      path: '/notes/webpack/webpack-senior/webpack-senior.vue',
+      path: '/notes/webpack-senior',
       name: 'webpack-senior',
-      component: webpackSenior
+      component: WebpackSenior
     }
   ]
 }

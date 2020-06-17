@@ -9,7 +9,7 @@
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js",
-    "watch": "node watch --watch ./test/views/notes --output ./write/write.js"
+    "watch": "node watch"
   },
   "dependencies": {
     "ammo.js": "0.0.10",

@@ -1,9 +1,9 @@
 const Style = () => import('@/views/style')
-const StyleIntro = () => import('@/views/style/intro/intro')
-const StyleRelief = () => import('@/views/style/relief/relief')
-const StyleGroove = () => import('@/views/style/groove/groove')
+const Groove = () => import('@/views/style/groove/groove')
+const Intro = () => import('@/views/style/intro/intro')
+const Relief = () => import('@/views/style/relief/relief')
 
-export default  
+export default
 {
   path: '/style',
   name: 'style',
@@ -11,19 +11,19 @@ export default
   redirect: '/style/intro',
   children: [
     {
+      path: '/style/groove',
+      name: 'groove',
+      component: Groove
+    },
+    {
       path: '/style/intro',
-      name: 'style-intro',
-      component: StyleIntro
+      name: 'intro',
+      component: Intro
     },
     {
       path: '/style/relief',
-      name: 'style-relief',
-      component: StyleRelief
-    },
-    {
-      path: '/style/groove',
-      name: 'style-groove',
-      component: StyleGroove
+      name: 'relief',
+      component: Relief
     }
   ]
 }

@@ -1,32 +1,30 @@
+const Gui = () => import('@/views/three/base/gui')
+const InitObj = () => import('@/views/three/base/initObj')
 const InitThree = () => import('@/views/three/base/initThree')
 const WatchKeyframe = () => import('@/views/three/base/watchKeyframe')
-const InitObj = () => import('@/views/three/base/initObj')
-const Gui = () => import('@/views/three/base/gui')
-
-const CameraFollowMouse = () => import('@/views/three/camera/cameraFollowMouse')
 const AutoRotateCamera = () => import('@/views/three/camera/autoRotateCamera')
+const CameraFollowMouse = () => import('@/views/three/camera/cameraFollowMouse')
 const DragCamera = () => import('@/views/three/camera/dragCamera')
-
-const ControlObj = () => import('@/views/three/geometry/controlObj')
-const SimpleGeometry = () => import('@/views/three/geometry/simpleGeometry')
+const BufferGeometry = () => import('@/views/three/geometry/bufferGeometry')
 const ComplexGeometry = () => import('@/views/three/geometry/complexGeometry')
-const PlaneGeometry = () => import('@/views/three/geometry/planeGeometry')
-const PipeGeometry = () => import('@/views/three/geometry/pipeGeometry')
+const ControlObj = () => import('@/views/three/geometry/controlObj')
 const EdgesGeometry = () => import('@/views/three/geometry/edgesGeometry')
 const ExtrudeGeometry = () => import('@/views/three/geometry/extrudeGeometry')
 const LatheGeometry = () => import('@/views/three/geometry/latheGeometry')
+const PipeGeometry = () => import('@/views/three/geometry/pipeGeometry')
+const PlaneGeometry = () => import('@/views/three/geometry/planeGeometry')
 const ShapeGeometry = () => import('@/views/three/geometry/shapeGeometry')
+const SimpleGeometry = () => import('@/views/three/geometry/simpleGeometry')
 const TextGeometry = () => import('@/views/three/geometry/textGeometry')
 const WireframeGeometry = () => import('@/views/three/geometry/wireframeGeometry')
-const BufferGeometry = () => import('@/views/three/geometry/bufferGeometry')
-
 const AmbientLight = () => import('@/views/three/light/ambientLight')
 const DirectionalLight = () => import('@/views/three/light/directionalLight')
 const HemisphereLight = () => import('@/views/three/light/hemisphereLight')
 const PointLight = () => import('@/views/three/light/pointLight')
 const RectAreaLight = () => import('@/views/three/light/rectAreaLight')
 const SpotLight = () => import('@/views/three/light/spotLight')
-
+const LoadingManager = () => import('@/views/three/loader/loadingManager')
+const OBJLoader = () => import('@/views/three/loader/OBJLoader')
 const LineBasicMaterial = () => import('@/views/three/material/lineBasicMaterial')
 const LineDashedMaterial = () => import('@/views/three/material/lineDashedMaterial')
 const MeshBasicMaterial = () => import('@/views/three/material/meshBasicMaterial')
@@ -34,21 +32,9 @@ const MeshDepthMaterial = () => import('@/views/three/material/meshDepthMaterial
 const MeshDistanceMaterial = () => import('@/views/three/material/meshDistanceMaterial')
 const MeshLambertMaterial = () => import('@/views/three/material/meshLambertMaterial')
 
-const LoadingManager = () => import('@/views/three/loader/loadingManager')
-const OBJLoader = () => import('@/views/three/loader/OBJLoader')
-
 export default
+
 [
-  {
-    path: '/three/initThree',
-    name: 'initThree',
-    component: InitThree
-  },
-  {
-    path: '/three/watchKeyframe',
-    name: 'watchKeyframe',
-    component: WatchKeyframe
-  },
   {
     path: '/three/gui',
     name: 'gui',
@@ -60,9 +46,14 @@ export default
     component: InitObj
   },
   {
-    path: '/three/cameraFollowMouse',
-    name: 'cameraFollowMouse',
-    component: CameraFollowMouse
+    path: '/three/initThree',
+    name: 'initThree',
+    component: InitThree
+  },
+  {
+    path: '/three/watchKeyframe',
+    name: 'watchKeyframe',
+    component: WatchKeyframe
   },
   {
     path: '/three/autoRotateCamera',
@@ -70,14 +61,9 @@ export default
     component: AutoRotateCamera
   },
   {
-    path: '/three/simpleGeometry',
-    name: 'simpleGeometry',
-    component: SimpleGeometry
-  },
-  {
-    path: '/three/controlObj',
-    name: 'controlObj',
-    component: ControlObj
+    path: '/three/cameraFollowMouse',
+    name: 'cameraFollowMouse',
+    component: CameraFollowMouse
   },
   {
     path: '/three/dragCamera',
@@ -85,19 +71,19 @@ export default
     component: DragCamera
   },
   {
+    path: '/three/bufferGeometry',
+    name: 'bufferGeometry',
+    component: BufferGeometry
+  },
+  {
     path: '/three/complexGeometry',
     name: 'complexGeometry',
     component: ComplexGeometry
   },
   {
-    path: '/three/planeGeometry',
-    name: 'planeGeometry',
-    component: PlaneGeometry
-  },
-  {
-    path: '/three/pipeGeometry',
-    name: 'pipeGeometry',
-    component: PipeGeometry
+    path: '/three/controlObj',
+    name: 'controlObj',
+    component: ControlObj
   },
   {
     path: '/three/edgesGeometry',
@@ -115,9 +101,24 @@ export default
     component: LatheGeometry
   },
   {
+    path: '/three/pipeGeometry',
+    name: 'pipeGeometry',
+    component: PipeGeometry
+  },
+  {
+    path: '/three/planeGeometry',
+    name: 'planeGeometry',
+    component: PlaneGeometry
+  },
+  {
     path: '/three/shapeGeometry',
     name: 'shapeGeometry',
     component: ShapeGeometry
+  },
+  {
+    path: '/three/simpleGeometry',
+    name: 'simpleGeometry',
+    component: SimpleGeometry
   },
   {
     path: '/three/textGeometry',
@@ -128,11 +129,6 @@ export default
     path: '/three/wireframeGeometry',
     name: 'wireframeGeometry',
     component: WireframeGeometry
-  },
-  {
-    path: '/three/bufferGeometry',
-    name: 'bufferGeometry',
-    component: BufferGeometry
   },
   {
     path: '/three/ambientLight',
@@ -165,6 +161,16 @@ export default
     component: SpotLight
   },
   {
+    path: '/three/loadingManager',
+    name: 'loadingManager',
+    component: LoadingManager
+  },
+  {
+    path: '/three/OBJLoader',
+    name: 'OBJLoader',
+    component: OBJLoader
+  },
+  {
     path: '/three/lineBasicMaterial',
     name: 'lineBasicMaterial',
     component: LineBasicMaterial
@@ -193,15 +199,5 @@ export default
     path: '/three/meshLambertMaterial',
     name: 'meshLambertMaterial',
     component: MeshLambertMaterial
-  },
-  {
-    path: '/three/OBJLoader',
-    name: 'OBJLoader',
-    component: OBJLoader
-  },
-  {
-    path: '/three/loadingManager',
-    name: 'loadingManager',
-    component: LoadingManager
   }
 ]
