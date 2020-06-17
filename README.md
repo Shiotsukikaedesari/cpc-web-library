@@ -1,9 +1,10 @@
-# cpc-component-library
+# cpc-web-library
 
 > 作为CPC官网的前端库支撑
 
 ### 脚手架配置
 * 项目启动：`npm install`、`npm run dev`
+* 路由监听生成脚本： `npm run watch`
 * 热部署地址：`localhost:8080`
 * 项目打包：`npm run build`
 * 打包的生成报告：`npm run build --report`
@@ -21,4 +22,3 @@
 * 组件库模块：`src/views/components`、`src/components`
 * 风格化UI模块：`src/views/style`
 * 笔记模块：`src/views/notes`
-
