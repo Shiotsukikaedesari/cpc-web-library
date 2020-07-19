@@ -8,6 +8,8 @@ const NodeJSBase = () => import('@/views/notes/nodeJS/nodeJS-base/nodeJS-base')
 const NodeJSPlugins = () => import('@/views/notes/nodeJS/nodeJS-plugins/nodeJS-plugins')
 const NodeJSSenior = () => import('@/views/notes/nodeJS/nodeJS-senior/nodeJS-senior')
 const PuzzleMutationObserver = () => import('@/views/notes/puzzle/puzzle-mutationObserver/puzzle-mutationObserver')
+const ViteBase = () => import('@/views/notes/vite/vite-base/vite-base')
+const Vue3Base = () => import('@/views/notes/vue/vue3-base/vue3-base')
 const WebpackBase = () => import('@/views/notes/webpack/webpack-base/webpack-base')
 const WebpackSenior = () => import('@/views/notes/webpack/webpack-senior/webpack-senior')
 
@@ -62,6 +64,16 @@ export default
       path: '/notes/puzzle-mutationObserver',
       name: 'puzzle-mutationObserver',
       component: PuzzleMutationObserver
+    },
+    {
+      path: '/notes/vite-base',
+      name: 'vite-base',
+      component: ViteBase
+    },
+    {
+      path: '/notes/vue3-base',
+      name: 'vue3-base',
+      component: Vue3Base
     },
     {
       path: '/notes/webpack-base',

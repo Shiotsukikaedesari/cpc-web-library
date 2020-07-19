@@ -19,30 +19,47 @@
               </cpc-nav-side-menu>
               <cpc-nav-side-menu menuKey="3" slot="menu">
                 <cpc-nav-side-elem elemKey="3-0" slot="father" :father="true">
-                  <cpc-icon slot="side-ui" code="#icon-package-variant"></cpc-icon>CSS
+                  <cpc-icon slot="side-ui" code="#icon-language-css"></cpc-icon>CSS
                 </cpc-nav-side-elem>
               </cpc-nav-side-menu>
               <cpc-nav-side-menu menuKey="4" slot="menu">
-                  <cpc-nav-side-elem elemKey="4-0" slot="father" :father="true">
-                    <cpc-icon slot="side-ui" code="#icon-webpack"></cpc-icon>webpack
-                  </cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="4-1" slot="child" :click="jump('webpack-base')">webpack基础</cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="4-2" slot="child" :click="jump('webpack-senior')">webpack高级</cpc-nav-side-elem>
+                <cpc-nav-side-elem elemKey="4-0" slot="father" :father="true">
+                  <cpc-icon slot="side-ui" code="#icon-js"></cpc-icon>js
+                </cpc-nav-side-elem>
               </cpc-nav-side-menu>
               <cpc-nav-side-menu menuKey="5" slot="menu">
                   <cpc-nav-side-elem elemKey="5-0" slot="father" :father="true">
-                    <cpc-icon slot="side-ui" code="#icon-gulpwhitetext"></cpc-icon>gulp
+                    <cpc-icon slot="side-ui" code="#icon-webpack"></cpc-icon>webpack
                   </cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="5-1" slot="child" :click="jump('gulp-base')">gulp基础</cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="5-2" slot="child" :click="jump('gulp-senior')">gulp高级</cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="5-1" slot="child" :click="jump('webpack-base')">webpack基础</cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="5-2" slot="child" :click="jump('webpack-senior')">webpack高级</cpc-nav-side-elem>
               </cpc-nav-side-menu>
               <cpc-nav-side-menu menuKey="6" slot="menu">
                   <cpc-nav-side-elem elemKey="6-0" slot="father" :father="true">
+                    <cpc-icon slot="side-ui" code="#icon-gulpwhitetext"></cpc-icon>gulp
+                  </cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="6-1" slot="child" :click="jump('gulp-base')">gulp基础</cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="6-2" slot="child" :click="jump('gulp-senior')">gulp高级</cpc-nav-side-elem>
+              </cpc-nav-side-menu>
+              <cpc-nav-side-menu menuKey="7" slot="menu">
+                  <cpc-nav-side-elem elemKey="7-0" slot="father" :father="true">
                     <cpc-icon slot="side-ui" code="#icon-nodejs"></cpc-icon>NodeJS
                   </cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="6-1" slot="child" :click="jump('nodeJS-base')">NodeJS基础</cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="6-2" slot="child" :click="jump('nodeJS-senior')">NodeJS高级</cpc-nav-side-elem>
-                  <cpc-nav-side-elem elemKey="6-3" slot="child" :click="jump('nodeJS-plugins')">NodeJS插件</cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="7-1" slot="child" :click="jump('nodeJS-base')">NodeJS基础</cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="7-2" slot="child" :click="jump('nodeJS-senior')">NodeJS高级</cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="7-3" slot="child" :click="jump('nodeJS-plugins')">NodeJS插件</cpc-nav-side-elem>
+              </cpc-nav-side-menu>
+              <cpc-nav-side-menu menuKey="8" slot="menu">
+                  <cpc-nav-side-elem elemKey="8-0" slot="father" :father="true">
+                    <cpc-icon slot="side-ui" code="#icon-vue"></cpc-icon>Vue3.0
+                  </cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="8-1" slot="child" :click="jump('vue3-base')">Vue3.0基础</cpc-nav-side-elem>
+              </cpc-nav-side-menu>
+              <cpc-nav-side-menu menuKey="9" slot="menu">
+                  <cpc-nav-side-elem elemKey="9-0" slot="father" :father="true">
+                    <cpc-icon slot="side-ui" code="#icon-vue"></cpc-icon>vite
+                  </cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="9-1" slot="child" :click="jump('vite-base')">vite基础</cpc-nav-side-elem>
               </cpc-nav-side-menu>
               <cpc-nav-side-menu menuKey="100" slot="menu">
                   <cpc-nav-side-elem elemKey="100-0" slot="father" :father="true">
