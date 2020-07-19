@@ -7,6 +7,7 @@ const Intro = () => import('@/views/notes/intro/intro')
 const NodeJSBase = () => import('@/views/notes/nodeJS/nodeJS-base/nodeJS-base')
 const NodeJSPlugins = () => import('@/views/notes/nodeJS/nodeJS-plugins/nodeJS-plugins')
 const NodeJSSenior = () => import('@/views/notes/nodeJS/nodeJS-senior/nodeJS-senior')
+const PuzzleMutationObserver = () => import('@/views/notes/puzzle/puzzle-mutationObserver/puzzle-mutationObserver')
 const WebpackBase = () => import('@/views/notes/webpack/webpack-base/webpack-base')
 const WebpackSenior = () => import('@/views/notes/webpack/webpack-senior/webpack-senior')
 
@@ -56,6 +57,11 @@ export default
       path: '/notes/nodeJS-senior',
       name: 'nodeJS-senior',
       component: NodeJSSenior
+    },
+    {
+      path: '/notes/puzzle-mutationObserver',
+      name: 'puzzle-mutationObserver',
+      component: PuzzleMutationObserver
     },
     {
       path: '/notes/webpack-base',

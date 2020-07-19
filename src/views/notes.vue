@@ -44,6 +44,12 @@
                   <cpc-nav-side-elem elemKey="6-2" slot="child" :click="jump('nodeJS-senior')">NodeJS高级</cpc-nav-side-elem>
                   <cpc-nav-side-elem elemKey="6-3" slot="child" :click="jump('nodeJS-plugins')">NodeJS插件</cpc-nav-side-elem>
               </cpc-nav-side-menu>
+              <cpc-nav-side-menu menuKey="100" slot="menu">
+                  <cpc-nav-side-elem elemKey="100-0" slot="father" :father="true">
+                    <cpc-icon slot="side-ui" code="#icon-puzzle"></cpc-icon>知识拼图
+                  </cpc-nav-side-elem>
+                  <cpc-nav-side-elem elemKey="100-1" slot="child" :click="jump('puzzle-mutationObserver')">MutationObserver</cpc-nav-side-elem>
+              </cpc-nav-side-menu>
           </cpc-nav-side>
         </div>
         <div class="display-main" :style="{width: mainWidth}">
