@@ -4,6 +4,7 @@ const GulpSenior = () => import('@/views/notes/gulp/gulp-senior/gulp-senior')
 const HtmlBase = () => import('@/views/notes/html/html-base/html-base')
 const HtmlTreasure = () => import('@/views/notes/html/html-treasure/html-treasure')
 const Intro = () => import('@/views/notes/intro/intro')
+const LinuxBase = () => import('@/views/notes/linux/linux-base/linux-base')
 const NodeJSBase = () => import('@/views/notes/nodeJS/nodeJS-base/nodeJS-base')
 const NodeJSPlugins = () => import('@/views/notes/nodeJS/nodeJS-plugins/nodeJS-plugins')
 const NodeJSSenior = () => import('@/views/notes/nodeJS/nodeJS-senior/nodeJS-senior')
@@ -44,6 +45,11 @@ export default
       path: '/notes/intro',
       name: 'intro',
       component: Intro
+    },
+    {
+      path: '/notes/linux-base',
+      name: 'linux-base',
+      component: LinuxBase
     },
     {
       path: '/notes/nodeJS-base',
