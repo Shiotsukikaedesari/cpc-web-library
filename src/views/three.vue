@@ -22,6 +22,7 @@
             <cpc-nav-side-elem elemKey="2-1" slot="child" :click="jump('cameraFollowMouse')">相机跟随鼠标</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="2-2" slot="child" :click="jump('autoRotateCamera')">相机自动旋转</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="2-3" slot="child" :click="jump('dragCamera')">相机交互插件（OrbitControls）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="2-4" slot="child" :click="jump('perspectiveCamera')">透视相机配置</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="3" slot="menu">
             <cpc-nav-side-elem elemKey="3-0" slot="father" :father="true">

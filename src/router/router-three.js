@@ -5,6 +5,7 @@ const WatchKeyframe = () => import('@/views/three/base/watchKeyframe')
 const AutoRotateCamera = () => import('@/views/three/camera/autoRotateCamera')
 const CameraFollowMouse = () => import('@/views/three/camera/cameraFollowMouse')
 const DragCamera = () => import('@/views/three/camera/dragCamera')
+const PerspectiveCamera = () => import('@/views/three/camera/perspectiveCamera')
 const BufferGeometry = () => import('@/views/three/geometry/bufferGeometry')
 const ComplexGeometry = () => import('@/views/three/geometry/complexGeometry')
 const ControlObj = () => import('@/views/three/geometry/controlObj')
@@ -69,6 +70,11 @@ export default
     path: '/three/dragCamera',
     name: 'dragCamera',
     component: DragCamera
+  },
+  {
+    path: '/three/perspectiveCamera',
+    name: 'perspectiveCamera',
+    component: PerspectiveCamera
   },
   {
     path: '/three/bufferGeometry',
