@@ -20,7 +20,7 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index,
-      redirect: '/three/meshDistanceMaterial',
+      redirect: '/three/autoRotateCamera',
       children: Three3D
     },
     {

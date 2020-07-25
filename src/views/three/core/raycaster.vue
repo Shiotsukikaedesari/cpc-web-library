@@ -1,6 +1,8 @@
 <template>
     <div class="three-display three-init">
-        <div id="three-canvas" class="three-canvas" ref="three-canvas"></div>
+        <div id="three-canvas" class="three-canvas" ref="three-canvas" @mousemove="mousemove"></div>
+        <cpc-button class="full" @click="fullAll">填充</cpc-button>
+        <cpc-button class="clear" @click="clearAll">重置</cpc-button>
     </div>
 </template>
 
@@ -16,12 +18,14 @@ export default {
       scene: '', // 场景
       camera: '', // 相机
       stats: '', // 资源监视器
+      raycaster: '', // 光线投射
+      mouse: '', // 鼠标位置
+      mousemoveStatus: false, // 鼠标是否移动
       lightBox: '',
       helperBox: '',
       objBox: {
         group: ''
       },
-      lightdirection: 1, // 环境光变化方向
       clock: '', // 世界时钟
       orbitControls: '', // 相机控件
       animationFrame: '', // 动画
@@ -39,6 +43,7 @@ export default {
       this.initObj()
       this.initLight()
       this.initHelper()
+      this.initRaycasterAndMouse()
       this.initStats()
       this.initOrbitControls()
       this.initGui()
@@ -64,16 +69,16 @@ export default {
     // 光源
     initLight () {
       this.lightBox = {
-        ambientLight: new THREE.AmbientLight('rgb(255, 255, 255)', 0.2) // 环境光
+        ambientLight: new THREE.AmbientLight('rgb(255, 255, 255)') // 环境光
       }
       this.scene.add(this.lightBox.ambientLight)
     },
     // 初始相机
     initCamera () {
-      this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000) // 相机
-      this.camera.position.x = 200
-      this.camera.position.y = 50
-      this.camera.position.z = 200
+      this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
+      this.camera.position.x = 650
+      this.camera.position.y = 0
+      this.camera.position.z = 650
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
@@ -84,18 +89,16 @@ export default {
       // 设置组合
       this.objBox.group = new THREE.Group()
 
-      let geometry = new THREE.OctahedronBufferGeometry()
-      // 颜色
-      let colorRange = [0, 64, 128, 192, 255]
+      let geometry = new THREE.OctahedronBufferGeometry(20)
       // 空间位置
-      let positionRange = [-200, -100, 0, 100, 200]
-
+      let positionRange = [-200, -150, -100, -50, 0, 50, 100, 150, 200]
       for (let x = 0; x < positionRange.length; x += 1) {
         for (let y = 0; y < positionRange.length; y += 1) {
           for (let z = 0; z < positionRange.length; z += 1) {
-            let material = new THREE.MeshPhongMaterial({color: `rgb(${colorRange[x]}, ${colorRange[y]}, ${colorRange[z]})`})
+            let material = new THREE.MeshPhongMaterial({color: `rgb(255, 255, 255)`})
             let box = new THREE.Mesh(geometry, material)
             box.name = `${x}${y}${z}`
+            console.log(box.name)
             box.castShadow = true
             box.receiveShadow = true
             box.position.set(positionRange[x], positionRange[y], positionRange[z])
@@ -114,6 +117,18 @@ export default {
       // this.scene.add(this.helperBox.axesHelper.helper)
       // this.scene.add(this.helperBox.gridHelper.helper)
     },
+    // 光线投射
+    initRaycasterAndMouse () {
+      this.raycaster = new THREE.Raycaster()
+      this.mouse = new THREE.Vector2()
+    },
+    // 鼠标移动
+    mousemove (event) {
+      // 将鼠标位置归一化为设备坐标。x 和 y 方向的取值范围是 (-1 to +1)
+      this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+      this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
+      this.mousemoveStatus = true
+    },
     // 初始监视器
     initStats () {
       this.stats = new Stats() // 资源监视器
@@ -128,15 +143,13 @@ export default {
     // 加载相机插件
     initOrbitControls () {
       this.orbitControls = new OrbitControls(this.camera, this.renderer.domElement)
-      this.orbitControls.autoRotate = true
+      this.orbitControls.autoRotate = false
     },
     // 初始控制台
     initGui () {
       this.gui = new GUI() // 控制台
       this.guiParam = { // 控制参数
-        autoCamera: this.orbitControls.autoRotate,
-        color: this.lightBox.ambientLight.color.getHex(),
-        intensity: 1
+        autoCamera: this.orbitControls.autoRotate
       }
       this.gui
         .add(this.guiParam, 'autoCamera')
@@ -146,24 +159,51 @@ export default {
     },
     // 动画
     animation () {
-      this.lightBox.ambientLight.intensity += 0.02 * this.lightdirection
-
-      if (this.lightBox.ambientLight.intensity > 2.5) {
-        this.lightBox.ambientLight.intensity = 2.5
-        this.lightdirection = -1
-      } else if (this.lightBox.ambientLight.intensity < 0.2) {
-        this.lightBox.ambientLight.intensity = 0.2
-        this.lightdirection = 1
+    },
+    // 射线操作
+    raycasterOperate () {
+      // 颜色
+      let colorRange = [0, 32, 64, 96, 128, 160, 192, 224, 255]
+      // 通过摄像机和鼠标位置更新射线
+      this.raycaster.setFromCamera(this.mouse, this.camera)
+      // 计算物体和射线的焦点
+      var intersects = this.raycaster.intersectObjects(this.objBox.group.children)
+      if (intersects[0]) {
+        let name = intersects[0].object.name
+        let r = colorRange[name.slice(0, 1)]
+        let g = colorRange[name.slice(1, 2)]
+        let b = colorRange[name.slice(-1)]
+        intersects[0].object.material.color.set((new THREE.Color(`rgb(${r}, ${g}, ${b})`)).getHex())
       }
     },
     // 加载场景
     updateRenderer () {
       let delta = this.clock.getDelta()
       this.orbitControls.update(delta)
-      this.animation()
+      if (this.mousemoveStatus) {
+        this.raycasterOperate()
+      }
       this.renderer.render(this.scene, this.camera)
       this.stats.update()
+
       this.animationFrame = requestAnimationFrame(this.updateRenderer)
+    },
+    // 填充所有
+    fullAll () {
+      // 颜色
+      let colorRange = [0, 32, 64, 96, 128, 160, 192, 224, 255]
+      this.objBox.group.children.forEach(elem => {
+        let name = elem.name
+        let r = colorRange[name.slice(0, 1)]
+        let g = colorRange[name.slice(1, 2)]
+        let b = colorRange[name.slice(-1)]
+        elem.material.color.set((new THREE.Color(`rgb(${r}, ${g}, ${b})`)).getHex())
+      })
+    },
+    clearAll () {
+      this.objBox.group.children.forEach(elem => {
+        elem.material.color.set((new THREE.Color(`rgb(255, 255, 255)`)).getHex())
+      })
     },
     // 清空物体缓存
     clearObjCache (obj) {
@@ -196,7 +236,7 @@ export default {
     移动相机：鼠标右键 `
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('camera/autoRotateCamera.vue')
+    this.resetThreeLinkFun('light/ambientLight.vue')
   },
   mounted () {
     this.init()
@@ -219,5 +259,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+.full {
+  position: fixed;
+  top:  55px;
+  right: 5px;
+}
+.clear {
+   position: fixed;
+  top:  95px;
+  right: 5px;
+}
 </style>

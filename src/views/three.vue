@@ -66,10 +66,11 @@
             <cpc-nav-side-elem elemKey="6-0" slot="father" :father="true">
               <cpc-icon slot="side-ui" code="#icon-crosshairs-gps"></cpc-icon>核心
             </cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="6-1" slot="child" :click="jump('bufferGeometry')">缓存区几何体（bufferGeometry）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="6-1" slot="child" :click="jump('raycaster')">光线投射（Raycaster）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="6-2" slot="child" :click="jump('bufferGeometry')">网格模型（mesh）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="6-3" slot="child" :click="jump('bufferGeometry')">线模型（line）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="6-4" slot="child" :click="jump('bufferGeometry')">点模型（point）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="6-5" slot="child" :click="jump('bufferGeometry')">缓存区几何体（bufferGeometry）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="7" slot="menu">
             <cpc-nav-side-elem elemKey="7-0" slot="father" :father="true">

@@ -132,11 +132,7 @@ export default {
     initGui () {
       this.gui = new GUI() // 控制台
       this.guiParam = { // 控制参数
-        autoCamera: this.orbitControls.autoRotate,
-        fov: this.camera.fov,
-        aspect: this.camera.aspect,
-        near: this.camera.near,
-        far: this.camera.far
+        autoCamera: this.orbitControls.autoRotate
       }
       this.gui.add(this.guiParam, 'autoCamera').onChange(data => {
         this.orbitControls.autoRotate = data
