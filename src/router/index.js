@@ -20,7 +20,7 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index,
-      redirect: '/three/autoRotateCamera',
+      redirect: '/three/unrealBloom',
       children: Three3D
     },
     {

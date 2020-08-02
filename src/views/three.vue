@@ -51,15 +51,15 @@
             <cpc-nav-side-elem elemKey="4-5" slot="child" :click="jump('rectAreaLight')">平面光（RectAreaLight）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="4-6" slot="child" :click="jump('spotLight')">聚光灯（SpotLight）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
-          <cpc-nav-side-menu menuKey="5" slot="menu" open>
-            <cpc-nav-side-elem elemKey="5-0" slot="father" :father="true" isSignal arrowInit>
+          <cpc-nav-side-menu menuKey="5" slot="menu">
+            <cpc-nav-side-elem elemKey="5-0" slot="father" :father="true"  arrowInit>
               <cpc-icon slot="side-ui" code="#icon-vector-triangle"></cpc-icon>材质（material）
             </cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="5-1" slot="child" :click="jump('lineBasicMaterial')">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="5-2" slot="child" :click="jump('lineDashedMaterial')">虚线材质（LineDashedMaterial）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="5-3" slot="child" :click="jump('meshBasicMaterial')">基础网格材质（MeshBasicMaterial）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="5-4" slot="child" :click="jump('meshDepthMaterial')">深度网格材质（MeshDepthMaterial）</cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="5-5" slot="child" isSignal :click="jump('meshDistanceMaterial')">距离网格材质（MeshDistanceMaterial）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="5-5" slot="child" :click="jump('meshDistanceMaterial')">距离网格材质（MeshDistanceMaterial）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="5-6" slot="child"  :click="jump('meshLambertMaterial')">Lambert网格材质（MeshLambertMaterial）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="6" slot="menu">
@@ -73,17 +73,17 @@
             <cpc-nav-side-elem elemKey="6-5" slot="child" :click="jump('bufferGeometry')">缓存区几何体（bufferGeometry）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="7" slot="menu">
-            <cpc-nav-side-elem elemKey="7-0" slot="father" :father="true">
+            <cpc-nav-side-elem elemKey="7-0" slot="father" :father="true" >
               <cpc-icon slot="side-ui" code="#icon-file-import"></cpc-icon>加载器（Loader）
             </cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="7-1" slot="child" :click="jump('loadingManager')">加载管理器（LoadingManager）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="7-2" slot="child" :click="jump('OBJLoader')">OBJ格式加载器（OBJLoader）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
-          <cpc-nav-side-menu menuKey="8" slot="menu">
-            <cpc-nav-side-elem elemKey="8-0" slot="father" :father="true">
+          <cpc-nav-side-menu menuKey="8" slot="menu" open>
+            <cpc-nav-side-elem elemKey="8-0" slot="father" :father="true" isSignal>
               <cpc-icon slot="side-ui" code="#icon-soundcloud"></cpc-icon>后期处理（EffectComposer）
             </cpc-nav-side-elem>
-            <cpc-nav-side-elem elemKey="8-1" slot="child" :click="jump('lineBasicMaterial')">基础线条材质（LineBasicMaterial）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="8-1" slot="child" isSignal :click="jump('unrealBloom')">虚幻光影（unreal_bloom）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="9" slot="menu">
             <cpc-nav-side-elem elemKey="9-0" slot="father" :father="true">

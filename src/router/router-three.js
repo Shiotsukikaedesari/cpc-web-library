@@ -6,6 +6,7 @@ const AutoRotateCamera = () => import('@/views/three/camera/autoRotateCamera')
 const CameraFollowMouse = () => import('@/views/three/camera/cameraFollowMouse')
 const DragCamera = () => import('@/views/three/camera/dragCamera')
 const PerspectiveCamera = () => import('@/views/three/camera/perspectiveCamera')
+const UnrealBloom = () => import('@/views/three/composer/unrealBloom')
 const Raycaster = () => import('@/views/three/core/raycaster')
 const BufferGeometry = () => import('@/views/three/geometry/bufferGeometry')
 const ComplexGeometry = () => import('@/views/three/geometry/complexGeometry')
@@ -76,6 +77,11 @@ export default
     path: '/three/perspectiveCamera',
     name: 'perspectiveCamera',
     component: PerspectiveCamera
+  },
+  {
+    path: '/three/unrealBloom',
+    name: 'unrealBloom',
+    component: UnrealBloom
   },
   {
     path: '/three/raycaster',
