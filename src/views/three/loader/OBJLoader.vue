@@ -323,7 +323,7 @@ export default {
     移动相机：鼠标右键
     模型提供：hcity `)
     // github链接
-    this.resetThreeLinkFun('loader/loadingManager.vue')
+    this.resetThreeLinkFun('loader/OBJLoader.vue')
   },
   // 所有事件绑在此钩子
   beforeMount () {

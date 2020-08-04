@@ -27,6 +27,7 @@ const PointLight = () => import('@/views/three/light/pointLight')
 const RectAreaLight = () => import('@/views/three/light/rectAreaLight')
 const SpotLight = () => import('@/views/three/light/spotLight')
 const LoadingManager = () => import('@/views/three/loader/loadingManager')
+const MMDLoader = () => import('@/views/three/loader/MMDLoader')
 const OBJLoader = () => import('@/views/three/loader/OBJLoader')
 const LineBasicMaterial = () => import('@/views/three/material/lineBasicMaterial')
 const LineDashedMaterial = () => import('@/views/three/material/lineDashedMaterial')
@@ -182,6 +183,11 @@ export default
     path: '/three/loadingManager',
     name: 'loadingManager',
     component: LoadingManager
+  },
+  {
+    path: '/three/MMDLoader',
+    name: 'MMDLoader',
+    component: MMDLoader
   },
   {
     path: '/three/OBJLoader',

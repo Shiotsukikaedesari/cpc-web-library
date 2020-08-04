@@ -45,9 +45,9 @@ export default {
         minY: -1200, // 最小y
         planSetting: { // 平面设置
           minWidth: 30,
-          minHeight: 500,
+          minHeight: 700,
           maxWidth: 50,
-          maxHeight: 700
+          maxHeight: 1000
         },
         sphereSetting: { // 球设置
           scaleMax: 30,
@@ -223,7 +223,7 @@ export default {
           roughness: 0,
           metalness: 0
         })
-        material.wireframe = true
+        material.wireframe = Math.random() > 0.1
         material.transparent = true
         material.opacity = Math.random() * 0.8
         const widthDept = Math.round(Math.random() * 6)

@@ -78,6 +78,7 @@
             </cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="7-1" slot="child" :click="jump('loadingManager')">加载管理器（LoadingManager）</cpc-nav-side-elem>
             <cpc-nav-side-elem elemKey="7-2" slot="child" :click="jump('OBJLoader')">OBJ格式加载器（OBJLoader）</cpc-nav-side-elem>
+            <cpc-nav-side-elem elemKey="7-3" slot="child" :click="jump('MMDLoader')">MMD加载器（MMDLoader）</cpc-nav-side-elem>
           </cpc-nav-side-menu>
           <cpc-nav-side-menu menuKey="8" slot="menu" open>
             <cpc-nav-side-elem elemKey="8-0" slot="father" :father="true" isSignal>
