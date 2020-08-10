@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 import Stats from '../../../../node_modules/three/examples/jsm/libs/stats.module'
 import { OrbitControls } from '../../../../node_modules/three/examples/jsm/controls/OrbitControls'
 import { TransformControls } from '../../../../node_modules/three/examples/jsm/controls/TransformControls'
@@ -311,7 +312,17 @@ export default {
       this.renderer.setSize(this.width, this.height)
       this.camera.aspect = this.width / this.height
       this.camera.updateProjectionMatrix()
-    }
+    },
+    ...mapActions(['resetThreeTipsFun', 'resetThreeLinkFun'])
+  },
+  // 初始计算
+  created () {
+    // 展示的备注
+    this.resetThreeTipsFun(`    旋转相机：鼠标左键
+    缩放场景：鼠标滚轮
+    移动相机：鼠标右键`)
+    // github链接
+    this.resetThreeLinkFun('composer/unrealBloom.vue')
   },
   mounted () {
     this.init()

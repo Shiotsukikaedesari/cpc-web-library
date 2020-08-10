@@ -379,6 +379,7 @@ export default {
   beforeDestroy () {
     document.body.removeChild(document.getElementById('three-stats'))
     this.clearCache()
+    this.MMDHelper.remove(this.audio)
     this.renderer = null
     this.scene = null
     this.camera = null

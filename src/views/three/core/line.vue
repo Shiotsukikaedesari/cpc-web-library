@@ -1,6 +1,6 @@
 <template>
     <div class="three-display three-init">
-        <div id="three-canvas" class="three-canvas" ref="three-canvas"></div>
+        <div id="three-canvas" class="three-canvas" ref="three-canvas" @mousemove="mousemove"></div>
     </div>
 </template>
 
@@ -16,16 +16,25 @@ export default {
       scene: '', // 场景
       camera: '', // 相机
       stats: '', // 资源监视器
+      raycaster: '', // 光线投射
+      mouse: '', // 鼠标位置
+      mousemoveStatus: false, // 鼠标是否移动
       lightBox: '',
       helperBox: '',
-      objBox: {
-        group: ''
-      },
       clock: '', // 世界时钟
       orbitControls: '', // 相机控件
       animationFrame: '', // 动画
       gui: '', // 控制台
-      guiParam: '' // 控制台参数
+      guiParam: '', // 控制台参数
+      oldMaterial: '',
+      oldId: '',
+      chouseMaterial: new THREE.LineDashedMaterial({
+        color: 0xffffff,
+        linewidth: 1,
+        scale: 1,
+        dashSize: 12,
+        gapSize: 8
+      })
     }
   },
   methods: {
@@ -38,6 +47,7 @@ export default {
       this.initObj()
       this.initLight()
       this.initHelper()
+      this.initRaycasterAndMouse()
       this.initStats()
       this.initOrbitControls()
       this.initGui()
@@ -63,17 +73,16 @@ export default {
     // 光源
     initLight () {
       this.lightBox = {
-        pointLight: new THREE.PointLight('rgb(255, 255, 255)', 3, 400, 0.5) // 点光
+        ambientLight: new THREE.AmbientLight('rgb(255, 255, 255)') // 环境光
       }
-      this.lightBox.pointLight.castShadow = false
-      this.scene.add(this.lightBox.pointLight)
+      this.scene.add(this.lightBox.ambientLight)
     },
     // 初始相机
     initCamera () {
       this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000) // 相机
-      this.camera.position.x = 700
-      this.camera.position.y = 0
-      this.camera.position.z = 700
+      this.camera.position.x = 400
+      this.camera.position.y = 200
+      this.camera.position.z = 400
       this.camera.up.x = 0
       this.camera.up.y = 1
       this.camera.up.z = 0
@@ -81,43 +90,56 @@ export default {
     },
     // 初始物体
     initObj () {
-      // 设置组合
-      this.objBox.group = new THREE.Group()
-
-      let geometry = new THREE.BoxBufferGeometry(50, 50, 50)
-      // 颜色
-      let colorRange = [0, 64, 128, 192, 255]
-      // 空间位置
-      let positionRange = [-200, -100, 0, 100, 200]
-
-      for (let x = 0; x < positionRange.length; x += 1) {
-        for (let y = 0; y < positionRange.length; y += 1) {
-          for (let z = 0; z < positionRange.length; z += 1) {
-            let material = new THREE.MeshStandardMaterial({
-              color: `rgb(${colorRange[x]}, ${colorRange[y]}, ${colorRange[z]})`,
-              roughness: 0,
-              metalness: 0
-            })
-            let box = new THREE.Mesh(geometry, material)
-            box.castShadow = true
-            box.receiveShadow = true
-            box.position.set(positionRange[x], positionRange[y], positionRange[z])
-            this.objBox.group.add(box)
-          }
-        }
+      // 获取随机颜色
+      const getColor = () => {
+        const r = Math.round(Math.random() * 255)
+        const g = Math.round(Math.random() * 255)
+        const b = Math.round(Math.random() * 255)
+        return `rgb(${r}, ${g}, ${b})`
       }
-      this.scene.add(this.objBox.group)
+      // 获取随机点
+      const getPoint = () => {
+        const x = Math.floor(Math.random() * (500 - (-500) + 1) + (-500))
+        const y = Math.floor(Math.random() * (500 - (-500) + 1) + (-500))
+        const z = Math.floor(Math.random() * (500 - (-500) + 1) + (-500))
+        return new THREE.Vector3(x, y, z)
+      }
+      // 线条个数
+      for (let num = 0; num < 40; num += 1) {
+        let material = new THREE.LineBasicMaterial({
+          color: getColor()
+        })
+        // 先随机折点
+        let points = []
+        let breakPoint = Math.ceil(Math.random() * 3)
+        for (let pointNum = 0; pointNum < breakPoint; pointNum += 1) {
+          points.push(getPoint())
+        }
+        let geometry = new THREE.BufferGeometry().setFromPoints(points)
+        let line = new THREE.Line(geometry, material).computeLineDistances()
+        this.scene.add(line)
+      }
     },
     // 初始辅助
     initHelper () {
       this.helperBox = {
         axesHelper: {helper: new THREE.AxesHelper(10000)}, // 坐标轴
-        gridHelper: {helper: new THREE.GridHelper(1500, 30, 'white', 'rgb(150, 150, 150)')}, // 网格
-        pointLightHelper: {helper: new THREE.PointLightHelper(this.lightBox.pointLight, 200)} // 半球
+        gridHelper: {helper: new THREE.GridHelper(1500, 10, 'white', 'rgb(150, 150, 150)')} // 网格
       }
       // this.scene.add(this.helperBox.axesHelper.helper)
-      // this.scene.add(this.helperBox.gridHelper.helper)
-      this.scene.add(this.helperBox.pointLightHelper.helper)
+      this.scene.add(this.helperBox.gridHelper.helper)
+    },
+    // 光线投射
+    initRaycasterAndMouse () {
+      this.raycaster = new THREE.Raycaster()
+      this.mouse = new THREE.Vector2()
+    },
+    // 鼠标移动
+    mousemove (event) {
+      // 将鼠标位置归一化为设备坐标。x 和 y 方向的取值范围是 (-1 to +1)
+      this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+      this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
+      this.mousemoveStatus = true
     },
     // 初始监视器
     initStats () {
@@ -137,77 +159,43 @@ export default {
     },
     // 初始控制台
     initGui () {
-      this.gui = new GUI({
-        name: 'pointLight Controller'
-      }) // 控制台
+      this.gui = new GUI() // 控制台
       this.guiParam = { // 控制参数
-        autoCamera: this.orbitControls.autoRotate,
-        castShadow: this.lightBox.pointLight.castShadow,
-        color: this.lightBox.pointLight.color.getHex(),
-        intensity: this.lightBox.pointLight.intensity,
-        distance: this.lightBox.pointLight.distance,
-        decay: this.lightBox.pointLight.decay,
-        positionX: this.lightBox.pointLight.position.x,
-        positionY: this.lightBox.pointLight.position.y,
-        positionZ: this.lightBox.pointLight.position.z
+        autoCamera: this.orbitControls.autoRotate
       }
       this.gui
         .add(this.guiParam, 'autoCamera')
         .onChange(data => {
           this.orbitControls.autoRotate = data
         })
-      this.gui
-        .add(this.guiParam, 'castShadow')
-        .onChange(data => {
-          this.lightBox.pointLight.castShadow = data
-        })
-      this.gui
-        .addColor(this.guiParam, 'color', -500, 500)
-        .onChange(data => {
-          this.lightBox.pointLight.color.setHex(data)
-          this.helperBox.pointLight.helper.update()
-        })
-      this.gui
-        .add(this.guiParam, 'intensity', 0, 10)
-        .onChange(data => {
-          this.lightBox.pointLight.intensity = data
-          this.helperBox.pointLight.helper.update()
-        })
-      this.gui
-        .add(this.guiParam, 'distance', 0, 600)
-        .onChange(data => {
-          this.lightBox.pointLight.distance = data
-          this.helperBox.pointLight.helper.update()
-        })
-      this.gui
-        .add(this.guiParam, 'decay', 0, 5)
-        .onChange(data => {
-          this.lightBox.pointLight.decay = data
-          this.helperBox.pointLight.helper.update()
-        })
-      this.gui
-        .add(this.guiParam, 'positionX', -500, 500)
-        .onChange(data => {
-          this.lightBox.pointLight.position.x = data
-        })
-      this.gui
-        .add(this.guiParam, 'positionY', -500, 500)
-        .onChange(data => {
-          this.lightBox.pointLight.position.y = data
-        })
-      this.gui
-        .add(this.guiParam, 'positionZ', -500, 500)
-        .onChange(data => {
-          this.lightBox.pointLight.position.x = data
-        })
     },
     // 动画
     animation () {
+    },
+    // 射线操作
+    raycasterOperate () {
+      // 通过摄像机和鼠标位置更新射线
+      this.raycaster.setFromCamera(this.mouse, this.camera)
+      // 计算物体和射线的焦点
+      let intersects = this.raycaster.intersectObjects(this.scene.children)
+      if (intersects[0] && intersects[0].object.type === 'Line') {
+        if (this.oldMaterial && this.oldId) {
+          let oldLine = this.scene.getObjectById(this.oldId)
+          oldLine.material = this.oldMaterial
+        }
+        let line = intersects[0].object
+        this.oldMaterial = line.material
+        this.oldId = line.id
+        line.material = this.chouseMaterial
+      }
     },
     // 加载场景
     updateRenderer () {
       let delta = this.clock.getDelta()
       this.orbitControls.update(delta)
+      if (this.mousemoveStatus) {
+        this.raycasterOperate()
+      }
       this.renderer.render(this.scene, this.camera)
       this.stats.update()
 
@@ -226,8 +214,10 @@ export default {
       this.renderer.forceContextLoss()
       this.renderer.domElement = null
       // 清空物体
-      this.objBox.group.children.forEach(elem => {
-        this.clearObjCache(elem)
+      this.scene.children.forEach(elem => {
+        if (elem.type === 'Line') {
+          this.clearObjCache(elem)
+        }
       })
       // 场景缓存
       this.scene.dispose()
@@ -244,7 +234,7 @@ export default {
     移动相机：鼠标右键 `
     this.resetThreeTipsFun(tips)
     // github链接
-    this.resetThreeLinkFun('light/pointLight.vue')
+    this.resetThreeLinkFun('core/line.vue')
   },
   mounted () {
     this.init()
@@ -267,5 +257,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+.full {
+  position: fixed;
+  top:  55px;
+  right: 5px;
+}
+.clear {
+   position: fixed;
+  top:  95px;
+  right: 5px;
+}
 </style>
