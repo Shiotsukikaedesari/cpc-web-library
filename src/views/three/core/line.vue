@@ -105,13 +105,13 @@ export default {
         return new THREE.Vector3(x, y, z)
       }
       // 线条个数
-      for (let num = 0; num < 40; num += 1) {
+      for (let num = 0; num < 30; num += 1) {
         let material = new THREE.LineBasicMaterial({
           color: getColor()
         })
         // 先随机折点
         let points = []
-        let breakPoint = Math.ceil(Math.random() * 3)
+        let breakPoint = Math.ceil(Math.random() * 2) + 1
         for (let pointNum = 0; pointNum < breakPoint; pointNum += 1) {
           points.push(getPoint())
         }
