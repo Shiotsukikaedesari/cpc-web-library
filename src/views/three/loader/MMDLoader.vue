@@ -33,6 +33,7 @@ export default {
       MMDHelper: '', // MMD动画辅助
       MMDCanPlay: false,
       playControl: false,
+      lightRotate: false, // 灯光旋转
       audio: '' // 音乐对象
     }
   },
@@ -73,10 +74,10 @@ export default {
     // 光源
     initLight () {
       this.lightBox = {
-        ambientLight: new THREE.AmbientLight('rgb(50, 50, 50)'), // 环境光
+        ambientLight: new THREE.AmbientLight('rgb(50, 50, 50)', 1.7), // 环境光
         spotLight: new THREE.SpotLight('rgb(255, 255, 255)', 1, 200, Math.PI / 180 * 30, 0.3, 0) // 聚光灯
       }
-      this.lightBox.spotLight.position.set(10, 100, 10)
+      this.lightBox.spotLight.position.set(0, 70, 80)
       this.lightBox.spotLight.castShadow = true
       this.scene.add(this.lightBox.spotLight)
       this.scene.add(this.lightBox.ambientLight)
@@ -147,6 +148,8 @@ export default {
       const musicUrl = '/static/three/mmd/BGM/rainbowBeat.mp3'
       const loader = new MMDLoader(this.managerBox.MMDManager)
       loader.load(modelUrl, mesh => {
+        mesh.castShadow = true
+        mesh.receiveShadow = true
         if (modelUrl && actionUrl) {
           this.MMDHelper = new MMDAnimationHelper()
           // 载入模型与动画
@@ -223,6 +226,7 @@ export default {
         cameraRotate: this.orbitControls.autoRotate,
         showHelper: true,
         castShadow: this.lightBox.spotLight.castShadow,
+        lightRotate: this.lightRotate,
         color: this.lightBox.spotLight.color.getHex(),
         intensity: this.lightBox.spotLight.intensity,
         distance: this.lightBox.spotLight.distance,
@@ -236,6 +240,14 @@ export default {
         this.playControl = data
       })
       MMDSetting.add(this.guiParam, 'cameraPlay').onChange(data => {
+        if (!data) {
+          this.camera.position.x = 30
+          this.camera.position.y = 30
+          this.camera.position.z = 30
+          this.camera.up.x = 0
+          this.camera.up.y = 1
+          this.camera.up.z = 0
+        }
         this.MMDHelper.playCamera = data
       })
       MMDSetting.add(this.guiParam, 'cameraRotate').onChange(data => {
@@ -255,12 +267,16 @@ export default {
         .onChange(data => {
           this.lightBox.spotLight.castShadow = data
         })
+      lightSetting.add(this.guiParam, 'lightRotate')
+        .onChange(data => {
+          this.lightRotate = data
+        })
       lightSetting.addColor(this.guiParam, 'color', -500, 500)
         .onChange(data => {
           this.lightBox.spotLight.color.setHex(data)
           this.helperBox.spotLightHelper.helper.update()
         })
-      lightSetting.add(this.guiParam, 'intensity', 0, 10)
+      lightSetting.add(this.guiParam, 'intensity', 0, 1.5)
         .onChange(data => {
           this.lightBox.spotLight.intensity = data
           this.helperBox.spotLightHelper.helper.update()
@@ -302,7 +318,7 @@ export default {
     },
     // 动画
     animation () {
-      let r = 40
+      let r = 80
       let deg = Date.now() * 0.001
       this.lightBox.spotLight.position.x = -Math.cos(deg) * r
       this.lightBox.spotLight.position.z = Math.sin(deg) * r
@@ -312,7 +328,9 @@ export default {
     updateRenderer () {
       const delta = this.clock.getDelta()
       this.orbitControls.update(delta)
-      this.animation()
+      if (this.lightRotate) {
+        this.animation()
+      }
       if (this.MMDCanPlay && this.playControl) {
         this.MMDHelper.update(delta)
       }
